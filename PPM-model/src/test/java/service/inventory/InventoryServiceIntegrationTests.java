@@ -20,7 +20,7 @@ import static org.junit.Assert.*;
  * Created by Wojciech on 2015-06-25.
  */
 public class InventoryServiceIntegrationTests {
-    /*@After
+    @After
     public void clearDataFromDatabase() {
         Session session = null;
         try {
@@ -41,7 +41,7 @@ public class InventoryServiceIntegrationTests {
             }
         }
     }
-*/
+
     //PORTFOLIO
     @Test
     public void aNewPortfolioShouldBeCreated(){
@@ -66,7 +66,7 @@ public class InventoryServiceIntegrationTests {
     }
 
     @Test
-    public void portfolioShouldBeUpdated() throws InvalidParentComponentException {
+    public void portfolioShouldBeUpdated() {
         InventoryService inventoryService = new InventoryService();
         Portfolio portfolio = inventoryService.createPortfolio("PF1", "GrassHost", "customer jakis", "Opis Opisik", null);
         portfolio.setCode("PFFF");
@@ -87,7 +87,6 @@ public class InventoryServiceIntegrationTests {
         portfolio.setName("NOWY GrasshosT");
         Program program = inventoryService.createProgram("PF2", "Karczemka", "customer jakis", "Opis Opisik", null);
         portfolio.setParent(program);
-        portfolio = inventoryService.updatePortfolio(portfolio);
     }
     @Test
     public void portfolioShouldBeDeleted(){
@@ -109,7 +108,7 @@ public class InventoryServiceIntegrationTests {
         assertNotNull(portfolioChild.getParent());
         assertEquals(portfolioChild.getParent().getId(), portfolioParent.getId());
 
-        assertEquals(portfolioParent.getChildren().size(),1);
+        assertEquals(portfolioParent.getChildren().size(), 1);
     }
 
     //PROGRAM
@@ -122,6 +121,12 @@ public class InventoryServiceIntegrationTests {
         assertEquals("Opis Opisik", program.getDescription());
         assertNull(program.getParent());
         assertNotEquals(program.getId(), 0);
+    }
+    @Test(expected=InvalidParentComponentException.class)
+    public void aNewProjectWithSubprogramShouldBeForbidenToCreate() throws InvalidParentComponentException {
+        InventoryService inventoryService = new InventoryService();
+        Project projectParent = inventoryService.createProject("PF1", "GrassHost", "customer jakis", "Opis Opisik", null);
+        Program programChild = inventoryService.createProgram("PF2", "Karczemka", "customer jakis", "Opis Opisik", projectParent);
     }
     @Test
     public void programShouldBeTakenById() throws InvalidParentComponentException {
@@ -148,6 +153,15 @@ public class InventoryServiceIntegrationTests {
         assertEquals(programById.getCustomer(), program.getCustomer());
         assertEquals(programById.getDescription(), program.getDescription());
         assertNull(programById.getParent());
+    }
+    @Test(expected=InvalidParentComponentException.class)
+    public void programWithParentProjectShouldBeForbidenToUpdate() throws InvalidParentComponentException {
+        InventoryService inventoryService = new InventoryService();
+        Program program = inventoryService.createProgram("PF1", "GrassHost", "customer jakis", "Opis Opisik", null);
+        program.setCode("PFFF");
+        program.setName("NOWY GrasshosT");
+        Project project = inventoryService.createProject("PF2", "Karczemka", "customer jakis", "Opis Opisik", null);
+        program.setParent(project);
     }
     @Test
     public void programShouldBeDeleted() throws InvalidParentComponentException {
@@ -183,10 +197,7 @@ public class InventoryServiceIntegrationTests {
 
         assertEquals(portfolioParent.getChildren().size(),1);
     }
-    @Test(expected=InvalidParentComponentException.class)
-    public void aNewProjectWithSubprogramShouldBeForbidenToCreate() throws InvalidParentComponentException {
-        InventoryService inventoryService = new InventoryService();
-        Project projectParent = inventoryService.createProject("PF1", "GrassHost", "customer jakis", "Opis Opisik", null);
-        Program programChild = inventoryService.createProgram("PF2", "Karczemka", "customer jakis", "Opis Opisik", projectParent);
-    }
+
+    //PROJECT
+
 }

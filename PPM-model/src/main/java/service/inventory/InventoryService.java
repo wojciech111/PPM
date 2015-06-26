@@ -19,7 +19,11 @@ public class InventoryService {
         Portfolio portfolio = new Portfolio(code,name,customer,description);
         if(parent != null) {
             Portfolio parentPortfolio = PortfolioDAO.getById(parent.getId());
-            portfolio.setParent(parentPortfolio);
+            try {
+                portfolio.setParent(parentPortfolio);
+            } catch (InvalidParentComponentException e) {
+                e.printStackTrace();
+            }
             //parentPortfolio.getChildren().add(portfolio); that was wrong
         }
 
@@ -32,12 +36,8 @@ public class InventoryService {
         return PortfolioDAO.getById(id);
     }
 
-    public Portfolio updatePortfolio(Portfolio portfolio) throws InvalidParentComponentException {
-        if (portfolio.getParent() == null || portfolio.getParent() instanceof Portfolio)
-            portfolio = PortfolioDAO.update(portfolio);
-        else
-            throw new InvalidParentComponentException("Portfolio can only be child of Portfolio.");
-        return portfolio;
+    public Portfolio updatePortfolio(Portfolio portfolio){
+        return PortfolioDAO.update(portfolio);
     }
 
     public void deletePortfolio(Portfolio portfolio) {

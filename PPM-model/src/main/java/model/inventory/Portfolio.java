@@ -1,6 +1,7 @@
 package model.inventory;
 
 import model.categorization.AreaOfFocus;
+import util.exception.InvalidParentComponentException;
 
 import javax.persistence.*;
 import java.util.Collection;
@@ -24,6 +25,14 @@ public class Portfolio extends Component {
 
     public Portfolio(String code, String name, String customer, String description) {
         super(code, name, customer, description);
+    }
+
+    @Override
+    public void setParent(Component parent) throws InvalidParentComponentException {
+        if (parent == null || parent instanceof Portfolio)
+            super.setParent(parent);
+        else
+            throw new InvalidParentComponentException("Portfolio can only be child of Portfolio.");
     }
 
     public Collection<AreaOfFocus> getAreasOfFocus() {

@@ -3,6 +3,7 @@ package model.inventory;
 
 import model.categorization.CategoryMembership;
 import model.categorization.Score;
+import util.exception.InvalidParentComponentException;
 
 import javax.persistence.*;
 import java.util.Collection;
@@ -120,7 +121,7 @@ public abstract class Component {
         return parent;
     }
 
-    public void setParent(Component parent) {
+    public void setParent(Component parent) throws InvalidParentComponentException {
         this.parent = parent;
     }
 
