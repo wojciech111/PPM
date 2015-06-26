@@ -1,5 +1,8 @@
 package model.inventory;
 
+import model.inventory.enums.RecurssionType;
+import util.exception.InvalidParentComponentException;
+
 import javax.persistence.*;
 
 /**
@@ -10,7 +13,7 @@ import javax.persistence.*;
 public class Operation extends Component  {
     @Basic
     @Column(name = "recursion_type", nullable = false, insertable = true, updatable = true, length = 1)
-    private String recursionType;
+    private RecurssionType recursionType;
 
     public Operation() {
     }
@@ -19,11 +22,18 @@ public class Operation extends Component  {
         super(code, name, customer, description);
     }
 
-    public String getRecursionType() {
+    @Override
+    public void setParent(Component parent) throws InvalidParentComponentException {
+        if (parent == null || parent instanceof Program)
+            super.setParent(parent);
+        else
+            throw new InvalidParentComponentException("Operation can only be child of Program.");
+    }
+    public RecurssionType getRecursionType() {
         return recursionType;
     }
 
-    public void setRecursionType(String recursionType) {
+    public void setRecursionType(RecurssionType recursionType) {
         this.recursionType = recursionType;
     }
 

@@ -21,8 +21,8 @@ public class InventoryService {
             Portfolio parentPortfolio = PortfolioDAO.getById(parent.getId());
             try {
                 portfolio.setParent(parentPortfolio);
-            } catch (InvalidParentComponentException e) {
-                e.printStackTrace();
+            } catch (InvalidParentComponentException e) { // never happen
+
             }
             //parentPortfolio.getChildren().add(portfolio); that was wrong
         }
@@ -69,12 +69,8 @@ public class InventoryService {
         return ProgramDAO.getById(id);
     }
 
-    public Program updateProgram(Program program) throws InvalidParentComponentException {
-        if (program.getParent() == null || program.getParent() instanceof Portfolio || program.getParent() instanceof Program)
-            program = ProgramDAO.update(program);
-        else
-            throw new InvalidParentComponentException("Program can only be child of Portfolio or Program.");
-        return program;
+    public Program updateProgram(Program program) {
+        return ProgramDAO.update(program);
     }
 
     public void deleteProgram(Program program) {
@@ -105,12 +101,8 @@ public class InventoryService {
         return ProjectDAO.getById(id);
     }
 
-    public Project updateProject(Project project) throws InvalidParentComponentException {
-        if (project.getParent() == null || project.getParent() instanceof Portfolio || project.getParent() instanceof Program)
-            project = ProjectDAO.update(project);
-        else
-            throw new InvalidParentComponentException("Project can only be child of Portfolio or Program.");
-        return project;
+    public Project updateProject(Project project) {
+        return ProjectDAO.update(project);
     }
 
     public void deleteProject(Project project) {

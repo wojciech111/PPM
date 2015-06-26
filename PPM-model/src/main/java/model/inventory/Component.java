@@ -122,7 +122,10 @@ public abstract class Component {
     }
 
     public void setParent(Component parent) throws InvalidParentComponentException {
-        this.parent = parent;
+        if (!this.equals(parent))
+            this.parent = parent;
+        else
+            throw new InvalidParentComponentException("Component can't be child of himself.");
     }
 
     public Collection<Component> getChildren() {

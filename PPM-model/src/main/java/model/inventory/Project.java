@@ -1,5 +1,7 @@
 package model.inventory;
 
+import util.exception.InvalidParentComponentException;
+
 import javax.persistence.*;
 import java.sql.Date;
 
@@ -40,7 +42,13 @@ public class Project extends Component  {
     public Project(String code, String name, String customer, String description) {
         super(code, name, customer, description);
     }
-
+    @Override
+    public void setParent(Component parent) throws InvalidParentComponentException {
+        if (parent == null || parent instanceof Portfolio || parent instanceof Program)
+            super.setParent(parent);
+        else
+            throw new InvalidParentComponentException("Project can only be child of Portfolio or Program.");
+    }
     public String getHealth() {
         return health;
     }
