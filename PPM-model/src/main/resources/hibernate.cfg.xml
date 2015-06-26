@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <property name="connection.url">jdbc:postgresql://localhost:5433/PORTFOLIO_APP_DB</property>
+        <property name="connection.driver_class">org.postgresql.Driver</property>
+
+        <property name="hibernate.connection.username">postgres</property>
+        <property name="hibernate.connection.password">php789</property>
+
+        <property name="show_sql">false</property>
+        <property name="format_sql">true</property>
+        <property name="connection_pool_size">6</property>
+        <!--<property name="hbm2ddl.auto">update</property>-->
+
+        <mapping class="model.inventory.Component"/>
+        <mapping class="model.inventory.Operation"/>
+        <mapping class="model.inventory.Portfolio"/>
+        <mapping class="model.inventory.Program"/>
+        <mapping class="model.inventory.Project"/>
+
+        <mapping class="model.categorization.AreaOfFocus"/>
+        <mapping class="model.categorization.Category"/>
+        <mapping class="model.categorization.CategoryMembership"/>
+        <mapping class="model.categorization.DescribingCriterion"/>
+        <mapping class="model.categorization.Score"/>
+        <mapping class="model.categorization.ScoringCriterion"/>
+
+
+        <!-- DB schema will be updated if needed -->
+
+    </session-factory>
+</hibernate-configuration>
