@@ -8,24 +8,28 @@ public enum RecurssionType {
     d - daily
     w - weekly
     m - monthly
-    q - quaterly
+    q - quarterly - do poprawy spelling w db
     y - yearly'
      */
 
-    DAILY  ("D"),
-    WEEKLY ("W"),
-    MONTHLY ("M"),
-    QUATERLY ("Q"),
-    YEARLY ("Y")
+    D  ("Daily"),
+    W ("Weekly"),
+    M ("Monthly"),
+    Q ("Quarterly"),
+    Y ("Yearly")
     ;
-    private final String code;
+    private final String name;
 
-    RecurssionType(String code) {
-        this.code = code;
+    RecurssionType(String name) {
+        this.name = name;
     }
 
-    public String getCode() {
-        return code;
+    public String getName() {
+        return name;
     }
 
+    @Override
+    public String toString() {
+        return name;
+    }
 }

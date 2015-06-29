@@ -12,19 +12,21 @@ import javax.persistence.*;
 @Table(name = "operations", schema = "public")
 public class Operation extends Component  {
     @Basic
+    @Enumerated(EnumType.STRING)
     @Column(name = "recursion_type", nullable = false, insertable = true, updatable = true, length = 1)
     private RecurssionType recursionType;
 
     public Operation() {
     }
 
-    public Operation(String code, String name, String customer, String description) {
+    public Operation(String code, String name, String customer, String description, RecurssionType recurssionType) {
         super(code, name, customer, description);
+        this.recursionType=recurssionType;
     }
 
     @Override
     public void setParent(Component parent) throws InvalidParentComponentException {
-        if (parent == null || parent instanceof Program)
+        if ( parent instanceof Program)
             super.setParent(parent);
         else
             throw new InvalidParentComponentException("Operation can only be child of Program.");

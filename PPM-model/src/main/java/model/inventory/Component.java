@@ -143,4 +143,6 @@ public abstract class Component {
     public void setScores(Collection<Score> scores) {
         this.scores = scores;
     }
+
+
 }

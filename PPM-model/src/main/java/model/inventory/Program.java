@@ -45,7 +45,7 @@ public class Program extends Component  {
 
     @Override
     public void setParent(Component parent) throws InvalidParentComponentException {
-        if (parent == null || parent instanceof Portfolio || parent instanceof Program)
+        if ( parent instanceof Portfolio || parent instanceof Program)
             super.setParent(parent);
         else
             throw new InvalidParentComponentException("Program can only be child of Portfolio or Program.");
