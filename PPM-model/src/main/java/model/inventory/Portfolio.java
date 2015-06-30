@@ -1,10 +1,14 @@
 package model.inventory;
 
 import model.categorization.AreaOfFocus;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import util.exception.InvalidParentComponentException;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by Wojciech on 2015-06-23.
@@ -18,7 +22,7 @@ public class Portfolio extends Component {
 
     //RELATIONS
     @OneToMany(mappedBy = "portfolio")
-    private Collection<AreaOfFocus> areasOfFocus;
+    private Set<AreaOfFocus> areasOfFocus = new HashSet<AreaOfFocus>();
 
     public Portfolio() {
     }
@@ -35,11 +39,11 @@ public class Portfolio extends Component {
             throw new InvalidParentComponentException("Portfolio can only be child of Portfolio.");
     }
 
-    public Collection<AreaOfFocus> getAreasOfFocus() {
+    public Set<AreaOfFocus> getAreasOfFocus() {
         return areasOfFocus;
     }
 
-    public void setAreasOfFocus(Collection<AreaOfFocus> areasOfFocus) {
+    public void setAreasOfFocus(Set<AreaOfFocus> areasOfFocus) {
         this.areasOfFocus = areasOfFocus;
     }
 }

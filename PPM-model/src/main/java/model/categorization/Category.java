@@ -11,7 +11,8 @@ import java.util.Collection;
 public class Category {
     //ID
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @SequenceGenerator(name="category_seq", sequenceName="category_id_seq")
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="category_seq")
     @Column(name = "category_id", nullable = false, insertable = true, updatable = true)
     private long categoryId;
     //BASICS
@@ -25,19 +26,28 @@ public class Category {
     @Column(name = "description", nullable = true, insertable = true, updatable = true, length = 2147483647)
     private String description;
     //RELATIONS
+    /*Kategoria nie musi wiedzieæ w jakich portfelach jest u¿yta
     @OneToMany(mappedBy = "category")
-    private Collection<AreaOfFocus> areasOfFocus;
+    private Collection<AreaOfFocus> areasOfFocus;*/
     @OneToMany(mappedBy = "category")
     private Collection<CategoryMembership> categoryMemberships;
     @OneToMany(mappedBy = "category")
     private Collection<DescribingCriterion> describingCriteria;
 
+    public Category() {
+    }
 
-    public long getCategoryId() {
+    public Category(String code, String name, String description) {
+        this.code = code;
+        this.name = name;
+        this.description = description;
+    }
+
+    public long getId() {
         return categoryId;
     }
 
-    public void setCategoryId(long categoryId) {
+    public void setId(long categoryId) {
         this.categoryId = categoryId;
     }
 
@@ -65,35 +75,19 @@ public class Category {
         this.description = description;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Category that = (Category) o;
-
-        if (categoryId != that.categoryId) return false;
-        if (code != null ? !code.equals(that.code) : that.code != null) return false;
-        if (name != null ? !name.equals(that.name) : that.name != null) return false;
-        if (description != null ? !description.equals(that.description) : that.description != null) return false;
-
-        return true;
+    public Collection<CategoryMembership> getCategoryMemberships() {
+        return categoryMemberships;
     }
 
-    @Override
-    public int hashCode() {
-        int result = (int) (categoryId ^ (categoryId >>> 32));
-        result = 31 * result + (code != null ? code.hashCode() : 0);
-        result = 31 * result + (name != null ? name.hashCode() : 0);
-        result = 31 * result + (description != null ? description.hashCode() : 0);
-        return result;
+    public void setCategoryMemberships(Collection<CategoryMembership> categoryMemberships) {
+        this.categoryMemberships = categoryMemberships;
     }
 
-    public Collection<AreaOfFocus> getAreasOfFocus() {
-        return areasOfFocus;
+    public Collection<DescribingCriterion> getDescribingCriteria() {
+        return describingCriteria;
     }
 
-    public void setAreasOfFocus(Collection<AreaOfFocus> areasOfFocus) {
-        this.areasOfFocus = areasOfFocus;
+    public void setDescribingCriteria(Collection<DescribingCriterion> describingCriteria) {
+        this.describingCriteria = describingCriteria;
     }
 }

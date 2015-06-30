@@ -14,7 +14,6 @@ import org.junit.Test;
 import util.HibernateUtil;
 import util.exception.InvalidParentComponentException;
 
-import javax.sound.sampled.Port;
 
 import static org.junit.Assert.*;
 
@@ -22,7 +21,7 @@ import static org.junit.Assert.*;
  * Created by Wojciech on 2015-06-25.
  */
 public class InventoryServiceIntegrationTests {
-   /* @After
+    @After
     public void clearDataFromDatabase() {
         Session session = null;
         try {
@@ -33,7 +32,7 @@ public class InventoryServiceIntegrationTests {
             session.createQuery("delete from Portfolio").executeUpdate();
             session.createQuery("delete from Program").executeUpdate();
             session.createQuery("delete from Project ").executeUpdate();
-            session.createQuery("delete from Category ").executeUpdate();
+            session.createQuery("delete from Operation ").executeUpdate();
             tx.commit();
         } catch (Exception e) {
             e.printStackTrace();
@@ -42,7 +41,7 @@ public class InventoryServiceIntegrationTests {
                 session.close();
             }
         }
-    }*/
+    }
 
     //COMPONENT
     @Test(expected=InvalidParentComponentException.class)
@@ -422,4 +421,28 @@ public class InventoryServiceIntegrationTests {
         Operation operationChild = inventoryService.createOperation("PF2", "Karczemka", "customer jakis", "Opis Opisik", programParent, RecurssionType.M);
         operationChild.setParent(portfolioTop);
     }
+    //FINAL TEST
+    @Test
+    public void aNewHierarchyTreeLikeInDocumentationIsCreated() throws InvalidParentComponentException {
+        InventoryService inventoryService = new InventoryService();
+        Portfolio portfolioTop = inventoryService.createPortfolio("PT", "Top", "customer jakis", "Opis Opisik", null);
+        Project portfolioProject = inventoryService.createProject("PF1", "GrassHost", "customer jakis", "Opis Opisik", portfolioTop);
+
+        //subportfolio
+        Portfolio subPortfolio = inventoryService.createPortfolio("SPT", "sub", "customer jakis", "Opis Opisik", portfolioTop);
+        Program subPortfolioProgram = inventoryService.createProgram("PF1", "GrassHost", "customer jakis", "Opis Opisik", subPortfolio);
+        Project subPortfolioProgramProject = inventoryService.createProject("PF1", "GrassHost", "customer jakis", "Opis Opisik", subPortfolioProgram);
+        Project subPortfolioProject = inventoryService.createProject("PF1", "GrassHost", "customer jakis", "Opis Opisik", subPortfolio);
+
+        //program
+        Program portfolioProgram = inventoryService.createProgram("PF1", "GrassHost", "customer jakis", "Opis Opisik", portfolioTop);
+        Operation portfolioProgramOperation = inventoryService.createOperation("PF2", "Karczemka", "customer jakis", "Opis Opisik", portfolioProgram, RecurssionType.M);
+        Project portfolioProgramProject = inventoryService.createProject("PF1", "GrassHost", "customer jakis", "Opis Opisik", portfolioProgram);
+
+        //subprogram
+        Program portfolioProgramSubprogram = inventoryService.createProgram("PF1", "GrassHost", "customer jakis", "Opis Opisik", portfolioProgram);
+        Project portfolioProgramSubprogramProject = inventoryService.createProject("PF1", "GrassHost", "customer jakis", "Opis Opisik", portfolioProgramSubprogram);
+
+    }
+
 }

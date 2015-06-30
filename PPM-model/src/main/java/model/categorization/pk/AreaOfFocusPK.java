@@ -17,6 +17,13 @@ public class AreaOfFocusPK implements Serializable {
     @Basic(optional = false)
     private long categoryId;
 
+    public AreaOfFocusPK() {
+    }
+
+    public AreaOfFocusPK(long componentId, long categoryId) {
+        this.componentId = componentId;
+        this.categoryId = categoryId;
+    }
 
     public long getComponentId() {
         return componentId;

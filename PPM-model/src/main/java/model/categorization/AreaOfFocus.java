@@ -1,5 +1,6 @@
 package model.categorization;
 
+import model.categorization.pk.AreaOfFocusPK;
 import model.inventory.Portfolio;
 
 import javax.persistence.*;
@@ -12,7 +13,7 @@ import javax.persistence.*;
 public class AreaOfFocus {
     //ID
     @EmbeddedId
-    protected model.categorization.pk.AreaOfFocusPK AreaOfFocusPK;
+    protected model.categorization.pk.AreaOfFocusPK areaOfFocusPK;
 
     //BASICS
     @Basic
@@ -27,6 +28,17 @@ public class AreaOfFocus {
     @ManyToOne(optional = false)
     @JoinColumn(name = "component_id", referencedColumnName = "component_id", insertable = false, updatable = false)
     private Portfolio portfolio;
+
+    public AreaOfFocus() {
+    }
+
+    public AreaOfFocus(Portfolio portfolio,Category category, Short percentageOfFocus ) {
+        this.areaOfFocusPK= new AreaOfFocusPK(portfolio.getId(),category.getId());
+        this.percentageOfFocus = percentageOfFocus;
+        this.category = category;
+        this.portfolio = portfolio;
+
+    }
 
     public Short getPercentageOfFocus() {
         return percentageOfFocus;
