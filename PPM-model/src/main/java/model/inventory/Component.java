@@ -7,6 +7,8 @@ import util.exception.InvalidParentComponentException;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by Wojciech on 2015-06-23.
@@ -40,8 +42,8 @@ public abstract class Component {
     private Integer overallPriority;
 
     //RELATIONS
-    @OneToMany(mappedBy = "component")
-    private Collection<CategoryMembership> categoryMemberships;
+    @OneToMany(mappedBy = "component", fetch=FetchType.EAGER)
+    private Set<CategoryMembership> categoryMemberships = new HashSet<CategoryMembership>();
     @ManyToOne
     @JoinColumn(name = "parent_component_id", referencedColumnName = "component_id", nullable = true)
     private Component parent;
@@ -109,11 +111,11 @@ public abstract class Component {
         this.overallPriority = overallPriority;
     }
 
-    public Collection<CategoryMembership> getCategoryMemberships() {
+    public Set<CategoryMembership> getCategoryMemberships() {
         return categoryMemberships;
     }
 
-    public void setCategoryMemberships(Collection<CategoryMembership> categoryMemberships) {
+    public void setCategoryMemberships(Set<CategoryMembership> categoryMemberships) {
         this.categoryMemberships = categoryMemberships;
     }
 

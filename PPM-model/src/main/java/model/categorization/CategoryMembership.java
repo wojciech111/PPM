@@ -35,6 +35,15 @@ public class CategoryMembership {
     @JoinColumn(name = "component_id", referencedColumnName = "component_id", insertable = false, updatable = false)
     private Component component;
 
+    public CategoryMembership() {
+    }
+
+    public CategoryMembership(Component component, Category category) {
+        this.categoryMembershipPK= new CategoryMembershipPK(component.getId(),category.getId());
+        this.component = component;
+        this.category = category;
+    }
+
     public CategoryMembershipPK getCategoryMembershipPK() {
         return categoryMembershipPK;
     }

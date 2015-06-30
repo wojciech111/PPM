@@ -21,7 +21,7 @@ public class Portfolio extends Component {
     //BASICS
 
     //RELATIONS
-    @OneToMany(mappedBy = "portfolio")
+    @OneToMany(mappedBy = "portfolio", fetch = FetchType.EAGER)
     private Set<AreaOfFocus> areasOfFocus = new HashSet<AreaOfFocus>();
 
     public Portfolio() {

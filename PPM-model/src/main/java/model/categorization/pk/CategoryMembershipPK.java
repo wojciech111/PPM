@@ -17,6 +17,13 @@ public class CategoryMembershipPK implements Serializable {
     @Basic(optional = false)
     private long categoryId;
 
+    public CategoryMembershipPK() {
+    }
+
+    public CategoryMembershipPK(long componentId, long categoryId) {
+        this.componentId = componentId;
+        this.categoryId = categoryId;
+    }
 
     public long getComponentId() {
         return componentId;

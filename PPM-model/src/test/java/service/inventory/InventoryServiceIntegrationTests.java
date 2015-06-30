@@ -28,11 +28,14 @@ public class InventoryServiceIntegrationTests {
             session = HibernateUtil.getSessionFactory().openSession();
             Transaction tx =session.beginTransaction();
 
+            session.createQuery("delete from AreaOfFocus").executeUpdate();
+            session.createQuery("delete from CategoryMembership ").executeUpdate();
             session.createQuery("delete from Component").executeUpdate();
             session.createQuery("delete from Portfolio").executeUpdate();
             session.createQuery("delete from Program").executeUpdate();
             session.createQuery("delete from Project ").executeUpdate();
             session.createQuery("delete from Operation ").executeUpdate();
+            session.createQuery("delete from Category ").executeUpdate();
             tx.commit();
         } catch (Exception e) {
             e.printStackTrace();

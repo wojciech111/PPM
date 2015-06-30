@@ -2,6 +2,8 @@ package model.categorization;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by Wojciech on 2015-06-23.
@@ -29,8 +31,8 @@ public class Category {
     /*Kategoria nie musi wiedzieæ w jakich portfelach jest u¿yta
     @OneToMany(mappedBy = "category")
     private Collection<AreaOfFocus> areasOfFocus;*/
-    @OneToMany(mappedBy = "category")
-    private Collection<CategoryMembership> categoryMemberships;
+    @OneToMany(mappedBy = "category", fetch = FetchType.EAGER)
+    private Set<CategoryMembership> categoryMemberships = new HashSet<CategoryMembership>();
     @OneToMany(mappedBy = "category")
     private Collection<DescribingCriterion> describingCriteria;
 
@@ -75,11 +77,11 @@ public class Category {
         this.description = description;
     }
 
-    public Collection<CategoryMembership> getCategoryMemberships() {
+    public Set<CategoryMembership> getCategoryMemberships() {
         return categoryMemberships;
     }
 
-    public void setCategoryMemberships(Collection<CategoryMembership> categoryMemberships) {
+    public void setCategoryMemberships(Set<CategoryMembership> categoryMemberships) {
         this.categoryMemberships = categoryMemberships;
     }
 

@@ -2,9 +2,12 @@ package service.categorization;
 
 import dao.categorization.AreaOfFocusDAO;
 import dao.categorization.CategoryDAO;
+import dao.categorization.CategoryMembershipDAO;
 import dao.inventory.PortfolioDAO;
 import model.categorization.AreaOfFocus;
 import model.categorization.Category;
+import model.categorization.CategoryMembership;
+import model.inventory.Component;
 import model.inventory.Portfolio;
 import org.w3c.dom.ranges.RangeException;
 import util.exception.OutOfRangeException;
@@ -35,7 +38,7 @@ public class CategorizationService {
     }
 
     //AREA OF FOCUS
-    public AreaOfFocus setAreaOfFocus(Portfolio portfolio, Category category, Short percentageOfFocus) throws OutOfRangeException {
+    public AreaOfFocus createAreaOfFocus(Portfolio portfolio, Category category, Short percentageOfFocus) throws OutOfRangeException {
         if (percentageOfFocus != null){
             if (percentageOfFocus < 0 || percentageOfFocus > 100)
                 throw new OutOfRangeException("Percentage must be beetwen 0 and 100");
@@ -45,13 +48,32 @@ public class CategorizationService {
         AreaOfFocus areaOfFocus = new AreaOfFocus(portfolio,category,percentageOfFocus);
         portfolio.getAreasOfFocus().add(areaOfFocus);
         areaOfFocus = AreaOfFocusDAO.save(areaOfFocus);
-        PortfolioDAO.update(portfolio);
+        //PortfolioDAO.update(portfolio);
+        return areaOfFocus;
+    }
+    public AreaOfFocus updateAreaOfFocus(AreaOfFocus areaOfFocus) throws OutOfRangeException {
+        if (areaOfFocus.getPercentageOfFocus() != null){
+            if (areaOfFocus.getPercentageOfFocus() < 0 || areaOfFocus.getPercentageOfFocus() > 100)
+                throw new OutOfRangeException("Percentage must be beetwen 0 and 100");
+        } else {
+            areaOfFocus.setPercentageOfFocus((short)0);
+        }
+        areaOfFocus=AreaOfFocusDAO.update(areaOfFocus);
         return areaOfFocus;
     }
 
-    /*public Portfolio getAreasOfFocusWithCategories(Portfolio portfolio) {
-        AreaOfFocusDAO.getAll(portfolio);
+    public void deleteAreaOfFocus(AreaOfFocus areaOfFocus) {
+        AreaOfFocusDAO.delete(areaOfFocus);
+        areaOfFocus.getPortfolio().getAreasOfFocus().remove(areaOfFocus);
+    }
 
-        return portfolio;
-    }*/
+    //CATEGORY MEMBERSHIP
+    public CategoryMembership createCategoryMembership(Component component, Category category) {
+        CategoryMembership categoryMembership = new CategoryMembership(component,category);
+        component.getCategoryMemberships().add(categoryMembership);
+        category.getCategoryMemberships().add(categoryMembership);
+        categoryMembership = CategoryMembershipDAO.save(categoryMembership);
+        return categoryMembership;
+    }
+
 }
