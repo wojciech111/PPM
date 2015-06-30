@@ -11,6 +11,7 @@ import model.inventory.Component;
 import model.inventory.Portfolio;
 import org.w3c.dom.ranges.RangeException;
 import util.exception.OutOfRangeException;
+import util.exception.PortfolioWithoutParentCannotBeMemberOfCategoryException;
 
 /**
  * Created by Wojciech on 2015-06-29.
@@ -68,12 +69,19 @@ public class CategorizationService {
     }
 
     //CATEGORY MEMBERSHIP
-    public CategoryMembership createCategoryMembership(Component component, Category category) {
+    public CategoryMembership createCategoryMembership(Component component, Category category) throws PortfolioWithoutParentCannotBeMemberOfCategoryException {
+        if (component.getParent() == null)
+            throw new PortfolioWithoutParentCannotBeMemberOfCategoryException("Portfolio without parent cannot be member of category");
         CategoryMembership categoryMembership = new CategoryMembership(component,category);
         component.getCategoryMemberships().add(categoryMembership);
         category.getCategoryMemberships().add(categoryMembership);
         categoryMembership = CategoryMembershipDAO.save(categoryMembership);
         return categoryMembership;
+    }
+    public void deleteCategoryMembership(CategoryMembership categoryMembership) {
+        CategoryMembershipDAO.delete(categoryMembership);
+        categoryMembership.getComponent().getCategoryMemberships().remove(categoryMembership);
+        categoryMembership.getCategory().getCategoryMemberships().remove(categoryMembership);
     }
 
 }

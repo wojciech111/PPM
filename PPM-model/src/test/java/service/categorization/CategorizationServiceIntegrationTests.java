@@ -5,10 +5,15 @@ import model.categorization.Category;
 import model.categorization.CategoryMembership;
 import model.inventory.Portfolio;
 import model.inventory.Program;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+import org.junit.After;
 import org.junit.Test;
 import service.inventory.InventoryService;
+import util.HibernateUtil;
 import util.exception.InvalidParentComponentException;
 import util.exception.OutOfRangeException;
+import util.exception.PortfolioWithoutParentCannotBeMemberOfCategoryException;
 
 import static org.junit.Assert.*;
 
@@ -16,7 +21,7 @@ import static org.junit.Assert.*;
  * Created by Wojciech on 2015-06-29.
  */
 public class CategorizationServiceIntegrationTests {
-    /*@After
+    @After
     public void clearDataFromDatabase() {
         Session session = null;
         try {
@@ -39,7 +44,7 @@ public class CategorizationServiceIntegrationTests {
                 session.close();
             }
         }
-    }*/
+    }
     @Test
     public void aNewCategoryShouldBeCreated(){
         CategorizationService categorizationService = new CategorizationService();
@@ -150,7 +155,7 @@ public class CategorizationServiceIntegrationTests {
     //CATEGORY MEMBERSHIP
 
     @Test
-    public void aNewCategoryMembershipShouldBeCreated() throws InvalidParentComponentException {
+    public void aNewCategoryMembershipShouldBeCreated() throws InvalidParentComponentException, PortfolioWithoutParentCannotBeMemberOfCategoryException {
         InventoryService inventoryService = new InventoryService();
         CategorizationService categorizationService = new CategorizationService();
         Portfolio portfolio = inventoryService.createPortfolio("PF1", "GrassHost", "customer jakis", "Opis Opisik", null);
@@ -165,5 +170,31 @@ public class CategorizationServiceIntegrationTests {
         assertEquals(category.getCategoryMemberships().size(), 1);
         assertEquals(category.getCategoryMemberships().iterator().next().getComponent().getId(), program.getId());
     }
+    @Test(expected=PortfolioWithoutParentCannotBeMemberOfCategoryException.class)
+    public void aNewCategoryMembershipShouldBeForbidenToCreateForPortfolioWithoutParent() throws PortfolioWithoutParentCannotBeMemberOfCategoryException {
+        InventoryService inventoryService = new InventoryService();
+        CategorizationService categorizationService = new CategorizationService();
+        Portfolio portfolio = inventoryService.createPortfolio("PF1", "GrassHost", "customer jakis", "Opis Opisik", null);
+        Category category = categorizationService.createCategory("CA1", "Kategoria wyborna", "opis kategorii ktory jest niezwykle wyczerpuj¹cy");
+        CategoryMembership categoryMembership = categorizationService.createCategoryMembership(portfolio, category);
+    }
+    @Test
+    public void aCategoryMembershipShouldBeDeleted() throws InvalidParentComponentException, PortfolioWithoutParentCannotBeMemberOfCategoryException {
+        InventoryService inventoryService = new InventoryService();
+        CategorizationService categorizationService = new CategorizationService();
+        Portfolio portfolio = inventoryService.createPortfolio("PF1", "GrassHost", "customer jakis", "Opis Opisik", null);
+        Program program = inventoryService.createProgram("P22", "Programmmmm", "customer jakis", "Opis Opisik", portfolio);
+        Category category = categorizationService.createCategory("CA1", "Kategoria wyborna", "opis kategorii ktory jest niezwykle wyczerpuj¹cy");
+        CategoryMembership categoryMembership = categorizationService.createCategoryMembership(program, category);
+        categorizationService.deleteCategoryMembership(categoryMembership);
 
+        assertEquals(program.getCategoryMemberships().size(), 0);
+        assertEquals(category.getCategoryMemberships().size(), 0);
+
+        program = inventoryService.getProgram(program.getId());
+        category = categorizationService.getCategory(category.getId());
+
+        assertEquals(program.getCategoryMemberships().size(), 0);
+        assertEquals(category.getCategoryMemberships().size(), 0);
+    }
 }
