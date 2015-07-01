@@ -3,10 +3,10 @@ package service.categorization;
 import dao.categorization.AreaOfFocusDAO;
 import dao.categorization.CategoryDAO;
 import dao.categorization.CategoryMembershipDAO;
+import dao.categorization.ScoringCriterionDAO;
 import dao.inventory.PortfolioDAO;
-import model.categorization.AreaOfFocus;
-import model.categorization.Category;
-import model.categorization.CategoryMembership;
+import model.categorization.*;
+import model.categorization.enums.SuperiorityStrategy;
 import model.inventory.Component;
 import model.inventory.Portfolio;
 import org.w3c.dom.ranges.RangeException;
@@ -83,5 +83,35 @@ public class CategorizationService {
         categoryMembership.getComponent().getCategoryMemberships().remove(categoryMembership);
         categoryMembership.getCategory().getCategoryMemberships().remove(categoryMembership);
     }
+
+    //SCORING CRITERION
+
+    public NumericScoringCriterion createNumericScoringCriterion(String code, String name, String description, SuperiorityStrategy bestIs) {
+        NumericScoringCriterion numericScoringCriterion = new NumericScoringCriterion(code,name,description,bestIs);
+
+        numericScoringCriterion = (NumericScoringCriterion) ScoringCriterionDAO.save(numericScoringCriterion);
+
+        return numericScoringCriterion;
+    }
+    public TextScoringCriterion createTextScoringCriterion(String code, String name, String description, String question) {
+        TextScoringCriterion textScoringCriterion = new TextScoringCriterion(code,name,description, question);
+
+        textScoringCriterion = (TextScoringCriterion) ScoringCriterionDAO.save(textScoringCriterion);
+
+        return textScoringCriterion;
+    }
+
+    public ScoringCriterion getScoringCriterion(long id) {
+        return ScoringCriterionDAO.getById(id);
+    }
+
+    public ScoringCriterion updateScoringCriterion(ScoringCriterion scoringCriterion){
+        return ScoringCriterionDAO.update(scoringCriterion);
+    }
+
+    public void deleteScoringCriterion(ScoringCriterion scoringCriterion) {
+        ScoringCriterionDAO.delete(scoringCriterion);
+    }
+
 
 }

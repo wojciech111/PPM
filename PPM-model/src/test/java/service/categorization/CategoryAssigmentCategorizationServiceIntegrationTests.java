@@ -20,7 +20,7 @@ import static org.junit.Assert.*;
 /**
  * Created by Wojciech on 2015-06-29.
  */
-public class CategorizationServiceIntegrationTests {
+public class CategoryAssigmentCategorizationServiceIntegrationTests {
     @After
     public void clearDataFromDatabase() {
         Session session = null;
@@ -30,12 +30,18 @@ public class CategorizationServiceIntegrationTests {
 
             session.createQuery("delete from AreaOfFocus").executeUpdate();
             session.createQuery("delete from CategoryMembership ").executeUpdate();
+            session.createQuery("delete from CategoryEvaluation ").executeUpdate();
+            session.createQuery("delete from Score ").executeUpdate();
+
+            session.createQuery("delete from Category ").executeUpdate();
+            session.createQuery("delete from ScoringCriterion ").executeUpdate();
+
             session.createQuery("delete from Component").executeUpdate();
             session.createQuery("delete from Portfolio").executeUpdate();
             session.createQuery("delete from Program").executeUpdate();
             session.createQuery("delete from Project ").executeUpdate();
             session.createQuery("delete from Operation ").executeUpdate();
-            session.createQuery("delete from Category ").executeUpdate();
+
             tx.commit();
         } catch (Exception e) {
             e.printStackTrace();
@@ -45,6 +51,8 @@ public class CategorizationServiceIntegrationTests {
             }
         }
     }
+
+    //CATEGORY
     @Test
     public void aNewCategoryShouldBeCreated(){
         CategorizationService categorizationService = new CategorizationService();
