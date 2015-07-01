@@ -10,22 +10,18 @@ import java.math.BigDecimal;
  * Created by Wojciech on 2015-06-23.
  */
 @Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "type")
 @Table(name = "scores", schema = "public")
-public class Score {
+public abstract class Score {
     //ID
     @EmbeddedId
     protected ScorePK scoresPK;
 
     //BASICS
-    @Basic
-    @Column(name = "score", nullable = true, insertable = true, updatable = true, precision = 2)
-    private BigDecimal score;
-    @Basic
-    @Column(name = "answer", nullable = true, insertable = true, updatable = true, length = 150)
-    private String answer;
-    @Basic
+    /*@Basic
     @Column(name = "percentage", nullable = true, insertable = true, updatable = true)
-    private Short percentage;
+    private Short percentage;*/
     @Basic
     @Column(name = "motivation", nullable = true, insertable = true, updatable = true, length = 2147483647)
     private String motivation;
@@ -34,38 +30,14 @@ public class Score {
     @ManyToOne(optional = false)
     @JoinColumn(name = "component_id", referencedColumnName = "component_id", insertable = false, updatable = false)
     private Component component;
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "scoring_criterion_id", referencedColumnName = "scoring_criterion_id", insertable = false, updatable = false)
-    private ScoringCriterion scoringCriterion;
 
-
-
-    public BigDecimal getScore() {
-        return score;
+    public Score() {
     }
 
-    public void setScore(BigDecimal score) {
-        this.score = score;
+    public Score(Component component, String motivation) {
+        this.component = component;
+        this.motivation = motivation;
     }
-
-
-    public String getAnswer() {
-        return answer;
-    }
-
-    public void setAnswer(String answer) {
-        this.answer = answer;
-    }
-
-
-    public Short getPercentage() {
-        return percentage;
-    }
-
-    public void setPercentage(Short percentage) {
-        this.percentage = percentage;
-    }
-
 
     public String getMotivation() {
         return motivation;
@@ -86,11 +58,6 @@ public class Score {
     }
 
 
-    public ScoringCriterion getScoringCriterion() {
-        return scoringCriterion;
-    }
+    public abstract ScoringCriterion getScoringCriterion();
 
-    public void setScoringCriterion(ScoringCriterion scoringCriteriaByScoringCriterionId) {
-        this.scoringCriterion = scoringCriteriaByScoringCriterionId;
-    }
 }

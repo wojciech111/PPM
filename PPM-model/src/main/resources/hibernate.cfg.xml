@@ -10,9 +10,19 @@
         <property name="hibernate.connection.username">postgres</property>
         <property name="hibernate.connection.password">php789</property>
 
+        <!-- SQL visibillity -->
         <property name="show_sql">true</property>
         <property name="format_sql">true</property>
-        <property name="connection_pool_size">24</property>
+
+        <!-- Enable Hibernate's automatic session context management -->
+        <property name="current_session_context_class">thread</property>
+
+        <!-- Disable the second-level cache
+        <property name="cache.provider_class">org.hibernate.cache.NoCacheProvider</property>-->
+
+        <!-- JDBC connection pool  -->
+        <property name="connection.pool_size">12</property>
+
         <!--<property name="hbm2ddl.auto">update</property>-->
 
         <mapping class="model.inventory.Component"/>
@@ -24,7 +34,7 @@
         <mapping class="model.categorization.AreaOfFocus"/>
         <mapping class="model.categorization.Category"/>
         <mapping class="model.categorization.CategoryMembership"/>
-        <mapping class="model.categorization.DescribingCriterion"/>
+        <mapping class="model.categorization.CategoryEvaluation"/>
         <mapping class="model.categorization.Score"/>
         <mapping class="model.categorization.ScoringCriterion"/>
 

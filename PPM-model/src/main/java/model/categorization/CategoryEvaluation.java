@@ -1,6 +1,6 @@
 package model.categorization;
 
-import model.categorization.pk.DescribingCriterionPK;
+import model.categorization.pk.CategoryEvaluationPK;
 
 import javax.persistence.*;
 
@@ -9,10 +9,10 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "describing_criteria", schema = "public")
-public class DescribingCriterion {
+public class CategoryEvaluation {
     //ID
     @EmbeddedId
-    protected DescribingCriterionPK describingCriteriaPK;
+    protected CategoryEvaluationPK categoryEvaluationPK;
 
     //BASICS
     @Basic
@@ -30,8 +30,14 @@ public class DescribingCriterion {
     @JoinColumn(name = "scoring_criterion_id", referencedColumnName = "scoring_criterion_id", insertable = false, updatable = false)
     private ScoringCriterion scoringCriterion;
 
+    public CategoryEvaluation() {
+    }
 
-
+    public CategoryEvaluation(ScoringCriterion scoringCriterion, Category category) {
+        this.categoryEvaluationPK = new CategoryEvaluationPK(scoringCriterion.getId(),category.getId());
+        this.scoringCriterion = scoringCriterion;
+        this.category = category;
+    }
 
     public String getIsKey() {
         return isKey;

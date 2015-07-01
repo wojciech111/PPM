@@ -1,12 +1,10 @@
 package service.inventory;
 
-import java.util.List;
-
 import model.inventory.Operation;
 import model.inventory.Portfolio;
 import model.inventory.Program;
 import model.inventory.Project;
-import model.inventory.enums.RecurssionType;
+import model.inventory.enums.RecursionType;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.junit.After;
@@ -326,7 +324,7 @@ public class InventoryServiceIntegrationTests {
         InventoryService inventoryService = new InventoryService();
         Portfolio portfolioTop = inventoryService.createPortfolio("PT", "Top", "customer jakis", "Opis Opisik", null);
         Program programTop = inventoryService.createProgram("PrT", "TopProgram", "customer jakis", "Opis Opisik", portfolioTop);
-        Operation operation = inventoryService.createOperation("PF1", "GrassHost", "customer jakis", "Opis Opisik", programTop, RecurssionType.D);
+        Operation operation = inventoryService.createOperation("PF1", "GrassHost", "customer jakis", "Opis Opisik", programTop, RecursionType.D);
         assertEquals("PF1", operation.getCode());
         assertEquals("GrassHost", operation.getName());
         assertEquals("Opis Opisik", operation.getDescription());
@@ -337,20 +335,20 @@ public class InventoryServiceIntegrationTests {
     public void aNewOperationWithSuboperationShouldBeForbidenToCreate() throws InvalidParentComponentException {
         InventoryService inventoryService = new InventoryService();
         Portfolio portfolioTop = inventoryService.createPortfolio("PT", "Top", "customer jakis", "Opis Opisik", null);
-        Operation operationParent = inventoryService.createOperation("PF1", "GrassHost", "customer jakis", "Opis Opisik", portfolioTop, RecurssionType.M);
-        Operation operationChild = inventoryService.createOperation("PF2", "Karczemka", "customer jakis", "Opis Opisik", operationParent, RecurssionType.M);
+        Operation operationParent = inventoryService.createOperation("PF1", "GrassHost", "customer jakis", "Opis Opisik", portfolioTop, RecursionType.M);
+        Operation operationChild = inventoryService.createOperation("PF2", "Karczemka", "customer jakis", "Opis Opisik", operationParent, RecursionType.M);
     }
     @Test(expected=InvalidParentComponentException.class)
     public void aNewOperationWithoutParentShouldBeForbidenToCreate() throws InvalidParentComponentException {
         InventoryService inventoryService = new InventoryService();
-        Operation operationChild = inventoryService.createOperation("PF2", "Karczemka", "customer jakis", "Opis Opisik", null, RecurssionType.M);
+        Operation operationChild = inventoryService.createOperation("PF2", "Karczemka", "customer jakis", "Opis Opisik", null, RecursionType.M);
     }
     @Test
     public void operationShouldBeTakenById() throws InvalidParentComponentException {
         InventoryService inventoryService = new InventoryService();
         Portfolio portfolioTop = inventoryService.createPortfolio("PT", "Top", "customer jakis", "Opis Opisik", null);
         Program programTop = inventoryService.createProgram("PrT", "TopProgram", "customer jakis", "Opis Opisik", portfolioTop);
-        Operation operation = inventoryService.createOperation("PF1", "GrassHost", "customer jakis", "Opis Opisik", programTop, RecurssionType.M);
+        Operation operation = inventoryService.createOperation("PF1", "GrassHost", "customer jakis", "Opis Opisik", programTop, RecursionType.M);
         Operation operationById = inventoryService.getOperation(operation.getId());
         assertTrue(operationById.getCode().startsWith(operation.getCode()));
         assertEquals(operationById.getName(), operation.getName());
@@ -364,7 +362,7 @@ public class InventoryServiceIntegrationTests {
         InventoryService inventoryService = new InventoryService();
         Portfolio portfolioTop = inventoryService.createPortfolio("PT", "Top", "customer jakis", "Opis Opisik", null);
         Program programTop = inventoryService.createProgram("PrT", "TopProgram", "customer jakis", "Opis Opisik", portfolioTop);
-        Operation operation = inventoryService.createOperation("PF1", "GrassHost", "customer jakis", "Opis Opisik", programTop, RecurssionType.M);
+        Operation operation = inventoryService.createOperation("PF1", "GrassHost", "customer jakis", "Opis Opisik", programTop, RecursionType.M);
         operation.setCode("PFFF");
         operation.setName("NOWY GrasshosT");
         operation = inventoryService.updateOperation(operation);
@@ -379,10 +377,10 @@ public class InventoryServiceIntegrationTests {
     public void operationWithParentOperationShouldBeForbidenToUpdate() throws InvalidParentComponentException {
         InventoryService inventoryService = new InventoryService();
         Portfolio portfolioTop = inventoryService.createPortfolio("PT", "Top", "customer jakis", "Opis Opisik", null);
-        Operation operation = inventoryService.createOperation("PF1", "GrassHost", "customer jakis", "Opis Opisik", portfolioTop, RecurssionType.M);
+        Operation operation = inventoryService.createOperation("PF1", "GrassHost", "customer jakis", "Opis Opisik", portfolioTop, RecursionType.M);
         operation.setCode("PFFF");
         operation.setName("NOWY GrasshosT");
-        Operation operation2 = inventoryService.createOperation("PF2", "Karczemka", "customer jakis", "Opis Opisik", portfolioTop, RecurssionType.M);
+        Operation operation2 = inventoryService.createOperation("PF2", "Karczemka", "customer jakis", "Opis Opisik", portfolioTop, RecursionType.M);
         operation.setParent(operation2);
     }
     @Test
@@ -390,7 +388,7 @@ public class InventoryServiceIntegrationTests {
         InventoryService inventoryService = new InventoryService();
         Portfolio portfolioTop = inventoryService.createPortfolio("PT", "Top", "customer jakis", "Opis Opisik", null);
         Program programTop = inventoryService.createProgram("PrT", "TopProgram", "customer jakis", "Opis Opisik", portfolioTop);
-        Operation operation = inventoryService.createOperation("PF1", "GrassHost", "customer jakis", "Opis Opisik", programTop, RecurssionType.M);
+        Operation operation = inventoryService.createOperation("PF1", "GrassHost", "customer jakis", "Opis Opisik", programTop, RecursionType.M);
         Operation operationById = inventoryService.getOperation(operation.getId());
         inventoryService.deleteOperation(operation);
         Operation operationByIdDeleted = inventoryService.getOperation(operation.getId());
@@ -402,7 +400,7 @@ public class InventoryServiceIntegrationTests {
         InventoryService inventoryService = new InventoryService();
         Portfolio portfolioTop = inventoryService.createPortfolio("PT", "Top", "customer jakis", "Opis Opisik", null);
         Program programParent = inventoryService.createProgram("PF1", "GrassHost", "customer jakis", "Opis Opisik", portfolioTop);
-        Operation operationChild = inventoryService.createOperation("PF2", "Karczemka", "customer jakis", "Opis Opisik", programParent, RecurssionType.M);
+        Operation operationChild = inventoryService.createOperation("PF2", "Karczemka", "customer jakis", "Opis Opisik", programParent, RecursionType.M);
         programParent = inventoryService.getProgram(programParent.getId());
 
         assertNotNull(operationChild.getParent());
@@ -414,14 +412,14 @@ public class InventoryServiceIntegrationTests {
     public void aNewPortfolioWithSuboperationShouldBeForbidenToCreate() throws InvalidParentComponentException {
         InventoryService inventoryService = new InventoryService();
         Portfolio portfolioTop = inventoryService.createPortfolio("PF1", "GrassHost", "customer jakis", "Opis Opisik", null);
-        Operation operationChild = inventoryService.createOperation("PF2", "Karczemka", "customer jakis", "Opis Opisik", portfolioTop, RecurssionType.M);
+        Operation operationChild = inventoryService.createOperation("PF2", "Karczemka", "customer jakis", "Opis Opisik", portfolioTop, RecursionType.M);
     }
     @Test(expected=InvalidParentComponentException.class)
     public void aNewPortfolioWithSuboperationShouldBeForbidenToUpdate() throws InvalidParentComponentException {
         InventoryService inventoryService = new InventoryService();
         Portfolio portfolioTop = inventoryService.createPortfolio("PT", "Top", "customer jakis", "Opis Opisik", null);
         Program programParent = inventoryService.createProgram("PF1", "GrassHost", "customer jakis", "Opis Opisik", portfolioTop);
-        Operation operationChild = inventoryService.createOperation("PF2", "Karczemka", "customer jakis", "Opis Opisik", programParent, RecurssionType.M);
+        Operation operationChild = inventoryService.createOperation("PF2", "Karczemka", "customer jakis", "Opis Opisik", programParent, RecursionType.M);
         operationChild.setParent(portfolioTop);
     }
     //FINAL TEST
@@ -439,7 +437,7 @@ public class InventoryServiceIntegrationTests {
 
         //program
         Program portfolioProgram = inventoryService.createProgram("PF1", "GrassHost", "customer jakis", "Opis Opisik", portfolioTop);
-        Operation portfolioProgramOperation = inventoryService.createOperation("PF2", "Karczemka", "customer jakis", "Opis Opisik", portfolioProgram, RecurssionType.M);
+        Operation portfolioProgramOperation = inventoryService.createOperation("PF2", "Karczemka", "customer jakis", "Opis Opisik", portfolioProgram, RecursionType.M);
         Project portfolioProgramProject = inventoryService.createProject("PF1", "GrassHost", "customer jakis", "Opis Opisik", portfolioProgram);
 
         //subprogram

@@ -1,7 +1,6 @@
 package model.categorization;
 
 import javax.persistence.*;
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -33,8 +32,8 @@ public class Category {
     private Collection<AreaOfFocus> areasOfFocus;*/
     @OneToMany(mappedBy = "category", fetch = FetchType.EAGER)
     private Set<CategoryMembership> categoryMemberships = new HashSet<CategoryMembership>();
-    @OneToMany(mappedBy = "category")
-    private Collection<DescribingCriterion> describingCriteria;
+    @OneToMany(mappedBy = "category", fetch = FetchType.EAGER)
+    private Set<CategoryEvaluation> categoryEvaluations = new HashSet<CategoryEvaluation>();
 
     public Category() {
     }
@@ -85,11 +84,11 @@ public class Category {
         this.categoryMemberships = categoryMemberships;
     }
 
-    public Collection<DescribingCriterion> getDescribingCriteria() {
-        return describingCriteria;
+    public Set<CategoryEvaluation> getCategoryEvaluations() {
+        return categoryEvaluations;
     }
 
-    public void setDescribingCriteria(Collection<DescribingCriterion> describingCriteria) {
-        this.describingCriteria = describingCriteria;
+    public void setCategoryEvaluations(Set<CategoryEvaluation> categoryEvaluations) {
+        this.categoryEvaluations = categoryEvaluations;
     }
 }

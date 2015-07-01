@@ -5,7 +5,7 @@ import dao.inventory.PortfolioDAO;
 import dao.inventory.ProgramDAO;
 import dao.inventory.ProjectDAO;
 import model.inventory.*;
-import model.inventory.enums.RecurssionType;
+import model.inventory.enums.RecursionType;
 import util.exception.InvalidParentComponentException;
 
 /**
@@ -112,8 +112,8 @@ public class InventoryService {
         ProjectDAO.delete(project);
     }
     //OPERATION
-    public Operation createOperation(String code, String name, String customer, String description, Component parent, RecurssionType recurssionType) throws InvalidParentComponentException {
-        Operation operation = new Operation(code,name,customer,description, recurssionType);
+    public Operation createOperation(String code, String name, String customer, String description, Component parent, RecursionType recursionType) throws InvalidParentComponentException {
+        Operation operation = new Operation(code,name,customer,description, recursionType);
         if(parent == null) {
             throw new InvalidParentComponentException("Operation need parent Program");
         }else{

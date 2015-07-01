@@ -17,6 +17,13 @@ public class ScorePK implements Serializable {
     @Basic(optional = false)
     private long scoringCriterionId;
 
+    public ScorePK() {
+    }
+
+    public ScorePK(long componentId, long scoringCriterionId) {
+        this.componentId = componentId;
+        this.scoringCriterionId = scoringCriterionId;
+    }
 
     public long getComponentId() {
         return componentId;

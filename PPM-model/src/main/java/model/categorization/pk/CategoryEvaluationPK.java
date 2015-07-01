@@ -9,7 +9,7 @@ import java.io.Serializable;
  * Created by Wojciech on 2015-06-23.
  */
 @Embeddable
-public class DescribingCriterionPK implements Serializable {
+public class CategoryEvaluationPK implements Serializable {
     @Column(name = "scoring_criterion_id")
     @Basic(optional = false)
     private long scoringCriterionId;
@@ -17,6 +17,13 @@ public class DescribingCriterionPK implements Serializable {
     @Basic(optional = false)
     private long categoryId;
 
+    public CategoryEvaluationPK() {
+    }
+
+    public CategoryEvaluationPK(long scoringCriterionId, long categoryId) {
+        this.scoringCriterionId = scoringCriterionId;
+        this.categoryId = categoryId;
+    }
 
     public long getScoringCriterionId() {
         return scoringCriterionId;
@@ -40,7 +47,7 @@ public class DescribingCriterionPK implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        DescribingCriterionPK that = (DescribingCriterionPK) o;
+        CategoryEvaluationPK that = (CategoryEvaluationPK) o;
 
         if (scoringCriterionId != that.scoringCriterionId) return false;
         if (categoryId != that.categoryId) return false;

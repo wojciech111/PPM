@@ -1,6 +1,6 @@
 package model.inventory;
 
-import model.inventory.enums.RecurssionType;
+import model.inventory.enums.RecursionType;
 import util.exception.InvalidParentComponentException;
 
 import javax.persistence.*;
@@ -14,14 +14,14 @@ public class Operation extends Component  {
     @Basic
     @Enumerated(EnumType.STRING)
     @Column(name = "recursion_type", nullable = false, insertable = true, updatable = true, length = 1)
-    private RecurssionType recursionType;
+    private RecursionType recursionType;
 
     public Operation() {
     }
 
-    public Operation(String code, String name, String customer, String description, RecurssionType recurssionType) {
+    public Operation(String code, String name, String customer, String description, RecursionType recursionType) {
         super(code, name, customer, description);
-        this.recursionType=recurssionType;
+        this.recursionType= recursionType;
     }
 
     @Override
@@ -31,11 +31,11 @@ public class Operation extends Component  {
         else
             throw new InvalidParentComponentException("Operation can only be child of Program.");
     }
-    public RecurssionType getRecursionType() {
+    public RecursionType getRecursionType() {
         return recursionType;
     }
 
-    public void setRecursionType(RecurssionType recursionType) {
+    public void setRecursionType(RecursionType recursionType) {
         this.recursionType = recursionType;
     }
 

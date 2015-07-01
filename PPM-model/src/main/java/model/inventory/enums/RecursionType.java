@@ -3,7 +3,7 @@ package model.inventory.enums;
 /**
  * Created by Wojciech on 2015-06-26.
  */
-public enum RecurssionType {
+public enum RecursionType {
     /*
     d - daily
     w - weekly
@@ -20,7 +20,7 @@ public enum RecurssionType {
     ;
     private final String name;
 
-    RecurssionType(String name) {
+    RecursionType(String name) {
         this.name = name;
     }
 
