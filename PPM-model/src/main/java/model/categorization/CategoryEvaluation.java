@@ -16,7 +16,7 @@ public class CategoryEvaluation {
 
     //BASICS
     @Basic
-    @Column(name = "is_key", nullable = false, insertable = true, updatable = true, length = 1)
+    @Column(name = "is_key", nullable = true, insertable = true, updatable = true, length = 1)
     private String isKey;
     @Basic
     @Column(name = "weight", nullable = true, insertable = true, updatable = true)

@@ -4,15 +4,10 @@ import model.categorization.*;
 import model.categorization.enums.SuperiorityStrategy;
 import model.inventory.Portfolio;
 import model.inventory.Program;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
-import org.junit.After;
 import org.junit.Test;
 import service.inventory.InventoryService;
-import util.HibernateUtil;
+import util.exception.CannotScoreIfNotMemberOfPortfolioException;
 import util.exception.InvalidParentComponentException;
-import util.exception.OutOfRangeException;
-import util.exception.PortfolioWithoutParentCannotBeMemberOfCategoryException;
 
 import static org.junit.Assert.*;
 
@@ -149,4 +144,94 @@ public class ScoringCategorizationServiceIntegrationTests {
         assertNull(textScoringCriterionByIdDeleted);
     }
 
+    //CATEGORY EVALUATION
+        //Numeric
+    @Test
+    public void numericScoringCriterionShouldBeAddedToCategory(){
+        CategorizationService categorizationService = new CategorizationService();
+        Category category = categorizationService.createCategory("CA1", "Kategoria wyborna", "opis kategorii ktory jest niezwykle wyczerpuj¹cy");
+        NumericScoringCriterion numericScoringCriterion = categorizationService.createNumericScoringCriterion("ROI", "Return on investment", "Piêkny opis tego czym ten wskaŸnik jest", SuperiorityStrategy.MAX);
+        CategoryEvaluation categoryEvaluation = categorizationService.createCategoryEvaluation(numericScoringCriterion, category);
+
+        assertEquals(categoryEvaluation.getCategory().getId(),category.getId());
+        assertEquals(categoryEvaluation.getScoringCriterion().getId(), numericScoringCriterion.getId());
+        assertEquals(category.getCategoryEvaluations().size(), 1);
+        assertEquals(category.getCategoryEvaluations().iterator().next().getScoringCriterion().getId(), numericScoringCriterion.getId());
+    }
+
+    @Test
+    public void numericScoringCriterionShouldBeDeletedFromCategory(){
+        CategorizationService categorizationService = new CategorizationService();
+        Category category = categorizationService.createCategory("CA1", "Kategoria wyborna", "opis kategorii ktory jest niezwykle wyczerpuj¹cy");
+        NumericScoringCriterion numericScoringCriterion = categorizationService.createNumericScoringCriterion("ROI", "Return on investment", "Piêkny opis tego czym ten wskaŸnik jest", SuperiorityStrategy.MAX);
+        CategoryEvaluation categoryEvaluation = categorizationService.createCategoryEvaluation(numericScoringCriterion, category);
+
+        category = categorizationService.getCategory(category.getId());
+        categorizationService.deleteCategoryEvaluation(category.getCategoryEvaluations().iterator().next());
+
+        assertEquals(category.getCategoryMemberships().size(), 0);
+
+        category = categorizationService.getCategory(category.getId());
+
+        assertEquals(category.getCategoryMemberships().size(), 0);
+    }
+
+    //CATEGORY EVALUATION
+        //Text
+    @Test
+    public void textScoringCriterionShouldBeAddedToCategory(){
+        CategorizationService categorizationService = new CategorizationService();
+        Category category = categorizationService.createCategory("CA1", "Kategoria wyborna", "opis kategorii ktory jest niezwykle wyczerpuj¹cy");
+        TextScoringCriterion textScoringCriterion = categorizationService.createTextScoringCriterion("ROI", "Return on investment", "Piêkny opis tego czym ten wskaŸnik jest", "Pytanie, które jest zadawane do oceny?");
+        CategoryEvaluation categoryEvaluation = categorizationService.createCategoryEvaluation(textScoringCriterion, category);
+
+
+        assertEquals(categoryEvaluation.getCategory().getId(),category.getId());
+        assertEquals(categoryEvaluation.getScoringCriterion().getId(), textScoringCriterion.getId());
+        assertEquals(category.getCategoryEvaluations().size(), 1);
+        assertEquals(category.getCategoryEvaluations().iterator().next().getScoringCriterion().getId(), textScoringCriterion.getId());
+    }
+
+    @Test
+    public void textScoringCriterionShouldBeDeletedFromCategory(){
+        CategorizationService categorizationService = new CategorizationService();
+        Category category = categorizationService.createCategory("CA1", "Kategoria wyborna", "opis kategorii ktory jest niezwykle wyczerpuj¹cy");
+        TextScoringCriterion textScoringCriterion = categorizationService.createTextScoringCriterion("ROI", "Return on investment", "Piêkny opis tego czym ten wskaŸnik jest", "Pytanie, które jest zadawane do oceny?");
+        CategoryEvaluation categoryEvaluation = categorizationService.createCategoryEvaluation(textScoringCriterion, category);
+
+        assertEquals(category.getCategoryEvaluations().size(), 1);
+
+        categorizationService.deleteCategoryEvaluation(categoryEvaluation);
+        category = categorizationService.getCategory(category.getId());
+
+        assertEquals(category.getCategoryEvaluations().size(), 0);
+
+    }
+
+    //NUMERIC SCORE
+/*
+    @Test
+    public void aNewNumericScoreForComponentShouldBeCreated() throws InvalidParentComponentException {
+        InventoryService inventoryService = new InventoryService();
+        CategorizationService categorizationService = new CategorizationService();
+        Portfolio portfolio = inventoryService.createPortfolio("PF1", "GrassHost", "customer jakis", "Opis Opisik", null);
+        Program program = inventoryService.createProgram("P22", "Programmmmm", "customer jakis", "Opis Opisik", portfolio);
+        NumericScoringCriterion numericScoringCriterion = categorizationService.createNumericScoringCriterion("ROI", "Return on investment", "Piêkny opis tego czym ten wskaŸnik jest", SuperiorityStrategy.MAX);
+
+    }
+
+
+    @Test(expected = CannotScoreIfNotMemberOfPortfolioException.class)
+    public void aNumericScoreShouldBeForbidenToCreateForPortfolioWithoutParent(){
+
+    }
+    @Test
+    public void numericScoreForComponentShouldBeUpdated(){
+
+    }
+    @Test
+    public void numericScoreForComponentShouldBeDeleted(){
+
+    }
+    */
 }

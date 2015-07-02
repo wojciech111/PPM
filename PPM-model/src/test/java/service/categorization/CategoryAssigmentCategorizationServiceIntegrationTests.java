@@ -13,7 +13,7 @@ import service.inventory.InventoryService;
 import util.HibernateUtil;
 import util.exception.InvalidParentComponentException;
 import util.exception.OutOfRangeException;
-import util.exception.PortfolioWithoutParentCannotBeMemberOfCategoryException;
+import util.exception.CannotBeMemberOfCategoryIfNotMemberOfPortfolioException;
 
 import static org.junit.Assert.*;
 
@@ -163,7 +163,7 @@ public class CategoryAssigmentCategorizationServiceIntegrationTests {
     //CATEGORY MEMBERSHIP
 
     @Test
-    public void aNewCategoryMembershipShouldBeCreated() throws InvalidParentComponentException, PortfolioWithoutParentCannotBeMemberOfCategoryException {
+    public void aNewCategoryMembershipShouldBeCreated() throws InvalidParentComponentException, CannotBeMemberOfCategoryIfNotMemberOfPortfolioException {
         InventoryService inventoryService = new InventoryService();
         CategorizationService categorizationService = new CategorizationService();
         Portfolio portfolio = inventoryService.createPortfolio("PF1", "GrassHost", "customer jakis", "Opis Opisik", null);
@@ -178,8 +178,8 @@ public class CategoryAssigmentCategorizationServiceIntegrationTests {
         assertEquals(category.getCategoryMemberships().size(), 1);
         assertEquals(category.getCategoryMemberships().iterator().next().getComponent().getId(), program.getId());
     }
-    @Test(expected=PortfolioWithoutParentCannotBeMemberOfCategoryException.class)
-    public void aNewCategoryMembershipShouldBeForbidenToCreateForPortfolioWithoutParent() throws PortfolioWithoutParentCannotBeMemberOfCategoryException {
+    @Test(expected=CannotBeMemberOfCategoryIfNotMemberOfPortfolioException.class)
+    public void aNewCategoryMembershipShouldBeForbidenToCreateForPortfolioWithoutParent() throws CannotBeMemberOfCategoryIfNotMemberOfPortfolioException {
         InventoryService inventoryService = new InventoryService();
         CategorizationService categorizationService = new CategorizationService();
         Portfolio portfolio = inventoryService.createPortfolio("PF1", "GrassHost", "customer jakis", "Opis Opisik", null);
@@ -187,7 +187,7 @@ public class CategoryAssigmentCategorizationServiceIntegrationTests {
         CategoryMembership categoryMembership = categorizationService.createCategoryMembership(portfolio, category);
     }
     @Test
-    public void aCategoryMembershipShouldBeDeleted() throws InvalidParentComponentException, PortfolioWithoutParentCannotBeMemberOfCategoryException {
+    public void aCategoryMembershipShouldBeDeleted() throws InvalidParentComponentException, CannotBeMemberOfCategoryIfNotMemberOfPortfolioException {
         InventoryService inventoryService = new InventoryService();
         CategorizationService categorizationService = new CategorizationService();
         Portfolio portfolio = inventoryService.createPortfolio("PF1", "GrassHost", "customer jakis", "Opis Opisik", null);

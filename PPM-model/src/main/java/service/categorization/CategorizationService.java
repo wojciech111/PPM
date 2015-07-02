@@ -1,17 +1,12 @@
 package service.categorization;
 
-import dao.categorization.AreaOfFocusDAO;
-import dao.categorization.CategoryDAO;
-import dao.categorization.CategoryMembershipDAO;
-import dao.categorization.ScoringCriterionDAO;
-import dao.inventory.PortfolioDAO;
+import dao.categorization.*;
 import model.categorization.*;
 import model.categorization.enums.SuperiorityStrategy;
 import model.inventory.Component;
 import model.inventory.Portfolio;
-import org.w3c.dom.ranges.RangeException;
 import util.exception.OutOfRangeException;
-import util.exception.PortfolioWithoutParentCannotBeMemberOfCategoryException;
+import util.exception.CannotBeMemberOfCategoryIfNotMemberOfPortfolioException;
 
 /**
  * Created by Wojciech on 2015-06-29.
@@ -69,9 +64,9 @@ public class CategorizationService {
     }
 
     //CATEGORY MEMBERSHIP
-    public CategoryMembership createCategoryMembership(Component component, Category category) throws PortfolioWithoutParentCannotBeMemberOfCategoryException {
+    public CategoryMembership createCategoryMembership(Component component, Category category) throws CannotBeMemberOfCategoryIfNotMemberOfPortfolioException {
         if (component.getParent() == null)
-            throw new PortfolioWithoutParentCannotBeMemberOfCategoryException("Portfolio without parent cannot be member of category");
+            throw new CannotBeMemberOfCategoryIfNotMemberOfPortfolioException("Portfolio without parent cannot be member of category");
         CategoryMembership categoryMembership = new CategoryMembership(component,category);
         component.getCategoryMemberships().add(categoryMembership);
         category.getCategoryMemberships().add(categoryMembership);
@@ -114,4 +109,17 @@ public class CategorizationService {
     }
 
 
+    public CategoryEvaluation createCategoryEvaluation(ScoringCriterion scoringCriterion, Category category) {
+        CategoryEvaluation categoryEvaluation = new CategoryEvaluation(scoringCriterion,category);
+        category.getCategoryEvaluations().add(categoryEvaluation);
+        categoryEvaluation = CategoryEvaluationDAO.save(categoryEvaluation);
+        return categoryEvaluation;
+    }
+    public CategoryEvaluation updateCategoryEvaluation(CategoryEvaluation categoryEvaluation){
+        return CategoryEvaluationDAO.update(categoryEvaluation);
+    }
+    public void deleteCategoryEvaluation(CategoryEvaluation categoryEvaluation){
+        CategoryEvaluationDAO.delete(categoryEvaluation);
+        categoryEvaluation.getCategory().getCategoryEvaluations().remove(categoryEvaluation);
+    }
 }
