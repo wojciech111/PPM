@@ -285,7 +285,7 @@ public class ScoringCategorizationServiceIntegrationTests {
     }
 
     //TEXT SCORE
-
+/*
     @Test
     public void aNewTextScoreForComponentShouldBeCreated() throws InvalidParentComponentException, CannotScoreIfNotMemberOfPortfolioException {
         InventoryService inventoryService = new InventoryService();
@@ -353,6 +353,6 @@ public class ScoringCategorizationServiceIntegrationTests {
 
         assertEquals(program.getScores().size(), 0);
     }
-
+*/
 
 }
