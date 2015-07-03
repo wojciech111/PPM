@@ -4,10 +4,17 @@ import model.categorization.*;
 import model.categorization.enums.SuperiorityStrategy;
 import model.inventory.Portfolio;
 import model.inventory.Program;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import service.inventory.InventoryService;
+import util.HibernateUtil;
 import util.exception.CannotScoreIfNotMemberOfPortfolioException;
 import util.exception.InvalidParentComponentException;
+
+import java.math.BigDecimal;
 
 import static org.junit.Assert.*;
 
@@ -15,7 +22,7 @@ import static org.junit.Assert.*;
  * Created by Wojciech on 2015-06-29.
  */
 public class ScoringCategorizationServiceIntegrationTests {
-    /*@After
+    @Before
     public void clearDataFromDatabase() {
         Session session = null;
         try {
@@ -44,24 +51,24 @@ public class ScoringCategorizationServiceIntegrationTests {
             }
         }
 
-    }*/
+    }
 
     //NUMERIC SCORING CRITERION
 
     @Test
     public void aNewNumericScoringCriterionShouldBeCreated(){
         CategorizationService categorizationService = new CategorizationService();
-        NumericScoringCriterion numericScoringCriterion = categorizationService.createNumericScoringCriterion("ROI", "Return on investment", "Piêkny opis tego czym ten wskaŸnik jest", SuperiorityStrategy.MAX);
+        NumericScoringCriterion numericScoringCriterion = categorizationService.createNumericScoringCriterion("ROI", "Return on investment", "Piï¿½kny opis tego czym ten wskaï¿½nik jest", SuperiorityStrategy.MAX);
         assertTrue(numericScoringCriterion.getCode().startsWith("ROI"));
         assertEquals("Return on investment", numericScoringCriterion.getName());
-        assertEquals("Piêkny opis tego czym ten wskaŸnik jest", numericScoringCriterion.getDescription());
+        assertEquals("Piï¿½kny opis tego czym ten wskaï¿½nik jest", numericScoringCriterion.getDescription());
         assertEquals(SuperiorityStrategy.MAX, numericScoringCriterion.getBestIs());
         assertNotEquals(numericScoringCriterion.getId(), 0);
     }
     @Test
     public void numericScoringCriterionShouldBeTakenById() {
         CategorizationService categorizationService = new CategorizationService();
-        NumericScoringCriterion numericScoringCriterion = categorizationService.createNumericScoringCriterion("ROI", "Return on investment", "Piêkny opis tego czym ten wskaŸnik jest", SuperiorityStrategy.MAX);
+        NumericScoringCriterion numericScoringCriterion = categorizationService.createNumericScoringCriterion("ROI", "Return on investment", "Piï¿½kny opis tego czym ten wskaï¿½nik jest", SuperiorityStrategy.MAX);
         ScoringCriterion numericScoringCriterionById = categorizationService.getScoringCriterion(numericScoringCriterion.getId());
         assertTrue(numericScoringCriterionById.getCode().startsWith(numericScoringCriterion.getCode()));
         assertEquals(numericScoringCriterionById.getName(), numericScoringCriterion.getName());
@@ -73,7 +80,7 @@ public class ScoringCategorizationServiceIntegrationTests {
     @Test
     public void numericScoringCriterionShouldBeUpdated() {
         CategorizationService categorizationService = new CategorizationService();
-        NumericScoringCriterion numericScoringCriterion = categorizationService.createNumericScoringCriterion("ROI", "Return on investment", "Piêkny opis tego czym ten wskaŸnik jest", SuperiorityStrategy.MAX);
+        NumericScoringCriterion numericScoringCriterion = categorizationService.createNumericScoringCriterion("ROI", "Return on investment", "Piï¿½kny opis tego czym ten wskaï¿½nik jest", SuperiorityStrategy.MAX);
         numericScoringCriterion.setCode("PFFF");
         numericScoringCriterion.setName("NOWY ROI");
         numericScoringCriterion = (NumericScoringCriterion) categorizationService.updateScoringCriterion(numericScoringCriterion);
@@ -82,12 +89,12 @@ public class ScoringCategorizationServiceIntegrationTests {
         assertEquals(numericScoringCriterionById.getName(), "NOWY ROI");
         assertEquals(numericScoringCriterionById.getDescription(), numericScoringCriterion.getDescription());
         assertEquals(numericScoringCriterionById.getId(), numericScoringCriterion.getId());
-        assertEquals(((NumericScoringCriterion)numericScoringCriterionById).getBestIs(), numericScoringCriterion.getBestIs());
+        assertEquals(((NumericScoringCriterion) numericScoringCriterionById).getBestIs(), numericScoringCriterion.getBestIs());
     }
     @Test
     public void numericScoringCriterionShouldBeDeleted(){
         CategorizationService categorizationService = new CategorizationService();
-        NumericScoringCriterion numericScoringCriterion = categorizationService.createNumericScoringCriterion("ROI", "Return on investment", "Piêkny opis tego czym ten wskaŸnik jest", SuperiorityStrategy.MAX);
+        NumericScoringCriterion numericScoringCriterion = categorizationService.createNumericScoringCriterion("ROI", "Return on investment", "Piï¿½kny opis tego czym ten wskaï¿½nik jest", SuperiorityStrategy.MAX);
         ScoringCriterion numericScoringCriterionById = categorizationService.getScoringCriterion(numericScoringCriterion.getId());
         categorizationService.deleteScoringCriterion(numericScoringCriterion);
         ScoringCriterion numericScoringCriterionByIdDeleted = categorizationService.getScoringCriterion(numericScoringCriterion.getId());
@@ -100,17 +107,17 @@ public class ScoringCategorizationServiceIntegrationTests {
     @Test
     public void aNewTextScoringCriterionShouldBeCreated(){
         CategorizationService categorizationService = new CategorizationService();
-        TextScoringCriterion textScoringCriterion = categorizationService.createTextScoringCriterion("ROI", "Return on investment", "Piêkny opis tego czym ten wskaŸnik jest", "Pytanie, które jest zadawane do oceny?");
+        TextScoringCriterion textScoringCriterion = categorizationService.createTextScoringCriterion("ROI", "Return on investment", "Piï¿½kny opis tego czym ten wskaï¿½nik jest", "Pytanie, ktï¿½re jest zadawane do oceny?");
         assertTrue(textScoringCriterion.getCode().startsWith("ROI"));
         assertEquals("Return on investment", textScoringCriterion.getName());
-        assertEquals("Piêkny opis tego czym ten wskaŸnik jest", textScoringCriterion.getDescription());
-        assertEquals("Pytanie, które jest zadawane do oceny?", textScoringCriterion.getQuestion());
+        assertEquals("Piï¿½kny opis tego czym ten wskaï¿½nik jest", textScoringCriterion.getDescription());
+        assertEquals("Pytanie, ktï¿½re jest zadawane do oceny?", textScoringCriterion.getQuestion());
         assertNotEquals(textScoringCriterion.getId(), 0);
     }
     @Test
     public void textScoringCriterionShouldBeTakenById() {
         CategorizationService categorizationService = new CategorizationService();
-        TextScoringCriterion textScoringCriterion = categorizationService.createTextScoringCriterion("ROI", "Return on investment", "Piêkny opis tego czym ten wskaŸnik jest", "Pytanie, które jest zadawane do oceny?");
+        TextScoringCriterion textScoringCriterion = categorizationService.createTextScoringCriterion("ROI", "Return on investment", "Piï¿½kny opis tego czym ten wskaï¿½nik jest", "Pytanie, ktï¿½re jest zadawane do oceny?");
         ScoringCriterion textScoringCriterionById = categorizationService.getScoringCriterion(textScoringCriterion.getId());
         assertTrue(textScoringCriterionById.getCode().startsWith(textScoringCriterion.getCode()));
         assertEquals(textScoringCriterionById.getName(), textScoringCriterion.getName());
@@ -122,7 +129,7 @@ public class ScoringCategorizationServiceIntegrationTests {
     @Test
     public void textScoringCriterionShouldBeUpdated() {
         CategorizationService categorizationService = new CategorizationService();
-        TextScoringCriterion textScoringCriterion = categorizationService.createTextScoringCriterion("ROI", "Return on investment", "Piêkny opis tego czym ten wskaŸnik jest", "Pytanie, które jest zadawane do oceny?");
+        TextScoringCriterion textScoringCriterion = categorizationService.createTextScoringCriterion("ROI", "Return on investment", "Piï¿½kny opis tego czym ten wskaï¿½nik jest", "Pytanie, ktï¿½re jest zadawane do oceny?");
         textScoringCriterion.setCode("PFFF");
         textScoringCriterion.setName("NOWY ROI");
         textScoringCriterion = (TextScoringCriterion) categorizationService.updateScoringCriterion(textScoringCriterion);
@@ -131,12 +138,12 @@ public class ScoringCategorizationServiceIntegrationTests {
         assertEquals(textScoringCriterionById.getName(), "NOWY ROI");
         assertEquals(textScoringCriterionById.getDescription(), textScoringCriterion.getDescription());
         assertEquals(textScoringCriterionById.getId(), textScoringCriterion.getId());
-        assertEquals(((TextScoringCriterion)textScoringCriterionById).getQuestion(), textScoringCriterion.getQuestion());
+        assertEquals(((TextScoringCriterion) textScoringCriterionById).getQuestion(), textScoringCriterion.getQuestion());
     }
     @Test
     public void textScoringCriterionShouldBeDeleted(){
         CategorizationService categorizationService = new CategorizationService();
-        TextScoringCriterion textScoringCriterion = categorizationService.createTextScoringCriterion("ROI", "Return on investment", "Piêkny opis tego czym ten wskaŸnik jest", "Pytanie, które jest zadawane do oceny?");
+        TextScoringCriterion textScoringCriterion = categorizationService.createTextScoringCriterion("ROI", "Return on investment", "Piï¿½kny opis tego czym ten wskaï¿½nik jest", "Pytanie, ktï¿½re jest zadawane do oceny?");
         ScoringCriterion textScoringCriterionById = categorizationService.getScoringCriterion(textScoringCriterion.getId());
         categorizationService.deleteScoringCriterion(textScoringCriterion);
         ScoringCriterion textScoringCriterionByIdDeleted = categorizationService.getScoringCriterion(textScoringCriterion.getId());
@@ -149,11 +156,11 @@ public class ScoringCategorizationServiceIntegrationTests {
     @Test
     public void numericScoringCriterionShouldBeAddedToCategory(){
         CategorizationService categorizationService = new CategorizationService();
-        Category category = categorizationService.createCategory("CA1", "Kategoria wyborna", "opis kategorii ktory jest niezwykle wyczerpuj¹cy");
-        NumericScoringCriterion numericScoringCriterion = categorizationService.createNumericScoringCriterion("ROI", "Return on investment", "Piêkny opis tego czym ten wskaŸnik jest", SuperiorityStrategy.MAX);
+        Category category = categorizationService.createCategory("CA1", "Kategoria wyborna", "opis kategorii ktory jest niezwykle wyczerpujï¿½cy");
+        NumericScoringCriterion numericScoringCriterion = categorizationService.createNumericScoringCriterion("ROI", "Return on investment", "Piï¿½kny opis tego czym ten wskaï¿½nik jest", SuperiorityStrategy.MAX);
         CategoryEvaluation categoryEvaluation = categorizationService.createCategoryEvaluation(numericScoringCriterion, category);
 
-        assertEquals(categoryEvaluation.getCategory().getId(),category.getId());
+        assertEquals(categoryEvaluation.getCategory().getId(), category.getId());
         assertEquals(categoryEvaluation.getScoringCriterion().getId(), numericScoringCriterion.getId());
         assertEquals(category.getCategoryEvaluations().size(), 1);
         assertEquals(category.getCategoryEvaluations().iterator().next().getScoringCriterion().getId(), numericScoringCriterion.getId());
@@ -162,8 +169,8 @@ public class ScoringCategorizationServiceIntegrationTests {
     @Test
     public void numericScoringCriterionShouldBeDeletedFromCategory(){
         CategorizationService categorizationService = new CategorizationService();
-        Category category = categorizationService.createCategory("CA1", "Kategoria wyborna", "opis kategorii ktory jest niezwykle wyczerpuj¹cy");
-        NumericScoringCriterion numericScoringCriterion = categorizationService.createNumericScoringCriterion("ROI", "Return on investment", "Piêkny opis tego czym ten wskaŸnik jest", SuperiorityStrategy.MAX);
+        Category category = categorizationService.createCategory("CA1", "Kategoria wyborna", "opis kategorii ktory jest niezwykle wyczerpujï¿½cy");
+        NumericScoringCriterion numericScoringCriterion = categorizationService.createNumericScoringCriterion("ROI", "Return on investment", "Piï¿½kny opis tego czym ten wskaï¿½nik jest", SuperiorityStrategy.MAX);
         CategoryEvaluation categoryEvaluation = categorizationService.createCategoryEvaluation(numericScoringCriterion, category);
 
         category = categorizationService.getCategory(category.getId());
@@ -181,8 +188,8 @@ public class ScoringCategorizationServiceIntegrationTests {
     @Test
     public void textScoringCriterionShouldBeAddedToCategory(){
         CategorizationService categorizationService = new CategorizationService();
-        Category category = categorizationService.createCategory("CA1", "Kategoria wyborna", "opis kategorii ktory jest niezwykle wyczerpuj¹cy");
-        TextScoringCriterion textScoringCriterion = categorizationService.createTextScoringCriterion("ROI", "Return on investment", "Piêkny opis tego czym ten wskaŸnik jest", "Pytanie, które jest zadawane do oceny?");
+        Category category = categorizationService.createCategory("CA1", "Kategoria wyborna", "opis kategorii ktory jest niezwykle wyczerpujï¿½cy");
+        TextScoringCriterion textScoringCriterion = categorizationService.createTextScoringCriterion("ROI", "Return on investment", "Piï¿½kny opis tego czym ten wskaï¿½nik jest", "Pytanie, ktï¿½re jest zadawane do oceny?");
         CategoryEvaluation categoryEvaluation = categorizationService.createCategoryEvaluation(textScoringCriterion, category);
 
 
@@ -195,8 +202,8 @@ public class ScoringCategorizationServiceIntegrationTests {
     @Test
     public void textScoringCriterionShouldBeDeletedFromCategory(){
         CategorizationService categorizationService = new CategorizationService();
-        Category category = categorizationService.createCategory("CA1", "Kategoria wyborna", "opis kategorii ktory jest niezwykle wyczerpuj¹cy");
-        TextScoringCriterion textScoringCriterion = categorizationService.createTextScoringCriterion("ROI", "Return on investment", "Piêkny opis tego czym ten wskaŸnik jest", "Pytanie, które jest zadawane do oceny?");
+        Category category = categorizationService.createCategory("CA1", "Kategoria wyborna", "opis kategorii ktory jest niezwykle wyczerpujï¿½cy");
+        TextScoringCriterion textScoringCriterion = categorizationService.createTextScoringCriterion("ROI", "Return on investment", "Piï¿½kny opis tego czym ten wskaï¿½nik jest", "Pytanie, ktï¿½re jest zadawane do oceny?");
         CategoryEvaluation categoryEvaluation = categorizationService.createCategoryEvaluation(textScoringCriterion, category);
 
         assertEquals(category.getCategoryEvaluations().size(), 1);
@@ -209,29 +216,143 @@ public class ScoringCategorizationServiceIntegrationTests {
     }
 
     //NUMERIC SCORE
-/*
+
     @Test
-    public void aNewNumericScoreForComponentShouldBeCreated() throws InvalidParentComponentException {
+    public void aNewNumericScoreForComponentShouldBeCreated() throws InvalidParentComponentException, CannotScoreIfNotMemberOfPortfolioException {
         InventoryService inventoryService = new InventoryService();
         CategorizationService categorizationService = new CategorizationService();
         Portfolio portfolio = inventoryService.createPortfolio("PF1", "GrassHost", "customer jakis", "Opis Opisik", null);
         Program program = inventoryService.createProgram("P22", "Programmmmm", "customer jakis", "Opis Opisik", portfolio);
-        NumericScoringCriterion numericScoringCriterion = categorizationService.createNumericScoringCriterion("ROI", "Return on investment", "Piêkny opis tego czym ten wskaŸnik jest", SuperiorityStrategy.MAX);
+        NumericScoringCriterion numericScoringCriterion = categorizationService.createNumericScoringCriterion("ROI", "Return on investment", "Piï¿½kny opis tego czym ten wskaï¿½nik jest", SuperiorityStrategy.MAX);
+
+        NumericScore numericScore = categorizationService.createNumericScore(program, numericScoringCriterion, new BigDecimal(456.232), "To jes dla tego, ze jest");
+        program = inventoryService.getProgram(program.getId());
+        BigDecimal number = new BigDecimal(456.23).setScale(2, BigDecimal.ROUND_HALF_UP);
+        assertEquals(numericScore.getScore(), number);
+        assertEquals(numericScore.getComponent().getId(),program.getId());
+        assertEquals(numericScore.getScoringCriterion().getId(), numericScoringCriterion.getId());
+        assertEquals(program.getScores().size(), 1);
+        assertEquals(program.getScores().iterator().next().getScoringCriterion().getId(), numericScoringCriterion.getId());
 
     }
-
 
     @Test(expected = CannotScoreIfNotMemberOfPortfolioException.class)
-    public void aNumericScoreShouldBeForbidenToCreateForPortfolioWithoutParent(){
+    public void aNumericScoreShouldBeForbidenToCreateForPortfolioWithoutParent() throws CannotScoreIfNotMemberOfPortfolioException {
+        InventoryService inventoryService = new InventoryService();
+        CategorizationService categorizationService = new CategorizationService();
+        Portfolio portfolio = inventoryService.createPortfolio("PF1", "GrassHost", "customer jakis", "Opis Opisik", null);
+        NumericScoringCriterion numericScoringCriterion = categorizationService.createNumericScoringCriterion("ROI", "Return on investment", "Piï¿½kny opis tego czym ten wskaï¿½nik jest", SuperiorityStrategy.MAX);
+
+        NumericScore numericScore = categorizationService.createNumericScore(portfolio, numericScoringCriterion, new BigDecimal(456.23), "To jes dla tego, ze jest");
+
+    }
+
+    @Test
+    public void numericScoreForComponentShouldBeUpdated() throws InvalidParentComponentException, CannotScoreIfNotMemberOfPortfolioException {
+        InventoryService inventoryService = new InventoryService();
+        CategorizationService categorizationService = new CategorizationService();
+        Portfolio portfolio = inventoryService.createPortfolio("PF1", "GrassHost", "customer jakis", "Opis Opisik", null);
+        Program program = inventoryService.createProgram("P22", "Programmmmm", "customer jakis", "Opis Opisik", portfolio);
+        NumericScoringCriterion numericScoringCriterion = categorizationService.createNumericScoringCriterion("ROI", "Return on investment", "Piï¿½kny opis tego czym ten wskaï¿½nik jest", SuperiorityStrategy.MAX);
+
+        NumericScore numericScore = categorizationService.createNumericScore(program, numericScoringCriterion, new BigDecimal(456.23), "To jest dla tego, ze jest");
+        BigDecimal number = new BigDecimal(555.33).setScale(2, BigDecimal.ROUND_HALF_UP);
+        numericScore.setScore(number);
+        numericScore = (NumericScore) categorizationService.updateScore(numericScore);
+
+        program = inventoryService.getProgram(program.getId());
+        numericScore = (NumericScore) program.getScores().iterator().next();
+
+        assertEquals(numericScore.getScore(), number);
 
     }
     @Test
-    public void numericScoreForComponentShouldBeUpdated(){
+    public void numericScoreForComponentShouldBeDeleted() throws InvalidParentComponentException, CannotScoreIfNotMemberOfPortfolioException {
+        InventoryService inventoryService = new InventoryService();
+        CategorizationService categorizationService = new CategorizationService();
+        Portfolio portfolio = inventoryService.createPortfolio("PF1", "GrassHost", "customer jakis", "Opis Opisik", null);
+        Program program = inventoryService.createProgram("P22", "Programmmmm", "customer jakis", "Opis Opisik", portfolio);
+        NumericScoringCriterion numericScoringCriterion = categorizationService.createNumericScoringCriterion("ROI", "Return on investment", "Piï¿½kny opis tego czym ten wskaï¿½nik jest", SuperiorityStrategy.MAX);
+
+        NumericScore numericScore = categorizationService.createNumericScore(program, numericScoringCriterion, new BigDecimal(456.23), "To jest dla tego, ze jest");
+
+        assertEquals(program.getScores().size(), 1);
+
+        categorizationService.deleteScore(numericScore);
+        program = inventoryService.getProgram(program.getId());
+
+        assertEquals(program.getScores().size(), 0);
+    }
+
+    //TEXT SCORE
+
+    @Test
+    public void aNewTextScoreForComponentShouldBeCreated() throws InvalidParentComponentException, CannotScoreIfNotMemberOfPortfolioException {
+        InventoryService inventoryService = new InventoryService();
+        CategorizationService categorizationService = new CategorizationService();
+        Portfolio portfolio = inventoryService.createPortfolio("PF1", "GrassHost", "customer jakis", "Opis Opisik", null);
+        Program program = inventoryService.createProgram("P22", "Programmmmm", "customer jakis", "Opis Opisik", portfolio);
+        TextScoringCriterion textScoringCriterion = categorizationService.createTextScoringCriterion("ROI", "Return on investment", "Piï¿½kny opis tego czym ten wskaï¿½nik jest", "Pytanie konkursowe numer jeden?");
+
+        TextScore textScore = categorizationService.createTextScore(program, textScoringCriterion, "wyjï¿½tkowe zdolnoï¿½ci w tym zakresie", "To jes dla tego, ze jest");
+        program = inventoryService.getProgram(program.getId());
+        assertEquals(textScore.getAnswer(), "wyjï¿½tkowe zdolnoï¿½ci w tym zakresie");
+
+        assertEquals(textScore.getComponent().getId(),program.getId());
+        assertEquals(textScore.getScoringCriterion().getId(), textScoringCriterion.getId());
+        assertEquals(program.getScores().size(), 1);
+        assertEquals(program.getScores().iterator().next().getScoringCriterion().getId(), textScoringCriterion.getId());
+
+    }
+
+    @Test(expected = CannotScoreIfNotMemberOfPortfolioException.class)
+    public void aTextScoreShouldBeForbidenToCreateForPortfolioWithoutParent() throws CannotScoreIfNotMemberOfPortfolioException {
+        InventoryService inventoryService = new InventoryService();
+        CategorizationService categorizationService = new CategorizationService();
+        Portfolio portfolio = inventoryService.createPortfolio("PF1", "GrassHost", "customer jakis", "Opis Opisik", null);
+        TextScoringCriterion textScoringCriterion = categorizationService.createTextScoringCriterion("ROI", "Return on investment", "Piï¿½kny opis tego czym ten wskaï¿½nik jest",  "Pytanie konkursowe numer jeden?");
+
+        TextScore textScore = categorizationService.createTextScore(portfolio, textScoringCriterion, "wyjï¿½tkowe zdolnoï¿½ci w tym zakresie", "To jes dla tego, ze jest");
+
+    }
+
+    @Test
+    public void textScoreForComponentShouldBeUpdated() throws InvalidParentComponentException, CannotScoreIfNotMemberOfPortfolioException {
+        InventoryService inventoryService = new InventoryService();
+        CategorizationService categorizationService = new CategorizationService();
+        Portfolio portfolio = inventoryService.createPortfolio("PF1", "GrassHost", "customer jakis", "Opis Opisik", null);
+        Program program = inventoryService.createProgram("P22", "Programmmmm", "customer jakis", "Opis Opisik", portfolio);
+        TextScoringCriterion textScoringCriterion = categorizationService.createTextScoringCriterion("ROI", "Return on investment", "Piï¿½kny opis tego czym ten wskaï¿½nik jest",  "Pytanie konkursowe numer jeden?");
+
+        TextScore textScore = categorizationService.createTextScore(program, textScoringCriterion, "wyjï¿½tkowe w tym zakresie", "To jest dla tego, ze jest");
+        program = inventoryService.getProgram(program.getId());
+        textScore = (TextScore) program.getScores().iterator().next();
+        textScore.setAnswer("To jest je");
+        textScore = (TextScore) categorizationService.updateScore(textScore);
+
+        program = inventoryService.getProgram(program.getId());
+        textScore = (TextScore) program.getScores().iterator().next();
+
+        assertEquals(textScore.getAnswer(), "To jest jednak lepsza odpowiedz");
 
     }
     @Test
-    public void numericScoreForComponentShouldBeDeleted(){
+    public void textScoreForComponentShouldBeDeleted() throws InvalidParentComponentException, CannotScoreIfNotMemberOfPortfolioException {
+        InventoryService inventoryService = new InventoryService();
+        CategorizationService categorizationService = new CategorizationService();
+        Portfolio portfolio = inventoryService.createPortfolio("PF1", "GrassHost", "customer jakis", "Opis Opisik", null);
+        Program program = inventoryService.createProgram("P22", "Programmmmm", "customer jakis", "Opis Opisik", portfolio);
+        TextScoringCriterion textScoringCriterion = categorizationService.createTextScoringCriterion("ROI", "Return on investment", "Piï¿½kny opis tego czym ten wskaï¿½nik jest",  "Pytanie konkursowe numer jeden?");
 
+        TextScore textScore = categorizationService.createTextScore(program, textScoringCriterion, "wyjï¿½tkowe zdolnoï¿½ci w tym zakresie", "To jest dla tego, ze jest");
+
+        assertEquals(program.getScores().size(), 1);
+
+        categorizationService.deleteScore(textScore);
+        program = inventoryService.getProgram(program.getId());
+
+        assertEquals(program.getScores().size(), 0);
     }
-    */
+
+
 }

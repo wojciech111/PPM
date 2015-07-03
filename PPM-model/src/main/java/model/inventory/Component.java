@@ -49,8 +49,8 @@ public abstract class Component {
     private Component parent;
     @OneToMany(mappedBy = "parent", fetch=FetchType.EAGER)
     private Collection<Component> children;
-    @OneToMany(mappedBy = "component")
-    private Collection<Score> scores;
+    @OneToMany(mappedBy = "component", fetch=FetchType.EAGER)
+    private Set<Score> scores = new HashSet<Score>();
 
     public Component() {
     }
@@ -138,11 +138,11 @@ public abstract class Component {
         this.children = children;
     }
 
-    public Collection<Score> getScores() {
+    public Set<Score> getScores() {
         return scores;
     }
 
-    public void setScores(Collection<Score> scores) {
+    public void setScores(Set<Score> scores) {
         this.scores = scores;
     }
 

@@ -2,6 +2,7 @@ package model.categorization;
 
 import model.inventory.Component;
 import model.categorization.pk.ScorePK;
+import org.hibernate.annotations.DiscriminatorOptions;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -12,6 +13,7 @@ import java.math.BigDecimal;
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "type")
+@DiscriminatorOptions(force = true)
 @Table(name = "scores", schema = "public")
 public abstract class Score {
     //ID

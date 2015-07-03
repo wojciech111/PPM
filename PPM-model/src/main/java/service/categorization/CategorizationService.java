@@ -5,8 +5,11 @@ import model.categorization.*;
 import model.categorization.enums.SuperiorityStrategy;
 import model.inventory.Component;
 import model.inventory.Portfolio;
+import util.exception.CannotScoreIfNotMemberOfPortfolioException;
 import util.exception.OutOfRangeException;
 import util.exception.CannotBeMemberOfCategoryIfNotMemberOfPortfolioException;
+
+import java.math.BigDecimal;
 
 /**
  * Created by Wojciech on 2015-06-29.
@@ -108,6 +111,7 @@ public class CategorizationService {
         ScoringCriterionDAO.delete(scoringCriterion);
     }
 
+    //CATEGORY EVALUATION
 
     public CategoryEvaluation createCategoryEvaluation(ScoringCriterion scoringCriterion, Category category) {
         CategoryEvaluation categoryEvaluation = new CategoryEvaluation(scoringCriterion,category);
@@ -121,5 +125,32 @@ public class CategorizationService {
     public void deleteCategoryEvaluation(CategoryEvaluation categoryEvaluation){
         CategoryEvaluationDAO.delete(categoryEvaluation);
         categoryEvaluation.getCategory().getCategoryEvaluations().remove(categoryEvaluation);
+    }
+
+    //SCORE
+
+    public NumericScore createNumericScore(Component component, NumericScoringCriterion scoringCriterion, BigDecimal score, String motivation) throws CannotScoreIfNotMemberOfPortfolioException {
+        if (component.getParent() == null)
+            throw new CannotScoreIfNotMemberOfPortfolioException("Portfolio need parent portfolio to assign score");
+        NumericScore numericScore = new NumericScore(component, scoringCriterion, score, motivation);
+        component.getScores().add(numericScore);
+        numericScore = (NumericScore) ScoreDAO.save(numericScore);
+        return numericScore;
+    }
+    public TextScore createTextScore(Component component, TextScoringCriterion scoringCriterion, String answer, String motivation) throws CannotScoreIfNotMemberOfPortfolioException {
+        if (component.getParent() == null)
+            throw new CannotScoreIfNotMemberOfPortfolioException("Portfolio need parent portfolio to assign score");
+        TextScore textScore = new TextScore(component, scoringCriterion, answer, motivation);
+        component.getScores().add(textScore);
+        textScore = (TextScore) ScoreDAO.save(textScore);
+        return textScore;
+    }
+    public Score updateScore(Score score) {
+        return ScoreDAO.update(score);
+    }
+
+    public void deleteScore(Score score){
+        ScoreDAO.delete(score);
+        score.getComponent().getScores().remove(score);
     }
 }

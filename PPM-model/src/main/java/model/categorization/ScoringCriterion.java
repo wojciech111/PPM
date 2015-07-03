@@ -1,5 +1,7 @@
 package model.categorization;
 
+import org.hibernate.annotations.DiscriminatorOptions;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Collection;
@@ -12,7 +14,7 @@ import java.util.Set;
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "type")
-//@ForceDiscriminator
+@DiscriminatorOptions(force = true)
 @Table(name = "scoring_criteria", schema = "public")
 public abstract class ScoringCriterion {
     //ID

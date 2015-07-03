@@ -19,7 +19,7 @@ public class TextScore extends Score{
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "scoring_criterion_id", referencedColumnName = "scoring_criterion_id", insertable = false, updatable = false)
-    private TextScoringCriterion scoringCriterion;
+    private ScoringCriterion scoringCriterion;
 
     public TextScore() {
     }
@@ -39,11 +39,11 @@ public class TextScore extends Score{
         this.answer = answer;
     }
 
-    public TextScoringCriterion getScoringCriterion() {
+    public ScoringCriterion getScoringCriterion() {
         return scoringCriterion;
     }
 
-    public void setScoringCriterion(TextScoringCriterion scoringCriterion) {
+    public void setScoringCriterion(ScoringCriterion scoringCriterion) {
         this.scoringCriterion = scoringCriterion;
     }
 }

@@ -15,7 +15,7 @@ import java.math.BigDecimal;
 public class NumericScoringCriterion extends ScoringCriterion {
     @Basic
     @Enumerated(EnumType.STRING)
-    @Column(name = "best_is", nullable = true, insertable = true, updatable = true, length = 3)
+    @Column(name = "best_is", nullable = false, insertable = true, updatable = true, length = 3)
     private SuperiorityStrategy bestIs;
     @Basic
     @Column(name = "min_score_required", nullable = true, insertable = true, updatable = true, precision = 2)

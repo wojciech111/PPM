@@ -27,7 +27,7 @@ public class NumericScore extends Score{
     public NumericScore(Component component, NumericScoringCriterion scoringCriterion, BigDecimal score, String motivation) {
         super(component, motivation);
         this.scoresPK = new ScorePK(component.getId(),scoringCriterion.getId());
-        this.score = score;
+        this.score = score.setScale(2,BigDecimal.ROUND_HALF_UP);
         this.scoringCriterion = scoringCriterion;
     }
 
@@ -36,7 +36,7 @@ public class NumericScore extends Score{
     }
 
     public void setScore(BigDecimal score) {
-        this.score = score;
+        this.score = score.setScale(2,BigDecimal.ROUND_HALF_UP);
     }
 
     public NumericScoringCriterion getScoringCriterion() {
