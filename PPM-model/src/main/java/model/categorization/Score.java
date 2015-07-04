@@ -11,11 +11,8 @@ import java.math.BigDecimal;
  * Created by Wojciech on 2015-06-23.
  */
 @Entity
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "type")
-@DiscriminatorOptions(force = true)
 @Table(name = "scores", schema = "public")
-public abstract class Score {
+public class Score {
     //ID
     @EmbeddedId
     protected ScorePK scoresPK;
@@ -27,18 +24,71 @@ public abstract class Score {
     @Basic
     @Column(name = "motivation", nullable = true, insertable = true, updatable = true, length = 2147483647)
     private String motivation;
+    @Basic
+    @Column(name = "score", nullable = true, insertable = true, updatable = true, precision = 2)
+    private BigDecimal score;
+    @Basic
+    @Column(name = "answer", nullable = true, insertable = true, updatable = true, length = 150)
+    private String answer;
 
     //RELATIONS
     @ManyToOne(optional = false)
     @JoinColumn(name = "component_id", referencedColumnName = "component_id", insertable = false, updatable = false)
     private Component component;
 
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "scoring_criterion_id", referencedColumnName = "scoring_criterion_id", insertable = false, updatable = false)
+    private ScoringCriterion scoringCriterion;
+
     public Score() {
     }
 
-    public Score(Component component, String motivation) {
+    public Score(Component component, ScoringCriterion scoringCriterion, BigDecimal score, String motivation) {
+        this.scoresPK = new ScorePK(component.getId(), scoringCriterion.getId());
         this.component = component;
+        this.scoringCriterion = scoringCriterion;
+        this.score = score.setScale(2,BigDecimal.ROUND_HALF_UP);
         this.motivation = motivation;
+    }
+
+    public ScorePK getScoresPK() {
+        return scoresPK;
+    }
+
+    public void setScoresPK(ScorePK scoresPK) {
+        this.scoresPK = scoresPK;
+    }
+
+    public Component getComponent() {
+        return component;
+    }
+
+    public void setComponent(Component component) {
+        this.component = component;
+    }
+
+    public ScoringCriterion getScoringCriterion() {
+        return scoringCriterion;
+    }
+
+    public void setScoringCriterion(ScoringCriterion scoringCriterion) {
+        this.scoringCriterion = scoringCriterion;
+    }
+
+    public BigDecimal getScore() {
+        return score;
+    }
+
+    public void setScore(BigDecimal score) {
+        this.score = score.setScale(2,BigDecimal.ROUND_HALF_UP);
+    }
+
+    public String getAnswer() {
+        return answer;
+    }
+
+    public void setAnswer(String answer) {
+        this.answer = answer;
     }
 
     public String getMotivation() {
@@ -48,18 +98,4 @@ public abstract class Score {
     public void setMotivation(String motivation) {
         this.motivation = motivation;
     }
-
-
-
-    public Component getComponent() {
-        return component;
-    }
-
-    public void setComponent(Component componentsByComponentId) {
-        this.component = componentsByComponentId;
-    }
-
-
-    public abstract ScoringCriterion getScoringCriterion();
-
 }

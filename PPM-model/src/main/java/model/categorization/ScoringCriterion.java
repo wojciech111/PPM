@@ -1,5 +1,6 @@
 package model.categorization;
 
+import model.categorization.enums.SuperiorityStrategy;
 import org.hibernate.annotations.DiscriminatorOptions;
 
 import javax.persistence.*;
@@ -12,11 +13,8 @@ import java.util.Set;
  * Created by Wojciech on 2015-06-23.
  */
 @Entity
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "type")
-@DiscriminatorOptions(force = true)
 @Table(name = "scoring_criteria", schema = "public")
-public abstract class ScoringCriterion {
+public class ScoringCriterion {
     //ID
     @Id
     @SequenceGenerator(name="scoring_criterion_seq", sequenceName="scoring_criterion_id_seq")
@@ -34,6 +32,19 @@ public abstract class ScoringCriterion {
     @Basic
     @Column(name = "description", nullable = true, insertable = true, updatable = true, length = 2147483647)
     private String description;
+    @Basic
+    @Column(name = "question", nullable = true, insertable = true, updatable = true, length = 150)
+    private String question;
+    @Basic
+    @Enumerated(EnumType.STRING)
+    @Column(name = "best_is", nullable = false, insertable = true, updatable = true, length = 3)
+    private SuperiorityStrategy bestIs;
+    @Basic
+    @Column(name = "min_score_required", nullable = true, insertable = true, updatable = true, precision = 2)
+    private BigDecimal minScoreRequired;
+    @Basic
+    @Column(name = "max_score_required", nullable = true, insertable = true, updatable = true, precision = 2)
+    private BigDecimal maxScoreRequired;
 
     //RELATIONS
     /*@OneToMany(mappedBy = "scoringCriterion", fetch = FetchType.EAGER)
@@ -44,10 +55,11 @@ public abstract class ScoringCriterion {
     public ScoringCriterion() {
     }
 
-    public ScoringCriterion(String code, String name, String description) {
+    public ScoringCriterion(String code, String name, String description, SuperiorityStrategy bestIs) {
         this.code = code;
         this.name = name;
         this.description = description;
+        this.bestIs=bestIs;
     }
 
     public long getId() {
@@ -82,5 +94,36 @@ public abstract class ScoringCriterion {
         this.description = description;
     }
 
+    public String getQuestion() {
+        return question;
+    }
+
+    public void setQuestion(String question) {
+        this.question = question;
+    }
+
+    public SuperiorityStrategy getBestIs() {
+        return bestIs;
+    }
+
+    public void setBestIs(SuperiorityStrategy bestIs) {
+        this.bestIs = bestIs;
+    }
+
+    public BigDecimal getMinScoreRequired() {
+        return minScoreRequired;
+    }
+
+    public void setMinScoreRequired(BigDecimal minScoreRequired) {
+        this.minScoreRequired = minScoreRequired;
+    }
+
+    public BigDecimal getMaxScoreRequired() {
+        return maxScoreRequired;
+    }
+
+    public void setMaxScoreRequired(BigDecimal maxScoreRequired) {
+        this.maxScoreRequired = maxScoreRequired;
+    }
 
 }

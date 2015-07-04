@@ -84,19 +84,12 @@ public class CategorizationService {
 
     //SCORING CRITERION
 
-    public NumericScoringCriterion createNumericScoringCriterion(String code, String name, String description, SuperiorityStrategy bestIs) {
-        NumericScoringCriterion numericScoringCriterion = new NumericScoringCriterion(code,name,description,bestIs);
+    public ScoringCriterion createScoringCriterion(String code, String name, String description, SuperiorityStrategy bestIs) {
+        ScoringCriterion numericScoringCriterion = new ScoringCriterion(code,name,description,bestIs);
 
-        numericScoringCriterion = (NumericScoringCriterion) ScoringCriterionDAO.save(numericScoringCriterion);
+        numericScoringCriterion = (ScoringCriterion) ScoringCriterionDAO.save(numericScoringCriterion);
 
         return numericScoringCriterion;
-    }
-    public TextScoringCriterion createTextScoringCriterion(String code, String name, String description, String question) {
-        TextScoringCriterion textScoringCriterion = new TextScoringCriterion(code,name,description, question);
-
-        textScoringCriterion = (TextScoringCriterion) ScoringCriterionDAO.save(textScoringCriterion);
-
-        return textScoringCriterion;
     }
 
     public ScoringCriterion getScoringCriterion(long id) {
@@ -129,22 +122,15 @@ public class CategorizationService {
 
     //SCORE
 
-    public NumericScore createNumericScore(Component component, NumericScoringCriterion scoringCriterion, BigDecimal score, String motivation) throws CannotScoreIfNotMemberOfPortfolioException {
+    public Score createScore(Component component, ScoringCriterion scoringCriterion, BigDecimal score, String motivation) throws CannotScoreIfNotMemberOfPortfolioException {
         if (component.getParent() == null)
             throw new CannotScoreIfNotMemberOfPortfolioException("Portfolio need parent portfolio to assign score");
-        NumericScore numericScore = new NumericScore(component, scoringCriterion, score, motivation);
-        component.getScores().add(numericScore);
-        numericScore = (NumericScore) ScoreDAO.save(numericScore);
-        return numericScore;
+        Score theScore = new Score(component, scoringCriterion, score, motivation);
+        component.getScores().add(theScore);
+        theScore =  ScoreDAO.save(theScore);
+        return theScore;
     }
-    public TextScore createTextScore(Component component, TextScoringCriterion scoringCriterion, String answer, String motivation) throws CannotScoreIfNotMemberOfPortfolioException {
-        if (component.getParent() == null)
-            throw new CannotScoreIfNotMemberOfPortfolioException("Portfolio need parent portfolio to assign score");
-        TextScore textScore = new TextScore(component, scoringCriterion, answer, motivation);
-        component.getScores().add(textScore);
-        textScore = (TextScore) ScoreDAO.save(textScore);
-        return textScore;
-    }
+
     public Score updateScore(Score score) {
         return ScoreDAO.update(score);
     }
