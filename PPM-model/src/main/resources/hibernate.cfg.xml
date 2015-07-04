@@ -35,12 +35,8 @@
         <mapping class="model.categorization.Category"/>
         <mapping class="model.categorization.CategoryEvaluation"/>
         <mapping class="model.categorization.CategoryMembership"/>
-        <mapping class="model.categorization.NumericScore"/>
-        <mapping class="model.categorization.NumericScoringCriterion"/>
         <mapping class="model.categorization.Score"/>
         <mapping class="model.categorization.ScoringCriterion"/>
-        <mapping class="model.categorization.TextScore"/>
-        <mapping class="model.categorization.TextScoringCriterion"/>
 
         <!-- DB schema will be updated if needed -->
 
