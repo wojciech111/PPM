@@ -38,6 +38,8 @@
         <mapping class="model.categorization.Score"/>
         <mapping class="model.categorization.ScoringCriterion"/>
 
+        <mapping class="model.process.State"/>
+        <mapping class="model.process.Process"/>
         <!-- DB schema will be updated if needed -->
 
     </session-factory>

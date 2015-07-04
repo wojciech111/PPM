@@ -40,11 +40,11 @@ public class ScoringCriterion {
     @Column(name = "best_is", nullable = false, insertable = true, updatable = true, length = 3)
     private SuperiorityStrategy bestIs;
     @Basic
-    @Column(name = "min_score_required", nullable = true, insertable = true, updatable = true, precision = 2)
-    private BigDecimal minScoreRequired;
+    @Column(name = "min_score", nullable = true, insertable = true, updatable = true, precision = 2)
+    private BigDecimal minScore;
     @Basic
-    @Column(name = "max_score_required", nullable = true, insertable = true, updatable = true, precision = 2)
-    private BigDecimal maxScoreRequired;
+    @Column(name = "max_score", nullable = true, insertable = true, updatable = true, precision = 2)
+    private BigDecimal maxScore;
 
     //RELATIONS
     /*@OneToMany(mappedBy = "scoringCriterion", fetch = FetchType.EAGER)
@@ -110,20 +110,20 @@ public class ScoringCriterion {
         this.bestIs = bestIs;
     }
 
-    public BigDecimal getMinScoreRequired() {
-        return minScoreRequired;
+    public BigDecimal getMinScore() {
+        return minScore;
     }
 
-    public void setMinScoreRequired(BigDecimal minScoreRequired) {
-        this.minScoreRequired = minScoreRequired;
+    public void setMinScore(BigDecimal minScore) {
+        this.minScore = minScore;
     }
 
-    public BigDecimal getMaxScoreRequired() {
-        return maxScoreRequired;
+    public BigDecimal getMaxScore() {
+        return maxScore;
     }
 
-    public void setMaxScoreRequired(BigDecimal maxScoreRequired) {
-        this.maxScoreRequired = maxScoreRequired;
+    public void setMaxScore(BigDecimal maxScore) {
+        this.maxScore = maxScore;
     }
 
 }

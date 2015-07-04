@@ -8,6 +8,7 @@ import model.inventory.enums.RecursionType;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import util.HibernateUtil;
 import util.exception.InvalidParentComponentException;
@@ -19,7 +20,7 @@ import static org.junit.Assert.*;
  * Created by Wojciech on 2015-06-25.
  */
 public class InventoryServiceIntegrationTests {
-    @After
+    @Before
     public void clearDataFromDatabase() {
         Session session = null;
         try {

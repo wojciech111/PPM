@@ -3,6 +3,7 @@ package model.inventory;
 
 import model.categorization.CategoryMembership;
 import model.categorization.Score;
+import model.process.State;
 import util.exception.InvalidParentComponentException;
 
 import javax.persistence.*;
@@ -51,6 +52,9 @@ public abstract class Component {
     private Collection<Component> children;
     @OneToMany(mappedBy = "component", fetch=FetchType.EAGER)
     private Set<Score> scores = new HashSet<Score>();
+    @ManyToOne
+    @JoinColumn(name = "state_id", referencedColumnName = "state_id", nullable = true,insertable = true, updatable = true)
+    private State state;
 
     public Component() {
     }
@@ -146,5 +150,11 @@ public abstract class Component {
         this.scores = scores;
     }
 
+    public State getState() {
+        return state;
+    }
 
+    public void setState(State state) {
+        this.state = state;
+    }
 }
