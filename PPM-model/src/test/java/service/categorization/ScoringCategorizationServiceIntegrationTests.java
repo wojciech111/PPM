@@ -53,7 +53,7 @@ public class ScoringCategorizationServiceIntegrationTests {
 
     }
 
-    //NUMERIC SCORING CRITERION
+    //SCORING CRITERION
 
     @Test
     public void aNewScoringCriterionShouldBeCreated(){
@@ -133,7 +133,7 @@ public class ScoringCategorizationServiceIntegrationTests {
         assertEquals(category.getCategoryMemberships().size(), 0);
     }
 
-    //NUMERIC SCORE
+    //SCORE
 
     @Test
     public void aNewScoreForComponentShouldBeCreated() throws InvalidParentComponentException, CannotScoreIfNotMemberOfPortfolioException {

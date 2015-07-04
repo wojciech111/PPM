@@ -20,7 +20,7 @@ import static org.junit.Assert.*;
  * Created by Wojciech on 2015-06-25.
  */
 public class InventoryServiceIntegrationTests {
-    @Before
+    @After
     public void clearDataFromDatabase() {
         Session session = null;
         try {
