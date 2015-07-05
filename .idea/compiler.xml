@@ -27,8 +27,8 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="PPM-api" target="1.5" />
-      <module name="PPM-model" target="1.5" />
+      <module name="PPM-api" target="1.8" />
+      <module name="PPM-model" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>
