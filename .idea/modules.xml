@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/PPM-api/PPM-api.iml" filepath="$PROJECT_DIR$/PPM-api/PPM-api.iml" />
       <module fileurl="file://$PROJECT_DIR$/PPM-model/PPM-model.iml" filepath="$PROJECT_DIR$/PPM-model/PPM-model.iml" />
     </modules>
   </component>

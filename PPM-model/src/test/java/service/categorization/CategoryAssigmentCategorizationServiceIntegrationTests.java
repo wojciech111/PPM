@@ -10,6 +10,7 @@ import org.hibernate.Transaction;
 import org.junit.After;
 import org.junit.Test;
 import service.inventory.InventoryService;
+import service.inventory.InventoryServiceInterface;
 import util.HibernateUtil;
 import util.exception.InvalidParentComponentException;
 import util.exception.OutOfRangeException;
@@ -55,7 +56,7 @@ public class CategoryAssigmentCategorizationServiceIntegrationTests {
     //CATEGORY
     @Test
     public void aNewCategoryShouldBeCreated(){
-        CategorizationService categorizationService = new CategorizationService();
+        CategorizationServiceInterface categorizationService = new CategorizationService();
         Category category = categorizationService.createCategory("CA1", "Kategoria wyborna","opis kategorii ktory jest niezwykle wyczerpuj¹cy");
         assertTrue(category.getCode().startsWith("CA1"));
         assertEquals("Kategoria wyborna", category.getName());
@@ -64,7 +65,7 @@ public class CategoryAssigmentCategorizationServiceIntegrationTests {
     }
     @Test
     public void categoryShouldBeTakenById() {
-        CategorizationService categorizationService = new CategorizationService();
+        CategorizationServiceInterface categorizationService = new CategorizationService();
         Category category = categorizationService.createCategory("CA1", "Kategoria wyborna","opis kategorii ktory jest niezwykle wyczerpuj¹cy");
         Category categoryById = categorizationService.getCategory(category.getId());
         assertTrue(categoryById.getCode().startsWith(category.getCode()));
@@ -75,7 +76,7 @@ public class CategoryAssigmentCategorizationServiceIntegrationTests {
     }
     @Test
     public void categoryShouldBeUpdated() {
-        CategorizationService categorizationService = new CategorizationService();
+        CategorizationServiceInterface categorizationService = new CategorizationService();
         Category category = categorizationService.createCategory("CA1", "Kategoria wyborna", "opis kategorii ktory jest niezwykle wyczerpuj¹cy");
         category.setCode("PFFF");
         category.setName("NOWY GrasshosT");
@@ -88,7 +89,7 @@ public class CategoryAssigmentCategorizationServiceIntegrationTests {
     }
     @Test
     public void categoryShouldBeDeleted(){
-        CategorizationService categorizationService = new CategorizationService();
+        CategorizationServiceInterface categorizationService = new CategorizationService();
         Category category = categorizationService.createCategory("CA1", "Kategoria wyborna", "opis kategorii ktory jest niezwykle wyczerpuj¹cy");
         Category categoryById = categorizationService.getCategory(category.getId());
         categorizationService.deleteCategory(category);
@@ -99,8 +100,8 @@ public class CategoryAssigmentCategorizationServiceIntegrationTests {
     //AREA OF FOCUS
     @Test
      public void aNewAreaOfFocusShouldBeCreated() throws OutOfRangeException {
-        InventoryService inventoryService = new InventoryService();
-        CategorizationService categorizationService = new CategorizationService();
+        InventoryServiceInterface inventoryService = new InventoryService();
+        CategorizationServiceInterface categorizationService = new CategorizationService();
         Portfolio portfolio = inventoryService.createPortfolio("PF1", "GrassHost", "customer jakis", "Opis Opisik", null);
         Category category = categorizationService.createCategory("CA1", "Kategoria wyborna", "opis kategorii ktory jest niezwykle wyczerpuj¹cy");
         AreaOfFocus areaOfFocus = categorizationService.createAreaOfFocus(portfolio, category, (short) 5);
@@ -112,16 +113,16 @@ public class CategoryAssigmentCategorizationServiceIntegrationTests {
     }
     @Test(expected=OutOfRangeException.class)
     public void aNewAreaOfFocusShouldBeForbidenToCreateBecouseOutOfRange() throws OutOfRangeException {
-        InventoryService inventoryService = new InventoryService();
-        CategorizationService categorizationService = new CategorizationService();
+        InventoryServiceInterface inventoryService = new InventoryService();
+        CategorizationServiceInterface categorizationService = new CategorizationService();
         Portfolio portfolio = inventoryService.createPortfolio("PF1", "GrassHost", "customer jakis", "Opis Opisik", null);
         Category category = categorizationService.createCategory("CA1", "Kategoria wyborna", "opis kategorii ktory jest niezwykle wyczerpuj¹cy");
         AreaOfFocus areaOfFocus = categorizationService.createAreaOfFocus(portfolio, category, (short) 101);
     }
     @Test
     public void areaOfFocusShouldBeUpdated() throws OutOfRangeException {
-        InventoryService inventoryService = new InventoryService();
-        CategorizationService categorizationService = new CategorizationService();
+        InventoryServiceInterface inventoryService = new InventoryService();
+        CategorizationServiceInterface categorizationService = new CategorizationService();
         Portfolio portfolio = inventoryService.createPortfolio("PF1", "GrassHost", "customer jakis", "Opis Opisik", null);
         Category category = categorizationService.createCategory("CA1", "Kategoria wyborna", "opis kategorii ktory jest niezwykle wyczerpuj¹cy");
         AreaOfFocus areaOfFocus = categorizationService.createAreaOfFocus(portfolio, category, (short) 5);
@@ -136,8 +137,8 @@ public class CategoryAssigmentCategorizationServiceIntegrationTests {
     }
     @Test(expected=OutOfRangeException.class)
     public void areaOfFocusShouldBeForbidenToUpdateBecouseOutOfRange() throws OutOfRangeException {
-        InventoryService inventoryService = new InventoryService();
-        CategorizationService categorizationService = new CategorizationService();
+        InventoryServiceInterface inventoryService = new InventoryService();
+        CategorizationServiceInterface categorizationService = new CategorizationService();
         Portfolio portfolio = inventoryService.createPortfolio("PF1", "GrassHost", "customer jakis", "Opis Opisik", null);
         Category category = categorizationService.createCategory("CA1", "Kategoria wyborna", "opis kategorii ktory jest niezwykle wyczerpuj¹cy");
         AreaOfFocus areaOfFocus = categorizationService.createAreaOfFocus(portfolio, category, (short) 5);
@@ -147,8 +148,8 @@ public class CategoryAssigmentCategorizationServiceIntegrationTests {
 
     @Test
     public void areaOfFocusShouldBeDeleted() throws OutOfRangeException {
-        InventoryService inventoryService = new InventoryService();
-        CategorizationService categorizationService = new CategorizationService();
+        InventoryServiceInterface inventoryService = new InventoryService();
+        CategorizationServiceInterface categorizationService = new CategorizationService();
         Portfolio portfolio = inventoryService.createPortfolio("PF1", "GrassHost", "customer jakis", "Opis Opisik", null);
         Category category = categorizationService.createCategory("CA1", "Kategoria wyborna", "opis kategorii ktory jest niezwykle wyczerpuj¹cy");
         AreaOfFocus areaOfFocus = categorizationService.createAreaOfFocus(portfolio, category, (short) 5);
@@ -164,8 +165,8 @@ public class CategoryAssigmentCategorizationServiceIntegrationTests {
 
     @Test
     public void aNewCategoryMembershipShouldBeCreated() throws InvalidParentComponentException, CannotBeMemberOfCategoryIfNotMemberOfPortfolioException {
-        InventoryService inventoryService = new InventoryService();
-        CategorizationService categorizationService = new CategorizationService();
+        InventoryServiceInterface inventoryService = new InventoryService();
+        CategorizationServiceInterface categorizationService = new CategorizationService();
         Portfolio portfolio = inventoryService.createPortfolio("PF1", "GrassHost", "customer jakis", "Opis Opisik", null);
         Program program = inventoryService.createProgram("P22", "Programmmmm", "customer jakis", "Opis Opisik", portfolio);
         Category category = categorizationService.createCategory("CA1", "Kategoria wyborna", "opis kategorii ktory jest niezwykle wyczerpuj¹cy");
@@ -180,16 +181,16 @@ public class CategoryAssigmentCategorizationServiceIntegrationTests {
     }
     @Test(expected=CannotBeMemberOfCategoryIfNotMemberOfPortfolioException.class)
     public void aNewCategoryMembershipShouldBeForbidenToCreateForPortfolioWithoutParent() throws CannotBeMemberOfCategoryIfNotMemberOfPortfolioException {
-        InventoryService inventoryService = new InventoryService();
-        CategorizationService categorizationService = new CategorizationService();
+        InventoryServiceInterface inventoryService = new InventoryService();
+        CategorizationServiceInterface categorizationService = new CategorizationService();
         Portfolio portfolio = inventoryService.createPortfolio("PF1", "GrassHost", "customer jakis", "Opis Opisik", null);
         Category category = categorizationService.createCategory("CA1", "Kategoria wyborna", "opis kategorii ktory jest niezwykle wyczerpuj¹cy");
         CategoryMembership categoryMembership = categorizationService.createCategoryMembership(portfolio, category);
     }
     @Test
     public void aCategoryMembershipShouldBeDeleted() throws InvalidParentComponentException, CannotBeMemberOfCategoryIfNotMemberOfPortfolioException {
-        InventoryService inventoryService = new InventoryService();
-        CategorizationService categorizationService = new CategorizationService();
+        InventoryServiceInterface inventoryService = new InventoryService();
+        CategorizationServiceInterface categorizationService = new CategorizationService();
         Portfolio portfolio = inventoryService.createPortfolio("PF1", "GrassHost", "customer jakis", "Opis Opisik", null);
         Program program = inventoryService.createProgram("P22", "Programmmmm", "customer jakis", "Opis Opisik", portfolio);
         Category category = categorizationService.createCategory("CA1", "Kategoria wyborna", "opis kategorii ktory jest niezwykle wyczerpuj¹cy");

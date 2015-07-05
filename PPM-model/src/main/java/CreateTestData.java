@@ -6,7 +6,9 @@ import model.inventory.Program;
 import model.inventory.Project;
 import model.inventory.enums.RecursionType;
 import service.categorization.CategorizationService;
+import service.categorization.CategorizationServiceInterface;
 import service.inventory.InventoryService;
+import service.inventory.InventoryServiceInterface;
 
 import java.math.BigDecimal;
 
@@ -16,7 +18,7 @@ import java.math.BigDecimal;
 public class CreateTestData {
     public static void main(final String[] args) throws Exception {
 
-        InventoryService inventoryService = new InventoryService();
+        InventoryServiceInterface inventoryService = new InventoryService();
         Portfolio portfolioTop = inventoryService.createPortfolio("PT", "portfolioTop", "customer jakis", "Opis Opisik", null);
         Project portfolioProject = inventoryService.createProject("PF1", "portfolioProject", "customer jakis", "Opis Opisik", portfolioTop);
 
@@ -36,7 +38,7 @@ public class CreateTestData {
         Project portfolioProgramSubprogramProject = inventoryService.createProject("PF1", "portfolioProgramSubprogramProject", "customer jakis", "Opis Opisik", portfolioProgramSubprogram);
 
 
-        CategorizationService categorizationService = new CategorizationService();
+        CategorizationServiceInterface categorizationService = new CategorizationService();
 
         //category
         Category category1 = categorizationService.createCategory("CA1", "Kategoria wyborna","opis kategorii ktory jest niezwykle wyczerpuj¹cy");

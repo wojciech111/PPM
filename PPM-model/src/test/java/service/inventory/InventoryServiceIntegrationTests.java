@@ -8,7 +8,6 @@ import model.inventory.enums.RecursionType;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import util.HibernateUtil;
 import util.exception.InvalidParentComponentException;
@@ -54,7 +53,7 @@ public class InventoryServiceIntegrationTests {
     //COMPONENT
     @Test(expected=InvalidParentComponentException.class)
     public void componentWithParentComponentShouldBeForbidenToUpdate() throws InvalidParentComponentException {
-        InventoryService inventoryService = new InventoryService();
+        InventoryServiceInterface inventoryService = new InventoryService();
         Portfolio portfolio = inventoryService.createPortfolio("PF1", "GrassHost", "customer jakis", "Opis Opisik", null);
         portfolio.setCode("PFFF");
         portfolio.setName("NOWY GrasshosT");
@@ -72,7 +71,7 @@ public class InventoryServiceIntegrationTests {
     }
     @Test
     public void portfolioShouldBeTakenById() {
-        InventoryService inventoryService = new InventoryService();
+        InventoryServiceInterface inventoryService = new InventoryService();
         Portfolio portfolio = inventoryService.createPortfolio("PF1", "GrassHost", "customer jakis", "Opis Opisik", null);
         Portfolio portfolioById = inventoryService.getPortfolio(portfolio.getId());
         assertTrue(portfolioById.getCode().startsWith(portfolio.getCode()));
@@ -85,7 +84,7 @@ public class InventoryServiceIntegrationTests {
 
     @Test
     public void portfolioShouldBeUpdated() {
-        InventoryService inventoryService = new InventoryService();
+        InventoryServiceInterface inventoryService = new InventoryService();
         Portfolio portfolio = inventoryService.createPortfolio("PF1", "GrassHost", "customer jakis", "Opis Opisik", null);
         portfolio.setCode("PFFF");
         portfolio.setName("NOWY GrasshosT");
@@ -99,7 +98,7 @@ public class InventoryServiceIntegrationTests {
     }
     @Test(expected=InvalidParentComponentException.class)
     public void portfolioWithParentProgramShouldBeForbidenToUpdate() throws InvalidParentComponentException {
-        InventoryService inventoryService = new InventoryService();
+        InventoryServiceInterface inventoryService = new InventoryService();
         Portfolio portfolio = inventoryService.createPortfolio("PF1", "GrassHost", "customer jakis", "Opis Opisik", null);
         portfolio.setCode("PFFF");
         portfolio.setName("NOWY GrasshosT");
@@ -108,7 +107,7 @@ public class InventoryServiceIntegrationTests {
     }
     @Test
     public void portfolioShouldBeDeleted(){
-        InventoryService inventoryService = new InventoryService();
+        InventoryServiceInterface inventoryService = new InventoryService();
         Portfolio portfolio = inventoryService.createPortfolio("PF1", "GrassHost", "customer jakis", "Opis Opisik", null);
         Portfolio portfolioById = inventoryService.getPortfolio(portfolio.getId());
         inventoryService.deletePortfolio(portfolio);
@@ -118,7 +117,7 @@ public class InventoryServiceIntegrationTests {
     }
     @Test
     public void aNewPortfolioWithSubportfolioShouldBeCreated() {
-        InventoryService inventoryService = new InventoryService();
+        InventoryServiceInterface inventoryService = new InventoryService();
         Portfolio portfolioParent = inventoryService.createPortfolio("PF1", "GrassHost", "customer jakis", "Opis Opisik", null);
         Portfolio portfolioChild = inventoryService.createPortfolio("PF2", "Karczemka", "customer jakis", "Opis Opisik", portfolioParent);
         portfolioParent = inventoryService.getPortfolio(portfolioParent.getId());
@@ -133,7 +132,7 @@ public class InventoryServiceIntegrationTests {
 
     @Test
     public void aNewProgramShouldBeCreated() throws InvalidParentComponentException {
-        InventoryService inventoryService = new InventoryService();
+        InventoryServiceInterface inventoryService = new InventoryService();
         Portfolio portfolioTop = inventoryService.createPortfolio("PT", "Top", "customer jakis", "Opis Opisik", null);
         Program program = inventoryService.createProgram("PF1", "GrassHost", "customer jakis", "Opis Opisik", portfolioTop);
         assertEquals("PF1", program.getCode());
@@ -144,14 +143,14 @@ public class InventoryServiceIntegrationTests {
     }
     @Test(expected=InvalidParentComponentException.class)
     public void aNewProjectWithSubprogramShouldBeForbidenToCreate() throws InvalidParentComponentException {
-        InventoryService inventoryService = new InventoryService();
+        InventoryServiceInterface inventoryService = new InventoryService();
         Portfolio portfolioTop = inventoryService.createPortfolio("PT", "Top", "customer jakis", "Opis Opisik", null);
         Project projectParent = inventoryService.createProject("PF1", "GrassHost", "customer jakis", "Opis Opisik", portfolioTop);
         Program programChild = inventoryService.createProgram("PF2", "Karczemka", "customer jakis", "Opis Opisik", projectParent);
     }
     @Test
     public void programShouldBeTakenById() throws InvalidParentComponentException {
-        InventoryService inventoryService = new InventoryService();
+        InventoryServiceInterface inventoryService = new InventoryService();
         Portfolio portfolioTop = inventoryService.createPortfolio("PT", "Top", "customer jakis", "Opis Opisik", null);
         Program program = inventoryService.createProgram("PF1", "GrassHost", "customer jakis", "Opis Opisik", portfolioTop);
         Program programById = inventoryService.getProgram(program.getId());
@@ -164,7 +163,7 @@ public class InventoryServiceIntegrationTests {
     }
     @Test
     public void programShouldBeUpdated() throws InvalidParentComponentException {
-        InventoryService inventoryService = new InventoryService();
+        InventoryServiceInterface inventoryService = new InventoryService();
         Portfolio portfolioTop = inventoryService.createPortfolio("PT", "Top", "customer jakis", "Opis Opisik", null);
         Program program = inventoryService.createProgram("PF1", "GrassHost", "customer jakis", "Opis Opisik", portfolioTop);
         program.setCode("PFFF");
@@ -179,7 +178,7 @@ public class InventoryServiceIntegrationTests {
     }
     @Test(expected=InvalidParentComponentException.class)
     public void programWithParentProjectShouldBeForbidenToUpdate() throws InvalidParentComponentException {
-        InventoryService inventoryService = new InventoryService();
+        InventoryServiceInterface inventoryService = new InventoryService();
         Portfolio portfolioTop = inventoryService.createPortfolio("PT", "Top", "customer jakis", "Opis Opisik", null);
         Program program = inventoryService.createProgram("PF1", "GrassHost", "customer jakis", "Opis Opisik", portfolioTop);
         program.setCode("PFFF");
@@ -189,7 +188,7 @@ public class InventoryServiceIntegrationTests {
     }
     @Test
     public void programShouldBeDeleted() throws InvalidParentComponentException {
-        InventoryService inventoryService = new InventoryService();
+        InventoryServiceInterface inventoryService = new InventoryService();
         Portfolio portfolioTop = inventoryService.createPortfolio("PT", "Top", "customer jakis", "Opis Opisik", null);
         Program program = inventoryService.createProgram("PF1", "GrassHost", "customer jakis", "Opis Opisik", portfolioTop);
         Program programById = inventoryService.getProgram(program.getId());
@@ -200,7 +199,7 @@ public class InventoryServiceIntegrationTests {
     }
     @Test
     public void aNewProgramWithSubprogramShouldBeCreated() throws InvalidParentComponentException {
-        InventoryService inventoryService = new InventoryService();
+        InventoryServiceInterface inventoryService = new InventoryService();
         Portfolio portfolioTop = inventoryService.createPortfolio("PT", "Top", "customer jakis", "Opis Opisik", null);
         Program programParent = inventoryService.createProgram("PF1", "GrassHost", "customer jakis", "Opis Opisik", portfolioTop);
         Program programChild = inventoryService.createProgram("PF2", "Karczemka", "customer jakis", "Opis Opisik", programParent);
@@ -213,7 +212,7 @@ public class InventoryServiceIntegrationTests {
     }
     @Test
     public void aNewPortfolioWithSubprogramShouldBeCreated() throws InvalidParentComponentException {
-        InventoryService inventoryService = new InventoryService();
+        InventoryServiceInterface inventoryService = new InventoryService();
         Portfolio portfolioParent = inventoryService.createPortfolio("PF1", "GrassHost", "customer jakis", "Opis Opisik", null);
         Program programChild = inventoryService.createProgram("PF2", "Karczemka", "customer jakis", "Opis Opisik", portfolioParent);
         portfolioParent = inventoryService.getPortfolio(portfolioParent.getId());
@@ -228,7 +227,7 @@ public class InventoryServiceIntegrationTests {
 
     @Test
     public void aNewProjectShouldBeCreated() throws InvalidParentComponentException {
-        InventoryService inventoryService = new InventoryService();
+        InventoryServiceInterface inventoryService = new InventoryService();
         Portfolio portfolioTop = inventoryService.createPortfolio("PT", "Top", "customer jakis", "Opis Opisik", null);
         Project project = inventoryService.createProject("PF1", "GrassHost", "customer jakis", "Opis Opisik", portfolioTop);
         assertEquals("PF1", project.getCode());
@@ -239,19 +238,19 @@ public class InventoryServiceIntegrationTests {
     }
     @Test(expected=InvalidParentComponentException.class)
     public void aNewProjectWithSubprojectShouldBeForbidenToCreate() throws InvalidParentComponentException {
-        InventoryService inventoryService = new InventoryService();
+        InventoryServiceInterface inventoryService = new InventoryService();
         Portfolio portfolioTop = inventoryService.createPortfolio("PT", "Top", "customer jakis", "Opis Opisik", null);
         Project projectParent = inventoryService.createProject("PF1", "GrassHost", "customer jakis", "Opis Opisik", portfolioTop);
         Project projectChild = inventoryService.createProject("PF2", "Karczemka", "customer jakis", "Opis Opisik", projectParent);
     }
     @Test(expected=InvalidParentComponentException.class)
     public void aNewProjectWithoutParentShouldBeForbidenToCreate() throws InvalidParentComponentException {
-        InventoryService inventoryService = new InventoryService();
+        InventoryServiceInterface inventoryService = new InventoryService();
         Project projectChild = inventoryService.createProject("PF2", "Karczemka", "customer jakis", "Opis Opisik", null);
     }
     @Test
     public void projectShouldBeTakenById() throws InvalidParentComponentException {
-        InventoryService inventoryService = new InventoryService();
+        InventoryServiceInterface inventoryService = new InventoryService();
         Portfolio portfolioTop = inventoryService.createPortfolio("PT", "Top", "customer jakis", "Opis Opisik", null);
         Project project = inventoryService.createProject("PF1", "GrassHost", "customer jakis", "Opis Opisik", portfolioTop);
         Project projectById = inventoryService.getProject(project.getId());
@@ -264,7 +263,7 @@ public class InventoryServiceIntegrationTests {
     }
     @Test
     public void projectShouldBeUpdated() throws InvalidParentComponentException {
-        InventoryService inventoryService = new InventoryService();
+        InventoryServiceInterface inventoryService = new InventoryService();
         Portfolio portfolioTop = inventoryService.createPortfolio("PT", "Top", "customer jakis", "Opis Opisik", null);
         Project project = inventoryService.createProject("PF1", "GrassHost", "customer jakis", "Opis Opisik", portfolioTop);
         project.setCode("PFFF");
@@ -279,7 +278,7 @@ public class InventoryServiceIntegrationTests {
     }
     @Test(expected=InvalidParentComponentException.class)
     public void projectWithParentProjectShouldBeForbidenToUpdate() throws InvalidParentComponentException {
-        InventoryService inventoryService = new InventoryService();
+        InventoryServiceInterface inventoryService = new InventoryService();
         Portfolio portfolioTop = inventoryService.createPortfolio("PT", "Top", "customer jakis", "Opis Opisik", null);
         Project project = inventoryService.createProject("PF1", "GrassHost", "customer jakis", "Opis Opisik", portfolioTop);
         project.setCode("PFFF");
@@ -289,7 +288,7 @@ public class InventoryServiceIntegrationTests {
     }
     @Test
     public void projectShouldBeDeleted() throws InvalidParentComponentException {
-        InventoryService inventoryService = new InventoryService();
+        InventoryServiceInterface inventoryService = new InventoryService();
         Portfolio portfolioTop = inventoryService.createPortfolio("PT", "Top", "customer jakis", "Opis Opisik", null);
         Project project = inventoryService.createProject("PF1", "GrassHost", "customer jakis", "Opis Opisik", portfolioTop);
         Project projectById = inventoryService.getProject(project.getId());
@@ -300,7 +299,7 @@ public class InventoryServiceIntegrationTests {
     }
     @Test
     public void aNewProgramWithSubprojectShouldBeCreated() throws InvalidParentComponentException {
-        InventoryService inventoryService = new InventoryService();
+        InventoryServiceInterface inventoryService = new InventoryService();
         Portfolio portfolioTop = inventoryService.createPortfolio("PT", "Top", "customer jakis", "Opis Opisik", null);
         Program programParent = inventoryService.createProgram("PF1", "GrassHost", "customer jakis", "Opis Opisik", portfolioTop);
         Project projectChild = inventoryService.createProject("PF2", "Karczemka", "customer jakis", "Opis Opisik", programParent);
@@ -313,7 +312,7 @@ public class InventoryServiceIntegrationTests {
     }
     @Test
     public void aNewPortfolioWithSubprojectShouldBeCreated() throws InvalidParentComponentException {
-        InventoryService inventoryService = new InventoryService();
+        InventoryServiceInterface inventoryService = new InventoryService();
         Portfolio portfolioParent = inventoryService.createPortfolio("PF1", "GrassHost", "customer jakis", "Opis Opisik", null);
         Project projectChild = inventoryService.createProject("PF2", "Karczemka", "customer jakis", "Opis Opisik", portfolioParent);
         portfolioParent = inventoryService.getPortfolio(portfolioParent.getId());
@@ -328,7 +327,7 @@ public class InventoryServiceIntegrationTests {
 
     @Test
     public void aNewOperationShouldBeCreated() throws InvalidParentComponentException {
-        InventoryService inventoryService = new InventoryService();
+        InventoryServiceInterface inventoryService = new InventoryService();
         Portfolio portfolioTop = inventoryService.createPortfolio("PT", "Top", "customer jakis", "Opis Opisik", null);
         Program programTop = inventoryService.createProgram("PrT", "TopProgram", "customer jakis", "Opis Opisik", portfolioTop);
         Operation operation = inventoryService.createOperation("PF1", "GrassHost", "customer jakis", "Opis Opisik", programTop, RecursionType.D);
@@ -340,19 +339,19 @@ public class InventoryServiceIntegrationTests {
     }
     @Test(expected=InvalidParentComponentException.class)
     public void aNewOperationWithSuboperationShouldBeForbidenToCreate() throws InvalidParentComponentException {
-        InventoryService inventoryService = new InventoryService();
+        InventoryServiceInterface inventoryService = new InventoryService();
         Portfolio portfolioTop = inventoryService.createPortfolio("PT", "Top", "customer jakis", "Opis Opisik", null);
         Operation operationParent = inventoryService.createOperation("PF1", "GrassHost", "customer jakis", "Opis Opisik", portfolioTop, RecursionType.M);
         Operation operationChild = inventoryService.createOperation("PF2", "Karczemka", "customer jakis", "Opis Opisik", operationParent, RecursionType.M);
     }
     @Test(expected=InvalidParentComponentException.class)
     public void aNewOperationWithoutParentShouldBeForbidenToCreate() throws InvalidParentComponentException {
-        InventoryService inventoryService = new InventoryService();
+        InventoryServiceInterface inventoryService = new InventoryService();
         Operation operationChild = inventoryService.createOperation("PF2", "Karczemka", "customer jakis", "Opis Opisik", null, RecursionType.M);
     }
     @Test
     public void operationShouldBeTakenById() throws InvalidParentComponentException {
-        InventoryService inventoryService = new InventoryService();
+        InventoryServiceInterface inventoryService = new InventoryService();
         Portfolio portfolioTop = inventoryService.createPortfolio("PT", "Top", "customer jakis", "Opis Opisik", null);
         Program programTop = inventoryService.createProgram("PrT", "TopProgram", "customer jakis", "Opis Opisik", portfolioTop);
         Operation operation = inventoryService.createOperation("PF1", "GrassHost", "customer jakis", "Opis Opisik", programTop, RecursionType.M);
@@ -366,7 +365,7 @@ public class InventoryServiceIntegrationTests {
     }
     @Test
     public void operationShouldBeUpdated() throws InvalidParentComponentException {
-        InventoryService inventoryService = new InventoryService();
+        InventoryServiceInterface inventoryService = new InventoryService();
         Portfolio portfolioTop = inventoryService.createPortfolio("PT", "Top", "customer jakis", "Opis Opisik", null);
         Program programTop = inventoryService.createProgram("PrT", "TopProgram", "customer jakis", "Opis Opisik", portfolioTop);
         Operation operation = inventoryService.createOperation("PF1", "GrassHost", "customer jakis", "Opis Opisik", programTop, RecursionType.M);
@@ -382,7 +381,7 @@ public class InventoryServiceIntegrationTests {
     }
     @Test(expected=InvalidParentComponentException.class)
     public void operationWithParentOperationShouldBeForbidenToUpdate() throws InvalidParentComponentException {
-        InventoryService inventoryService = new InventoryService();
+        InventoryServiceInterface inventoryService = new InventoryService();
         Portfolio portfolioTop = inventoryService.createPortfolio("PT", "Top", "customer jakis", "Opis Opisik", null);
         Operation operation = inventoryService.createOperation("PF1", "GrassHost", "customer jakis", "Opis Opisik", portfolioTop, RecursionType.M);
         operation.setCode("PFFF");
@@ -392,7 +391,7 @@ public class InventoryServiceIntegrationTests {
     }
     @Test
     public void operationShouldBeDeleted() throws InvalidParentComponentException {
-        InventoryService inventoryService = new InventoryService();
+        InventoryServiceInterface inventoryService = new InventoryService();
         Portfolio portfolioTop = inventoryService.createPortfolio("PT", "Top", "customer jakis", "Opis Opisik", null);
         Program programTop = inventoryService.createProgram("PrT", "TopProgram", "customer jakis", "Opis Opisik", portfolioTop);
         Operation operation = inventoryService.createOperation("PF1", "GrassHost", "customer jakis", "Opis Opisik", programTop, RecursionType.M);
@@ -404,7 +403,7 @@ public class InventoryServiceIntegrationTests {
     }
     @Test
     public void aNewProgramWithSuboperationShouldBeCreated() throws InvalidParentComponentException {
-        InventoryService inventoryService = new InventoryService();
+        InventoryServiceInterface inventoryService = new InventoryService();
         Portfolio portfolioTop = inventoryService.createPortfolio("PT", "Top", "customer jakis", "Opis Opisik", null);
         Program programParent = inventoryService.createProgram("PF1", "GrassHost", "customer jakis", "Opis Opisik", portfolioTop);
         Operation operationChild = inventoryService.createOperation("PF2", "Karczemka", "customer jakis", "Opis Opisik", programParent, RecursionType.M);
@@ -417,13 +416,13 @@ public class InventoryServiceIntegrationTests {
     }
     @Test(expected=InvalidParentComponentException.class)
     public void aNewPortfolioWithSuboperationShouldBeForbidenToCreate() throws InvalidParentComponentException {
-        InventoryService inventoryService = new InventoryService();
+        InventoryServiceInterface inventoryService = new InventoryService();
         Portfolio portfolioTop = inventoryService.createPortfolio("PF1", "GrassHost", "customer jakis", "Opis Opisik", null);
         Operation operationChild = inventoryService.createOperation("PF2", "Karczemka", "customer jakis", "Opis Opisik", portfolioTop, RecursionType.M);
     }
     @Test(expected=InvalidParentComponentException.class)
     public void aNewPortfolioWithSuboperationShouldBeForbidenToUpdate() throws InvalidParentComponentException {
-        InventoryService inventoryService = new InventoryService();
+        InventoryServiceInterface inventoryService = new InventoryService();
         Portfolio portfolioTop = inventoryService.createPortfolio("PT", "Top", "customer jakis", "Opis Opisik", null);
         Program programParent = inventoryService.createProgram("PF1", "GrassHost", "customer jakis", "Opis Opisik", portfolioTop);
         Operation operationChild = inventoryService.createOperation("PF2", "Karczemka", "customer jakis", "Opis Opisik", programParent, RecursionType.M);
@@ -432,7 +431,7 @@ public class InventoryServiceIntegrationTests {
     //FINAL TEST
     @Test
     public void aNewHierarchyTreeLikeInDocumentationIsCreated() throws InvalidParentComponentException {
-        InventoryService inventoryService = new InventoryService();
+        InventoryServiceInterface inventoryService = new InventoryService();
         Portfolio portfolioTop = inventoryService.createPortfolio("PT", "Top", "customer jakis", "Opis Opisik", null);
         Project portfolioProject = inventoryService.createProject("PF1", "GrassHost", "customer jakis", "Opis Opisik", portfolioTop);
 

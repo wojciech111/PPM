@@ -11,7 +11,7 @@ import util.exception.InvalidParentComponentException;
 /**
  * Created by Wojciech on 2015-06-25.
  */
-public class InventoryService {
+public class InventoryService implements InventoryServiceInterface {
 
     //PORTFOLIO
     public Portfolio createPortfolio(String code, String name, String customer, String description, Portfolio parent) {

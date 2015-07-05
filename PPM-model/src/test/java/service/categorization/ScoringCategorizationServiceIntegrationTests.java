@@ -7,9 +7,9 @@ import model.inventory.Program;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import service.inventory.InventoryService;
+import service.inventory.InventoryServiceInterface;
 import util.HibernateUtil;
 import util.exception.CannotScoreIfNotMemberOfPortfolioException;
 import util.exception.InvalidParentComponentException;
@@ -57,7 +57,7 @@ public class ScoringCategorizationServiceIntegrationTests {
 
     @Test
     public void aNewScoringCriterionShouldBeCreated(){
-        CategorizationService categorizationService = new CategorizationService();
+        CategorizationServiceInterface categorizationService = new CategorizationService();
         ScoringCriterion scoringCriterion = categorizationService.createScoringCriterion("ROI", "Return on investment", "Pi�kny opis tego czym ten wska�nik jest", SuperiorityStrategy.MAX);
         assertTrue(scoringCriterion.getCode().startsWith("ROI"));
         assertEquals("Return on investment", scoringCriterion.getName());
@@ -67,7 +67,7 @@ public class ScoringCategorizationServiceIntegrationTests {
     }
     @Test
     public void scoringCriterionShouldBeTakenById() {
-        CategorizationService categorizationService = new CategorizationService();
+        CategorizationServiceInterface categorizationService = new CategorizationService();
         ScoringCriterion scoringCriterion = categorizationService.createScoringCriterion("ROI", "Return on investment", "Pi�kny opis tego czym ten wska�nik jest", SuperiorityStrategy.MAX);
         ScoringCriterion scoringCriterionById = categorizationService.getScoringCriterion(scoringCriterion.getId());
         assertTrue(scoringCriterionById.getCode().startsWith(scoringCriterion.getCode()));
@@ -79,7 +79,7 @@ public class ScoringCategorizationServiceIntegrationTests {
     }
     @Test
     public void scoringCriterionShouldBeUpdated() {
-        CategorizationService categorizationService = new CategorizationService();
+        CategorizationServiceInterface categorizationService = new CategorizationService();
         ScoringCriterion scoringCriterion = categorizationService.createScoringCriterion("ROI", "Return on investment", "Pi�kny opis tego czym ten wska�nik jest", SuperiorityStrategy.MAX);
         scoringCriterion.setCode("PFFF");
         scoringCriterion.setName("NOWY ROI");
@@ -93,7 +93,7 @@ public class ScoringCategorizationServiceIntegrationTests {
     }
     @Test
     public void scoringCriterionShouldBeDeleted(){
-        CategorizationService categorizationService = new CategorizationService();
+        CategorizationServiceInterface categorizationService = new CategorizationService();
         ScoringCriterion scoringCriterion = categorizationService.createScoringCriterion("ROI", "Return on investment", "Pi�kny opis tego czym ten wska�nik jest", SuperiorityStrategy.MAX);
         ScoringCriterion scoringCriterionById = categorizationService.getScoringCriterion(scoringCriterion.getId());
         categorizationService.deleteScoringCriterion(scoringCriterion);
@@ -105,7 +105,7 @@ public class ScoringCategorizationServiceIntegrationTests {
     //CATEGORY EVALUATION
     @Test
     public void scoringCriterionShouldBeAddedToCategory(){
-        CategorizationService categorizationService = new CategorizationService();
+        CategorizationServiceInterface categorizationService = new CategorizationService();
         Category category = categorizationService.createCategory("CA1", "Kategoria wyborna", "opis kategorii ktory jest niezwykle wyczerpuj�cy");
         ScoringCriterion scoringCriterion = categorizationService.createScoringCriterion("ROI", "Return on investment", "Pi�kny opis tego czym ten wska�nik jest", SuperiorityStrategy.MAX);
         CategoryEvaluation categoryEvaluation = categorizationService.createCategoryEvaluation(scoringCriterion, category);
@@ -118,7 +118,7 @@ public class ScoringCategorizationServiceIntegrationTests {
 
     @Test
     public void scoringCriterionShouldBeDeletedFromCategory(){
-        CategorizationService categorizationService = new CategorizationService();
+        CategorizationServiceInterface categorizationService = new CategorizationService();
         Category category = categorizationService.createCategory("CA1", "Kategoria wyborna", "opis kategorii ktory jest niezwykle wyczerpuj�cy");
         ScoringCriterion scoringCriterion = categorizationService.createScoringCriterion("ROI", "Return on investment", "Pi�kny opis tego czym ten wska�nik jest", SuperiorityStrategy.MAX);
         CategoryEvaluation categoryEvaluation = categorizationService.createCategoryEvaluation(scoringCriterion, category);
@@ -137,8 +137,8 @@ public class ScoringCategorizationServiceIntegrationTests {
 
     @Test
     public void aNewScoreForComponentShouldBeCreated() throws InvalidParentComponentException, CannotScoreIfNotMemberOfPortfolioException {
-        InventoryService inventoryService = new InventoryService();
-        CategorizationService categorizationService = new CategorizationService();
+        InventoryServiceInterface inventoryService = new InventoryService();
+        CategorizationServiceInterface categorizationService = new CategorizationService();
         Portfolio portfolio = inventoryService.createPortfolio("PF1", "GrassHost", "customer jakis", "Opis Opisik", null);
         Program program = inventoryService.createProgram("P22", "Programmmmm", "customer jakis", "Opis Opisik", portfolio);
         ScoringCriterion scoringCriterion = categorizationService.createScoringCriterion("ROI", "Return on investment", "Pi�kny opis tego czym ten wska�nik jest", SuperiorityStrategy.MAX);
@@ -156,8 +156,8 @@ public class ScoringCategorizationServiceIntegrationTests {
 
     @Test(expected = CannotScoreIfNotMemberOfPortfolioException.class)
     public void aScoreShouldBeForbidenToCreateForPortfolioWithoutParent() throws CannotScoreIfNotMemberOfPortfolioException {
-        InventoryService inventoryService = new InventoryService();
-        CategorizationService categorizationService = new CategorizationService();
+        InventoryServiceInterface inventoryService = new InventoryService();
+        CategorizationServiceInterface categorizationService = new CategorizationService();
         Portfolio portfolio = inventoryService.createPortfolio("PF1", "GrassHost", "customer jakis", "Opis Opisik", null);
         ScoringCriterion scoringCriterion = categorizationService.createScoringCriterion("ROI", "Return on investment", "Pi�kny opis tego czym ten wska�nik jest", SuperiorityStrategy.MAX);
 
@@ -167,8 +167,8 @@ public class ScoringCategorizationServiceIntegrationTests {
 
     @Test
     public void theScoreForComponentShouldBeUpdated() throws InvalidParentComponentException, CannotScoreIfNotMemberOfPortfolioException {
-        InventoryService inventoryService = new InventoryService();
-        CategorizationService categorizationService = new CategorizationService();
+        InventoryServiceInterface inventoryService = new InventoryService();
+        CategorizationServiceInterface categorizationService = new CategorizationService();
         Portfolio portfolio = inventoryService.createPortfolio("PF1", "GrassHost", "customer jakis", "Opis Opisik", null);
         Program program = inventoryService.createProgram("P22", "Programmmmm", "customer jakis", "Opis Opisik", portfolio);
         ScoringCriterion scoringCriterion = categorizationService.createScoringCriterion("ROI", "Return on investment", "Pi�kny opis tego czym ten wska�nik jest", SuperiorityStrategy.MAX);
@@ -186,8 +186,8 @@ public class ScoringCategorizationServiceIntegrationTests {
     }
     @Test
     public void theScoreForComponentShouldBeDeleted() throws InvalidParentComponentException, CannotScoreIfNotMemberOfPortfolioException {
-        InventoryService inventoryService = new InventoryService();
-        CategorizationService categorizationService = new CategorizationService();
+        InventoryServiceInterface inventoryService = new InventoryService();
+        CategorizationServiceInterface categorizationService = new CategorizationService();
         Portfolio portfolio = inventoryService.createPortfolio("PF1", "GrassHost", "customer jakis", "Opis Opisik", null);
         Program program = inventoryService.createProgram("P22", "Programmmmm", "customer jakis", "Opis Opisik", portfolio);
         ScoringCriterion scoringCriterion = categorizationService.createScoringCriterion("ROI", "Return on investment", "Pi�kny opis tego czym ten wska�nik jest", SuperiorityStrategy.MAX);

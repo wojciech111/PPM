@@ -14,7 +14,7 @@ import java.math.BigDecimal;
 /**
  * Created by Wojciech on 2015-06-29.
  */
-public class CategorizationService {
+public class CategorizationService implements CategorizationServiceInterface {
     //CATEGORY
     public Category createCategory(String code, String name, String description) {
         Category category = new Category(code,name,description);
