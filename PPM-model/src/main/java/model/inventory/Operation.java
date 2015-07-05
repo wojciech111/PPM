@@ -1,5 +1,6 @@
 package model.inventory;
 
+import com.google.gson.annotations.Expose;
 import model.inventory.enums.RecursionType;
 import util.exception.InvalidParentComponentException;
 
@@ -11,6 +12,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "operations", schema = "public")
 public class Operation extends Component  {
+    @Expose
     @Basic
     @Enumerated(EnumType.STRING)
     @Column(name = "recursion_type", nullable = false, insertable = true, updatable = true, length = 1)

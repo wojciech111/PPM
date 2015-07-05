@@ -1,5 +1,6 @@
 package model.categorization;
 
+import com.google.gson.annotations.Expose;
 import model.inventory.Component;
 import model.categorization.pk.ScorePK;
 import org.hibernate.annotations.DiscriminatorOptions;
@@ -21,9 +22,11 @@ public class Score {
     /*@Basic
     @Column(name = "percentage", nullable = true, insertable = true, updatable = true)
     private Short percentage;*/
+    @Expose
     @Basic
     @Column(name = "motivation", nullable = true, insertable = true, updatable = true, length = 2147483647)
     private String motivation;
+    @Expose
     @Basic
     @Column(name = "score", nullable = true, insertable = true, updatable = true, precision = 2)
     private BigDecimal score;
@@ -36,6 +39,7 @@ public class Score {
     @JoinColumn(name = "component_id", referencedColumnName = "component_id", insertable = false, updatable = false)
     private Component component;
 
+    @Expose
     @ManyToOne(optional = false)
     @JoinColumn(name = "scoring_criterion_id", referencedColumnName = "scoring_criterion_id", insertable = false, updatable = false)
     private ScoringCriterion scoringCriterion;

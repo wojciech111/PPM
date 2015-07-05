@@ -1,6 +1,7 @@
 package model.inventory;
 
 
+import com.google.gson.annotations.Expose;
 import model.categorization.CategoryMembership;
 import model.categorization.Score;
 import model.process.State;
@@ -19,6 +20,7 @@ import java.util.Set;
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Component {
     //ID
+    @Expose
     @Id
     @SequenceGenerator(name="component_seq", sequenceName="component_id_seq")
     @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="component_seq")
@@ -26,30 +28,38 @@ public abstract class Component {
     private long componentId;
 
     //BASICS
+    @Expose
     @Basic
     @Column(name = "code", nullable = false, insertable = true, updatable = true, length = 10)
     private String code;
+    @Expose
     @Basic
     @Column(name = "name", nullable = false, insertable = true, updatable = true, length = 150)
     private String name;
+    @Expose
     @Basic
     @Column(name = "customer", nullable = true, insertable = true, updatable = true, length = 50)
     private String customer;
+    @Expose
     @Basic
     @Column(name = "description", nullable = true, insertable = true, updatable = true, length = 2147483647)
     private String description;
+    @Expose
     @Basic
     @Column(name = "overall_priority", nullable = true, insertable = true, updatable = true)
     private Integer overallPriority;
 
     //RELATIONS
+    @Expose
     @OneToMany(mappedBy = "component", fetch=FetchType.EAGER)
     private Set<CategoryMembership> categoryMemberships = new HashSet<CategoryMembership>();
     @ManyToOne
     @JoinColumn(name = "parent_component_id", referencedColumnName = "component_id", nullable = true)
     private Component parent;
+    @Expose
     @OneToMany(mappedBy = "parent", fetch=FetchType.EAGER)
     private Collection<Component> children;
+    @Expose
     @OneToMany(mappedBy = "component", fetch=FetchType.EAGER)
     private Set<Score> scores = new HashSet<Score>();
     @ManyToOne

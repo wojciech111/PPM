@@ -10,8 +10,8 @@ public class JsonUtil {
 
     public static String toJson(Object object) {
         GsonBuilder gsonBuilder = new GsonBuilder();
-        gsonBuilder.setLongSerializationPolicy( LongSerializationPolicy.STRING );
-        Gson gson = gsonBuilder.create();
+        gsonBuilder.setLongSerializationPolicy(LongSerializationPolicy.STRING);
+        Gson gson = gsonBuilder.excludeFieldsWithoutExposeAnnotation().serializeNulls().create();
         return gson.toJson(object);
     }
 

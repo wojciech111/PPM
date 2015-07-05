@@ -1,5 +1,6 @@
 package model.inventory;
 
+import com.google.gson.annotations.Expose;
 import model.categorization.AreaOfFocus;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
@@ -21,6 +22,7 @@ public class Portfolio extends Component {
     //BASICS
 
     //RELATIONS
+    @Expose
     @OneToMany(mappedBy = "portfolio", fetch = FetchType.EAGER)
     private Set<AreaOfFocus> areasOfFocus = new HashSet<AreaOfFocus>();
 

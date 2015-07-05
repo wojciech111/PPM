@@ -1,5 +1,7 @@
 package model.categorization;
 
+import com.google.gson.annotations.Expose;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -11,18 +13,22 @@ import java.util.Set;
 @Table(name = "categories", schema = "public")
 public class Category {
     //ID
+    @Expose
     @Id
     @SequenceGenerator(name="category_seq", sequenceName="category_id_seq")
     @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="category_seq")
     @Column(name = "category_id", nullable = false, insertable = true, updatable = true)
     private long categoryId;
     //BASICS
+    @Expose
     @Basic
     @Column(name = "code", nullable = false, insertable = true, updatable = true, length = 8)
     private String code;
+    @Expose
     @Basic
     @Column(name = "name", nullable = false, insertable = true, updatable = true, length = 50)
     private String name;
+    @Expose
     @Basic
     @Column(name = "description", nullable = true, insertable = true, updatable = true, length = 2147483647)
     private String description;
@@ -32,6 +38,7 @@ public class Category {
     private Collection<AreaOfFocus> areasOfFocus;*/
     @OneToMany(mappedBy = "category", fetch = FetchType.EAGER)
     private Set<CategoryMembership> categoryMemberships = new HashSet<CategoryMembership>();
+    @Expose
     @OneToMany(mappedBy = "category", fetch = FetchType.EAGER)
     private Set<CategoryEvaluation> categoryEvaluations = new HashSet<CategoryEvaluation>();
 

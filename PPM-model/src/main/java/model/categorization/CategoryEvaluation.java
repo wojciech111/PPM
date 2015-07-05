@@ -1,5 +1,6 @@
 package model.categorization;
 
+import com.google.gson.annotations.Expose;
 import model.categorization.pk.CategoryEvaluationPK;
 
 import javax.persistence.*;
@@ -26,6 +27,7 @@ public class CategoryEvaluation {
     @ManyToOne(optional = false)
     @JoinColumn(name = "category_id", referencedColumnName = "category_id", insertable = false, updatable = false)
     private Category category;
+    @Expose
     @ManyToOne(optional = false)
     @JoinColumn(name = "scoring_criterion_id", referencedColumnName = "scoring_criterion_id", insertable = false, updatable = false)
     private ScoringCriterion scoringCriterion;

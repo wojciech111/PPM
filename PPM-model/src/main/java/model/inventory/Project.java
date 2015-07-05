@@ -1,5 +1,6 @@
 package model.inventory;
 
+import com.google.gson.annotations.Expose;
 import util.exception.InvalidParentComponentException;
 
 import javax.persistence.*;
@@ -14,15 +15,19 @@ public class Project extends Component  {
     //ID
 
     //BASICS
+    @Expose
     @Basic
     @Column(name = "health", nullable = true, insertable = true, updatable = true, length = 1)
     private String health;
+    @Expose
     @Basic
     @Column(name = "scope", nullable = true, insertable = true, updatable = true, length = 2)
     private String scope;
+    @Expose
     @Basic
     @Column(name = "schedule", nullable = true, insertable = true, updatable = true, length = 2)
     private String schedule;
+    @Expose
     @Basic
     @Column(name = "budget", nullable = true, insertable = true, updatable = true, length = 2)
     private String budget;

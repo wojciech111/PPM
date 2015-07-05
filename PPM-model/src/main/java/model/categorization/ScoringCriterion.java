@@ -1,5 +1,6 @@
 package model.categorization;
 
+import com.google.gson.annotations.Expose;
 import model.categorization.enums.SuperiorityStrategy;
 import org.hibernate.annotations.DiscriminatorOptions;
 
@@ -16,6 +17,7 @@ import java.util.Set;
 @Table(name = "scoring_criteria", schema = "public")
 public class ScoringCriterion {
     //ID
+    @Expose
     @Id
     @SequenceGenerator(name="scoring_criterion_seq", sequenceName="scoring_criterion_id_seq")
     @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="scoring_criterion_seq")
@@ -23,25 +25,32 @@ public class ScoringCriterion {
     private long scoringCriterionId;
 
     //BASICS
+    @Expose
     @Basic
     @Column(name = "code", nullable = false, insertable = true, updatable = true, length = 8)
     private String code;
+    @Expose
     @Basic
     @Column(name = "name", nullable = false, insertable = true, updatable = true, length = 50)
     private String name;
+    @Expose
     @Basic
     @Column(name = "description", nullable = true, insertable = true, updatable = true, length = 2147483647)
     private String description;
+    @Expose
     @Basic
     @Column(name = "question", nullable = true, insertable = true, updatable = true, length = 150)
     private String question;
+    @Expose
     @Basic
     @Enumerated(EnumType.STRING)
     @Column(name = "best_is", nullable = false, insertable = true, updatable = true, length = 3)
     private SuperiorityStrategy bestIs;
+    @Expose
     @Basic
     @Column(name = "min_score", nullable = true, insertable = true, updatable = true, precision = 2)
     private BigDecimal minScore;
+    @Expose
     @Basic
     @Column(name = "max_score", nullable = true, insertable = true, updatable = true, precision = 2)
     private BigDecimal maxScore;

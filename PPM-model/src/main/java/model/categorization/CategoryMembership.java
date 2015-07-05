@@ -1,5 +1,6 @@
 package model.categorization;
 
+import com.google.gson.annotations.Expose;
 import model.inventory.Component;
 import model.categorization.pk.CategoryMembershipPK;
 
@@ -17,6 +18,7 @@ public class CategoryMembership {
     protected CategoryMembershipPK categoryMembershipPK;
 
     //BASICS
+    @Expose
     @Basic
     @Column(name = "percentage_of_support", nullable = true, insertable = true, updatable = true)
     private Short percentageOfSupport;
@@ -28,6 +30,7 @@ public class CategoryMembership {
     private Short priority;
 
     //RELATIONS
+    @Expose
     @ManyToOne(optional = false)
     @JoinColumn(name = "category_id", referencedColumnName = "category_id", insertable = false, updatable = false)
     private Category category;
