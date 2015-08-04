@@ -11,7 +11,7 @@ import java.math.BigDecimal;
  * Created by Wojciech on 2015-06-23.
  */
 @Entity
-@Table(name = "category_membership_parameters", schema = "public")
+@Table(name = "category_memberships", schema = "public")
 public class CategoryMembership {
     //ID
     @EmbeddedId
@@ -26,8 +26,8 @@ public class CategoryMembership {
     @Column(name = "overall_score", nullable = true, insertable = true, updatable = true, precision = 2)
     private BigDecimal overallScore;
     @Basic
-    @Column(name = "priority", nullable = true, insertable = true, updatable = true)
-    private Short priority;
+    @Column(name = "rank_in_category", nullable = true, insertable = true, updatable = true)
+    private Short rankInCategory;
 
     //RELATIONS
     @Expose
@@ -72,15 +72,13 @@ public class CategoryMembership {
         this.overallScore = overallScore;
     }
 
-
-    public Short getPriority() {
-        return priority;
+    public Short getRankInCategory() {
+        return rankInCategory;
     }
 
-    public void setPriority(Short priority) {
-        this.priority = priority;
+    public void setRankInCategory(Short rankInCategory) {
+        this.rankInCategory = rankInCategory;
     }
-
 
     public Category getCategory() {
         return category;

@@ -1,6 +1,8 @@
 package model.inventory;
 
 import com.google.gson.annotations.Expose;
+import model.inventory.enums.ComponentType;
+import model.inventory.enums.OperationType;
 import model.inventory.enums.RecursionType;
 import util.exception.InvalidParentComponentException;
 
@@ -17,6 +19,18 @@ public class Operation extends Component  {
     @Enumerated(EnumType.STRING)
     @Column(name = "recursion_type", nullable = false, insertable = true, updatable = true, length = 1)
     private RecursionType recursionType;
+    @Expose
+    @Basic
+    @Enumerated(EnumType.STRING)
+    @Column(name = "type", nullable = true, insertable = true, updatable = true, length = 1)
+    private OperationType operationType;
+    @Expose
+    @Basic
+    @Column(name = "number_of_time_units", nullable = true, insertable = true, updatable = true)
+    private Integer numberOfTimeUnits;
+    @Expose
+    @Transient
+    private final ComponentType componentType = ComponentType.OPERATION;
 
     public Operation() {
     }
@@ -41,4 +55,19 @@ public class Operation extends Component  {
         this.recursionType = recursionType;
     }
 
+    public OperationType getOperationType() {
+        return operationType;
+    }
+
+    public void setOperationType(OperationType operationType) {
+        this.operationType = operationType;
+    }
+
+    public Integer getNumberOfTimeUnits() {
+        return numberOfTimeUnits;
+    }
+
+    public void setNumberOfTimeUnits(Integer numberOfTimeUnits) {
+        this.numberOfTimeUnits = numberOfTimeUnits;
+    }
 }

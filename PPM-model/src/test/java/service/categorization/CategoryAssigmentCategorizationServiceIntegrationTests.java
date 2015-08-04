@@ -43,6 +43,9 @@ public class CategoryAssigmentCategorizationServiceIntegrationTests {
             session.createQuery("delete from Project ").executeUpdate();
             session.createQuery("delete from Operation ").executeUpdate();
 
+            session.createQuery("delete from State ").executeUpdate();
+            session.createQuery("delete from Process ").executeUpdate();
+
             tx.commit();
         } catch (Exception e) {
             e.printStackTrace();

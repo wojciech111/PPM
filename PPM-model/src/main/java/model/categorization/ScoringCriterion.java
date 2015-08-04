@@ -27,7 +27,7 @@ public class ScoringCriterion {
     //BASICS
     @Expose
     @Basic
-    @Column(name = "code", nullable = false, insertable = true, updatable = true, length = 8)
+    @Column(name = "code", nullable = false, insertable = true, updatable = true, length = 10)
     private String code;
     @Expose
     @Basic

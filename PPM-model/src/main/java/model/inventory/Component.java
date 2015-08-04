@@ -4,10 +4,13 @@ package model.inventory;
 import com.google.gson.annotations.Expose;
 import model.categorization.CategoryMembership;
 import model.categorization.Score;
+import model.inventory.enums.ComponentType;
+import model.inventory.enums.CustomerType;
 import model.process.State;
 import util.exception.InvalidParentComponentException;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -38,8 +41,25 @@ public abstract class Component {
     private String name;
     @Expose
     @Basic
+    @Enumerated(EnumType.STRING)
+    @Column(name = "customer_type", nullable = true, insertable = true, updatable = true, length = 2)
+    private CustomerType customerType;
+    @Expose
+    @Basic
     @Column(name = "customer", nullable = true, insertable = true, updatable = true, length = 50)
     private String customer;
+    @Expose
+    @Basic
+    @Column(name = "sponsor", nullable = true, insertable = true, updatable = true, length = 50)
+    private String sponsor;
+    @Expose
+    @Basic
+    @Column(name = "manager", nullable = true, insertable = true, updatable = true, length = 50)
+    private String manager;
+    @Expose
+    @Basic
+    @Column(name = "purpose", nullable = true, insertable = true, updatable = true, length = 1500)
+    private String purpose;
     @Expose
     @Basic
     @Column(name = "description", nullable = true, insertable = true, updatable = true, length = 2147483647)
@@ -48,6 +68,22 @@ public abstract class Component {
     @Basic
     @Column(name = "overall_priority", nullable = true, insertable = true, updatable = true)
     private Integer overallPriority;
+    @Expose
+    @Basic
+    @Column(name = "creation_date", nullable = true, insertable = true, updatable = true)
+    private Timestamp creationDate;
+    @Expose
+    @Basic
+    @Column(name = "created_by", nullable = true, insertable = true, updatable = true, length = 50)
+    private String createdBy;
+    @Expose
+    @Basic
+    @Column(name = "update_date", nullable = true, insertable = true, updatable = true)
+    private Timestamp updateDate;
+    @Expose
+    @Basic
+    @Column(name = "updated_by", nullable = true, insertable = true, updatable = true, length = 50)
+    private String updatedBy;
 
     //RELATIONS
     @Expose
@@ -75,6 +111,7 @@ public abstract class Component {
         this.customer = customer;
         this.description = description;
     }
+
 
     public long getId() {
         return componentId;
@@ -125,6 +162,71 @@ public abstract class Component {
         this.overallPriority = overallPriority;
     }
 
+    public CustomerType getCustomerType() {
+        return customerType;
+    }
+
+    public void setCustomerType(CustomerType customerType) {
+        this.customerType = customerType;
+    }
+
+    public String getSponsor() {
+        return sponsor;
+    }
+
+    public void setSponsor(String sponsor) {
+        this.sponsor = sponsor;
+    }
+
+    public String getManager() {
+        return manager;
+    }
+
+    public void setManager(String manager) {
+        this.manager = manager;
+    }
+
+    public String getPurpose() {
+        return purpose;
+    }
+
+    public void setPurpose(String purpose) {
+        this.purpose = purpose;
+    }
+
+    public Timestamp getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(Timestamp creationDate) {
+        this.creationDate = creationDate;
+    }
+
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public Timestamp getUpdateDate() {
+        return updateDate;
+    }
+
+    public void setUpdateDate(Timestamp updateDate) {
+        this.updateDate = updateDate;
+    }
+
+    public String getUpdatedBy() {
+        return updatedBy;
+    }
+
+    public void setUpdatedBy(String updatedBy) {
+        this.updatedBy = updatedBy;
+    }
+
+
     public Set<CategoryMembership> getCategoryMemberships() {
         return categoryMemberships;
     }
@@ -167,4 +269,5 @@ public abstract class Component {
     public void setState(State state) {
         this.state = state;
     }
+
 }

@@ -19,9 +19,9 @@ public class Score {
     protected ScorePK scoresPK;
 
     //BASICS
-    /*@Basic
+    @Basic
     @Column(name = "percentage", nullable = true, insertable = true, updatable = true)
-    private Short percentage;*/
+    private Short percentage;
     @Expose
     @Basic
     @Column(name = "motivation", nullable = true, insertable = true, updatable = true, length = 2147483647)

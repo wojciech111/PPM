@@ -1,17 +1,16 @@
-package model.inventory.enums;
+package model.process.enums;
 
 /**
  * Created by Wojciech on 2015-06-26.
  */
-public enum RecursionType {
-    D  ("Daily"),
-    O ("Once"),
-    M ("Monthly"),
-    Y ("Yearly")
+public enum StateType {
+    B  ("Begin"),
+    C ("Cancel"),
+    A ("Archive")
     ;
     private final String name;
 
-    RecursionType(String name) {
+    StateType(String name) {
         this.name = name;
     }
 

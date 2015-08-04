@@ -1,9 +1,11 @@
 package model.inventory;
 
 import com.google.gson.annotations.Expose;
+import model.inventory.enums.ComponentType;
 import util.exception.InvalidParentComponentException;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.sql.Date;
 
 /**
@@ -31,12 +33,38 @@ public class Program extends Component  {
     @Basic
     @Column(name = "budget", nullable = true, insertable = true, updatable = true, length = 2)
     private String budget;
+    @Expose
     @Basic
-    @Column(name = "planned_start_date", nullable = true, insertable = true, updatable = true)
-    private Date plannedStartDate;
+    @Column(name = "start_date", nullable = true, insertable = true, updatable = true)
+    private Date startDate;
+    @Expose
     @Basic
-    @Column(name = "days_length", nullable = true, insertable = true, updatable = true)
-    private Integer daysLength;
+    @Column(name = "end_date", nullable = true, insertable = true, updatable = true)
+    private Date endDate;
+    @Expose
+    @Basic
+    @Column(name = "deadline_date", nullable = true, insertable = true, updatable = true)
+    private Date deadlineDate;
+    @Expose
+    @Basic
+    @Column(name = "cost_of_start", nullable = true, insertable = true, updatable = true, precision = 2)
+    private BigDecimal costOfStart;
+    @Expose
+    @Basic
+    @Column(name = "cost_of_stop", nullable = true, insertable = true, updatable = true, precision = 2)
+    private BigDecimal costOfStop;
+    @Expose
+    @Basic
+    @Column(name = "cost_of_restart", nullable = true, insertable = true, updatable = true, precision = 2)
+    private BigDecimal costOfRestart;
+    @Expose
+    @Basic
+    @Column(name = "cost_of_close", nullable = true, insertable = true, updatable = true, precision = 2)
+    private BigDecimal costOfClose;
+
+    @Expose
+    @Transient
+    private final ComponentType componentType = ComponentType.PROGRAM;
 
     //RELATIONS
 
@@ -88,21 +116,59 @@ public class Program extends Component  {
         this.budget = budget;
     }
 
-    public Date getPlannedStartDate() {
-        return plannedStartDate;
+    public Date getStartDate() {
+        return startDate;
     }
 
-    public void setPlannedStartDate(Date plannedStartDate) {
-        this.plannedStartDate = plannedStartDate;
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
     }
 
-    public Integer getDaysLength() {
-        return daysLength;
+    public Date getEndDate() {
+        return endDate;
     }
 
-    public void setDaysLength(Integer daysLength) {
-        this.daysLength = daysLength;
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
     }
 
+    public Date getDeadlineDate() {
+        return deadlineDate;
+    }
 
+    public void setDeadlineDate(Date deadlineDate) {
+        this.deadlineDate = deadlineDate;
+    }
+
+    public BigDecimal getCostOfStart() {
+        return costOfStart;
+    }
+
+    public void setCostOfStart(BigDecimal costOfStart) {
+        this.costOfStart = costOfStart;
+    }
+
+    public BigDecimal getCostOfStop() {
+        return costOfStop;
+    }
+
+    public void setCostOfStop(BigDecimal costOfStop) {
+        this.costOfStop = costOfStop;
+    }
+
+    public BigDecimal getCostOfRestart() {
+        return costOfRestart;
+    }
+
+    public void setCostOfRestart(BigDecimal costOfRestart) {
+        this.costOfRestart = costOfRestart;
+    }
+
+    public BigDecimal getCostOfClose() {
+        return costOfClose;
+    }
+
+    public void setCostOfClose(BigDecimal costOfClose) {
+        this.costOfClose = costOfClose;
+    }
 }

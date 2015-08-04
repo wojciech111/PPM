@@ -3,15 +3,14 @@ package model.inventory.enums;
 /**
  * Created by Wojciech on 2015-06-26.
  */
-public enum RecursionType {
-    D  ("Daily"),
-    O ("Once"),
-    M ("Monthly"),
-    Y ("Yearly")
+public enum OperationType {
+    S  ("On start"),
+    E ("On end"),
+    P ("Proportional")
     ;
     private final String name;
 
-    RecursionType(String name) {
+    OperationType(String name) {
         this.name = name;
     }
 

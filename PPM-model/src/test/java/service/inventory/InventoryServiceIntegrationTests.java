@@ -26,6 +26,8 @@ public class InventoryServiceIntegrationTests {
             session = HibernateUtil.getSessionFactory().openSession();
             Transaction tx =session.beginTransaction();
 
+
+
             session.createQuery("delete from AreaOfFocus").executeUpdate();
             session.createQuery("delete from CategoryMembership ").executeUpdate();
             session.createQuery("delete from CategoryEvaluation ").executeUpdate();
@@ -39,6 +41,9 @@ public class InventoryServiceIntegrationTests {
             session.createQuery("delete from Program").executeUpdate();
             session.createQuery("delete from Project ").executeUpdate();
             session.createQuery("delete from Operation ").executeUpdate();
+
+            session.createQuery("delete from State ").executeUpdate();
+            session.createQuery("delete from Process ").executeUpdate();
 
             tx.commit();
         } catch (Exception e) {
@@ -356,7 +361,7 @@ public class InventoryServiceIntegrationTests {
         Program programTop = inventoryService.createProgram("PrT", "TopProgram", "customer jakis", "Opis Opisik", portfolioTop);
         Operation operation = inventoryService.createOperation("PF1", "GrassHost", "customer jakis", "Opis Opisik", programTop, RecursionType.M);
         Operation operationById = inventoryService.getOperation(operation.getId());
-        assertTrue(operationById.getCode().startsWith(operation.getCode()));
+        assertEquals(operationById.getCode(), operation.getCode());
         assertEquals(operationById.getName(), operation.getName());
         assertEquals(operationById.getCustomer(), operation.getCustomer());
         assertEquals(operationById.getDescription(), operation.getDescription());

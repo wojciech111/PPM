@@ -1,6 +1,7 @@
 package model.inventory;
 
 import com.google.gson.annotations.Expose;
+import model.inventory.enums.ComponentType;
 import util.exception.InvalidParentComponentException;
 
 import javax.persistence.*;
@@ -31,13 +32,22 @@ public class Project extends Component  {
     @Basic
     @Column(name = "budget", nullable = true, insertable = true, updatable = true, length = 2)
     private String budget;
+    @Expose
     @Basic
-    @Column(name = "planned_start_date", nullable = true, insertable = true, updatable = true)
-    private Date plannedStartDate;
+    @Column(name = "start_date", nullable = true, insertable = true, updatable = true)
+    private Date startDate;
+    @Expose
     @Basic
-    @Column(name = "days_length", nullable = true, insertable = true, updatable = true)
-    private Integer daysLength;
+    @Column(name = "end_date", nullable = true, insertable = true, updatable = true)
+    private Date endDate;
+    @Expose
+    @Basic
+    @Column(name = "deadline_date", nullable = true, insertable = true, updatable = true)
+    private Date deadlineDate;
 
+    @Expose
+    @Transient
+    private final ComponentType componentType = ComponentType.PROJECT;
     //RELATIONS
 
 
@@ -86,21 +96,27 @@ public class Project extends Component  {
         this.budget = budget;
     }
 
-    public Date getPlannedStartDate() {
-        return plannedStartDate;
+    public Date getStartDate() {
+        return startDate;
     }
 
-    public void setPlannedStartDate(Date plannedStartDate) {
-        this.plannedStartDate = plannedStartDate;
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
     }
 
-    public Integer getDaysLength() {
-        return daysLength;
+    public Date getEndDate() {
+        return endDate;
     }
 
-    public void setDaysLength(Integer daysLength) {
-        this.daysLength = daysLength;
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
     }
 
+    public Date getDeadlineDate() {
+        return deadlineDate;
+    }
 
+    public void setDeadlineDate(Date deadlineDate) {
+        this.deadlineDate = deadlineDate;
+    }
 }

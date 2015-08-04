@@ -2,6 +2,7 @@ package model.inventory;
 
 import com.google.gson.annotations.Expose;
 import model.categorization.AreaOfFocus;
+import model.inventory.enums.ComponentType;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 import util.exception.InvalidParentComponentException;
@@ -20,6 +21,9 @@ public class Portfolio extends Component {
     //ID
 
     //BASICS
+    @Expose
+    @Transient
+    private final ComponentType componentType = ComponentType.PORTFOLIO;
 
     //RELATIONS
     @Expose

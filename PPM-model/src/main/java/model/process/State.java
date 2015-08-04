@@ -1,5 +1,9 @@
 package model.process;
 
+import com.google.gson.annotations.Expose;
+import model.inventory.enums.OperationType;
+import model.process.enums.StateType;
+
 import javax.persistence.*;
 
 /**
@@ -15,15 +19,21 @@ public class State {
     @Column(name = "name", nullable = false, insertable = true, updatable = true, length = 30)
     private String name;
     @Basic
-    @Column(name = "nr_in_process", nullable = false, insertable = true, updatable = true)
-    private short nrInProcess;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "type", nullable = false, insertable = true, updatable = true, length = 1)
+    private StateType stateType;
+    @Basic
+    @Column(name = "description", nullable = true, insertable = true, updatable = true, length = 2147483647)
+    private String description;
     @ManyToOne
-    @JoinColumn(name = "proces_id", referencedColumnName = "proces_id", nullable = false)
+    @JoinColumn(name = "proces_id", referencedColumnName = "process_id", nullable = false)
     private Process process;
     @ManyToOne
     @JoinColumn(name = "next_state_id", referencedColumnName = "state_id", nullable = true)
     private State nextState;
-
+    @ManyToOne
+    @JoinColumn(name = "alternative_next_state_id", referencedColumnName = "state_id", nullable = true)
+    private State alternativeNextState;
 
     public long getId() {
         return stateId;
@@ -41,12 +51,20 @@ public class State {
         this.name = name;
     }
 
-    public short getNrInProcess() {
-        return nrInProcess;
+    public StateType getStateType() {
+        return stateType;
     }
 
-    public void setNrInProcess(short nrInProcess) {
-        this.nrInProcess = nrInProcess;
+    public void setStateType(StateType stateType) {
+        this.stateType = stateType;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Process getProcess() {
@@ -55,6 +73,14 @@ public class State {
 
     public void setProcess(Process process) {
         this.process = process;
+    }
+
+    public State getAlternativeNextState() {
+        return alternativeNextState;
+    }
+
+    public void setAlternativeNextState(State alternativeNextState) {
+        this.alternativeNextState = alternativeNextState;
     }
 
     public State getNextState() {

@@ -1,5 +1,6 @@
 package model.process;
 
+
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.HashSet;
@@ -12,33 +13,27 @@ import java.util.Set;
 @Table(name = "processes", schema = "public")
 public class Process {
     @Id
-    @Column(name = "proces_id", nullable = false, insertable = true, updatable = true)
-    private long procesId;
-    @Basic
-    @Column(name = "code", nullable = false, insertable = true, updatable = true, length = 6)
-    private String code;
+    @SequenceGenerator(name="process_seq", sequenceName="process_id_seq")
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="process_seq")
+    @Column(name = "process_id", nullable = false, insertable = true, updatable = true)
+    private long processId;
     @Basic
     @Column(name = "name", nullable = false, insertable = true, updatable = true, length = 50)
     private String name;
+    @Basic
+    @Column(name = "description", nullable = true, insertable = true, updatable = true, length = 2147483647)
+    private String description;
     @OneToMany(mappedBy = "process", fetch = FetchType.EAGER)
-    @OrderBy("nrInProcess")
     private Set<State> statesByProcesId = new HashSet<State>();
 
     public long getId() {
-        return procesId;
+        return processId;
     }
 
-    public void setId(long procesId) {
-        this.procesId = procesId;
+    public void setId(long processId) {
+        this.processId = processId;
     }
 
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
 
     public String getName() {
         return name;
@@ -48,6 +43,13 @@ public class Process {
         this.name = name;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
     public Set<State> getStatesByProcesId() {
         return statesByProcesId;

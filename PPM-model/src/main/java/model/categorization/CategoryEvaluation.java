@@ -9,7 +9,7 @@ import javax.persistence.*;
  * Created by Wojciech on 2015-06-23.
  */
 @Entity
-@Table(name = "describing_criteria", schema = "public")
+@Table(name = "category_evaluations", schema = "public")
 public class CategoryEvaluation {
     //ID
     @EmbeddedId
