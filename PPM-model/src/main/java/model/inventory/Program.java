@@ -2,6 +2,7 @@ package model.inventory;
 
 import com.google.gson.annotations.Expose;
 import model.inventory.enums.ComponentType;
+import util.annotation.PortfolioTree;
 import util.exception.InvalidParentComponentException;
 
 import javax.persistence.*;
@@ -17,52 +18,52 @@ public class Program extends Component  {
     //ID
 
     //BASICS
-    @Expose
+    @PortfolioTree
     @Basic
     @Column(name = "health", nullable = true, insertable = true, updatable = true, length = 1)
     private String health;
-    @Expose
+    @PortfolioTree
     @Basic
     @Column(name = "scope", nullable = true, insertable = true, updatable = true, length = 2)
     private String scope;
-    @Expose
+    @PortfolioTree
     @Basic
     @Column(name = "schedule", nullable = true, insertable = true, updatable = true, length = 2)
     private String schedule;
-    @Expose
+    @PortfolioTree
     @Basic
     @Column(name = "budget", nullable = true, insertable = true, updatable = true, length = 2)
     private String budget;
-    @Expose
+    @PortfolioTree
     @Basic
     @Column(name = "start_date", nullable = true, insertable = true, updatable = true)
     private Date startDate;
-    @Expose
+    @PortfolioTree
     @Basic
     @Column(name = "end_date", nullable = true, insertable = true, updatable = true)
     private Date endDate;
-    @Expose
+    @PortfolioTree
     @Basic
     @Column(name = "deadline_date", nullable = true, insertable = true, updatable = true)
     private Date deadlineDate;
-    @Expose
+    @PortfolioTree
     @Basic
     @Column(name = "cost_of_start", nullable = true, insertable = true, updatable = true, precision = 2)
     private BigDecimal costOfStart;
-    @Expose
+    @PortfolioTree
     @Basic
     @Column(name = "cost_of_stop", nullable = true, insertable = true, updatable = true, precision = 2)
     private BigDecimal costOfStop;
-    @Expose
+    @PortfolioTree
     @Basic
     @Column(name = "cost_of_restart", nullable = true, insertable = true, updatable = true, precision = 2)
     private BigDecimal costOfRestart;
-    @Expose
+    @PortfolioTree
     @Basic
     @Column(name = "cost_of_close", nullable = true, insertable = true, updatable = true, precision = 2)
     private BigDecimal costOfClose;
 
-    @Expose
+    @PortfolioTree
     @Transient
     private final ComponentType componentType = ComponentType.PROGRAM;
 

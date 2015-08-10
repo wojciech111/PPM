@@ -3,6 +3,7 @@ package model.categorization;
 import com.google.gson.annotations.Expose;
 import model.categorization.pk.AreaOfFocusPK;
 import model.inventory.Portfolio;
+import util.annotation.PortfolioTree;
 
 import javax.persistence.*;
 
@@ -13,18 +14,19 @@ import javax.persistence.*;
 @Table(name = "areas_of_focus", schema = "public")
 public class AreaOfFocus {
     //ID
+    @PortfolioTree
     @EmbeddedId
     protected model.categorization.pk.AreaOfFocusPK areaOfFocusPK;
 
     //BASICS
-    @Expose
+    @PortfolioTree
     @Basic
     @Column(name = "percentage_of_focus", nullable = true, insertable = true, updatable = true)
     private Short percentageOfFocus;
 
     //RELATIONS
-    @Expose
-    @ManyToOne(optional = false)
+    @PortfolioTree
+    @ManyToOne(optional = false, cascade=CascadeType.ALL)
     @JoinColumn(name = "category_id", referencedColumnName = "category_id", insertable = false, updatable = false)
     private Category category;
 

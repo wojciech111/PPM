@@ -39,6 +39,7 @@ public class InventoryService implements InventoryServiceInterface {
         return PortfolioDAO.update(portfolio);
     }
 
+
     public void deletePortfolio(Portfolio portfolio) {
         PortfolioDAO.delete(portfolio);
     }

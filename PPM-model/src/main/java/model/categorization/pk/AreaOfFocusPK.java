@@ -1,5 +1,7 @@
 package model.categorization.pk;
 
+import util.annotation.PortfolioTree;
+
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
@@ -10,9 +12,11 @@ import java.io.Serializable;
  */
 @Embeddable
 public class AreaOfFocusPK implements Serializable {
+    @PortfolioTree
     @Column(name = "component_id")
     @Basic(optional = false)
     private long componentId;
+    @PortfolioTree
     @Column(name = "category_id")
     @Basic(optional = false)
     private long categoryId;

@@ -2,6 +2,7 @@ package model.categorization;
 
 import com.google.gson.annotations.Expose;
 import model.categorization.pk.CategoryEvaluationPK;
+import util.annotation.PortfolioTree;
 
 import javax.persistence.*;
 
@@ -12,13 +13,16 @@ import javax.persistence.*;
 @Table(name = "category_evaluations", schema = "public")
 public class CategoryEvaluation {
     //ID
+    @PortfolioTree
     @EmbeddedId
     protected CategoryEvaluationPK categoryEvaluationPK;
 
     //BASICS
+    @PortfolioTree
     @Basic
     @Column(name = "is_key", nullable = true, insertable = true, updatable = true, length = 1)
     private String isKey;
+    @PortfolioTree
     @Basic
     @Column(name = "weight", nullable = true, insertable = true, updatable = true)
     private Short weight;
@@ -27,8 +31,8 @@ public class CategoryEvaluation {
     @ManyToOne(optional = false)
     @JoinColumn(name = "category_id", referencedColumnName = "category_id", insertable = false, updatable = false)
     private Category category;
-    @Expose
-    @ManyToOne(optional = false)
+    @PortfolioTree
+    @ManyToOne(optional = false, cascade=CascadeType.ALL)
     @JoinColumn(name = "scoring_criterion_id", referencedColumnName = "scoring_criterion_id", insertable = false, updatable = false)
     private ScoringCriterion scoringCriterion;
 

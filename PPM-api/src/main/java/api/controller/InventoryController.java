@@ -1,7 +1,10 @@
 package api.controller;
 
+import com.google.gson.Gson;
 import model.inventory.Portfolio;
 import service.inventory.InventoryServiceInterface;
+import spark.Request;
+import spark.Response;
 import spark.Spark;
 import util.JsonUtil;
 import util.ResponseError;
@@ -32,14 +35,14 @@ public class InventoryController {
                 req.queryParams("name"),
                 req.queryParams("description"),
                 Long.parseLong(req.queryParams("parentComponent"))
-        ), JsonUtil.json());
-/*
-        put("/portfolios/:id", (req, res) -> inventoryService.updatePortfolio(
-                req.params(":id"),
-                req.queryParams("code"),
-                req.queryParams("name"),
-                req.queryParams("description")
-        ), util.JsonUtil.json());
+        ), JsonUtil.json());*/
+
+        put("/portfolios/:id", (Request req, Response res) -> {
+            String body = req.body();
+            Portfolio portfolio = new Gson().fromJson(req.body(), Portfolio.class);
+            Portfolio savedPortfolio = inventoryService.updatePortfolio(portfolio);
+            return savedPortfolio;
+        }, util.JsonUtil.json());
 
         //COMPONENTS
         /*get("/portfolios/:id/components", (req, res) -> userService.getAllUsers(), util.JsonUtil.json());

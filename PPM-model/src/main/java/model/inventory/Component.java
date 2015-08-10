@@ -7,6 +7,7 @@ import model.categorization.Score;
 import model.inventory.enums.ComponentType;
 import model.inventory.enums.CustomerType;
 import model.process.State;
+import util.annotation.PortfolioTree;
 import util.exception.InvalidParentComponentException;
 
 import javax.persistence.*;
@@ -21,9 +22,9 @@ import java.util.Set;
 @Entity
 @Table(name = "components", schema = "public")
 @Inheritance(strategy = InheritanceType.JOINED)
-public abstract class Component {
+public class Component {
     //ID
-    @Expose
+    @PortfolioTree
     @Id
     @SequenceGenerator(name="component_seq", sequenceName="component_id_seq")
     @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="component_seq")
@@ -31,72 +32,72 @@ public abstract class Component {
     private long componentId;
 
     //BASICS
-    @Expose
+    @PortfolioTree
     @Basic
     @Column(name = "code", nullable = false, insertable = true, updatable = true, length = 10)
     private String code;
-    @Expose
+    @PortfolioTree
     @Basic
     @Column(name = "name", nullable = false, insertable = true, updatable = true, length = 150)
     private String name;
-    @Expose
+    @PortfolioTree
     @Basic
     @Enumerated(EnumType.STRING)
     @Column(name = "customer_type", nullable = true, insertable = true, updatable = true, length = 2)
     private CustomerType customerType;
-    @Expose
+    @PortfolioTree
     @Basic
     @Column(name = "customer", nullable = true, insertable = true, updatable = true, length = 50)
     private String customer;
-    @Expose
+    @PortfolioTree
     @Basic
     @Column(name = "sponsor", nullable = true, insertable = true, updatable = true, length = 50)
     private String sponsor;
-    @Expose
+    @PortfolioTree
     @Basic
     @Column(name = "manager", nullable = true, insertable = true, updatable = true, length = 50)
     private String manager;
-    @Expose
+    @PortfolioTree
     @Basic
     @Column(name = "purpose", nullable = true, insertable = true, updatable = true, length = 1500)
     private String purpose;
-    @Expose
+    @PortfolioTree
     @Basic
     @Column(name = "description", nullable = true, insertable = true, updatable = true, length = 2147483647)
     private String description;
-    @Expose
+    @PortfolioTree
     @Basic
     @Column(name = "overall_priority", nullable = true, insertable = true, updatable = true)
     private Integer overallPriority;
-    @Expose
+    @PortfolioTree
     @Basic
     @Column(name = "creation_date", nullable = true, insertable = true, updatable = true)
     private Timestamp creationDate;
-    @Expose
+    @PortfolioTree
     @Basic
     @Column(name = "created_by", nullable = true, insertable = true, updatable = true, length = 50)
     private String createdBy;
-    @Expose
+    @PortfolioTree
     @Basic
     @Column(name = "update_date", nullable = true, insertable = true, updatable = true)
     private Timestamp updateDate;
-    @Expose
+    @PortfolioTree
     @Basic
     @Column(name = "updated_by", nullable = true, insertable = true, updatable = true, length = 50)
     private String updatedBy;
 
     //RELATIONS
-    @Expose
-    @OneToMany(mappedBy = "component", fetch=FetchType.EAGER)
+    @PortfolioTree
+    @OneToMany(mappedBy = "component", fetch=FetchType.EAGER , cascade=CascadeType.ALL)
     private Set<CategoryMembership> categoryMemberships = new HashSet<CategoryMembership>();
     @ManyToOne
     @JoinColumn(name = "parent_component_id", referencedColumnName = "component_id", nullable = true)
     private Component parent;
-    @Expose
-    @OneToMany(mappedBy = "parent", fetch=FetchType.EAGER)
+    @PortfolioTree
+    @OneToMany(mappedBy = "parent", fetch=FetchType.EAGER, cascade=CascadeType.ALL)
     private Collection<Component> children;
-    @Expose
-    @OneToMany(mappedBy = "component", fetch=FetchType.EAGER)
+    @PortfolioTree
+    @OneToMany(mappedBy = "component", fetch=FetchType.EAGER, cascade=CascadeType.ALL)
     private Set<Score> scores = new HashSet<Score>();
     @ManyToOne
     @JoinColumn(name = "state_id", referencedColumnName = "state_id", nullable = true,insertable = true, updatable = true)

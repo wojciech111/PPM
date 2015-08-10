@@ -3,6 +3,7 @@ package model.categorization;
 import com.google.gson.annotations.Expose;
 import model.inventory.Component;
 import model.categorization.pk.CategoryMembershipPK;
+import util.annotation.PortfolioTree;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -14,24 +15,27 @@ import java.math.BigDecimal;
 @Table(name = "category_memberships", schema = "public")
 public class CategoryMembership {
     //ID
+    @PortfolioTree
     @EmbeddedId
     protected CategoryMembershipPK categoryMembershipPK;
 
     //BASICS
-    @Expose
+    @PortfolioTree
     @Basic
     @Column(name = "percentage_of_support", nullable = true, insertable = true, updatable = true)
     private Short percentageOfSupport;
+    @PortfolioTree
     @Basic
     @Column(name = "overall_score", nullable = true, insertable = true, updatable = true, precision = 2)
     private BigDecimal overallScore;
+    @PortfolioTree
     @Basic
     @Column(name = "rank_in_category", nullable = true, insertable = true, updatable = true)
     private Short rankInCategory;
 
     //RELATIONS
-    @Expose
-    @ManyToOne(optional = false)
+    @PortfolioTree
+    @ManyToOne(optional = false, cascade=CascadeType.ALL)
     @JoinColumn(name = "category_id", referencedColumnName = "category_id", insertable = false, updatable = false)
     private Category category;
     @ManyToOne(optional = false)

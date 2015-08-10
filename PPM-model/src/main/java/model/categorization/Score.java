@@ -4,6 +4,7 @@ import com.google.gson.annotations.Expose;
 import model.inventory.Component;
 import model.categorization.pk.ScorePK;
 import org.hibernate.annotations.DiscriminatorOptions;
+import util.annotation.PortfolioTree;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -15,6 +16,7 @@ import java.math.BigDecimal;
 @Table(name = "scores", schema = "public")
 public class Score {
     //ID
+    @PortfolioTree
     @EmbeddedId
     protected ScorePK scoresPK;
 
@@ -22,14 +24,15 @@ public class Score {
     @Basic
     @Column(name = "percentage", nullable = true, insertable = true, updatable = true)
     private Short percentage;
-    @Expose
+    @PortfolioTree
     @Basic
     @Column(name = "motivation", nullable = true, insertable = true, updatable = true, length = 2147483647)
     private String motivation;
-    @Expose
+    @PortfolioTree
     @Basic
     @Column(name = "score", nullable = true, insertable = true, updatable = true, precision = 2)
     private BigDecimal score;
+    @PortfolioTree
     @Basic
     @Column(name = "answer", nullable = true, insertable = true, updatable = true, length = 150)
     private String answer;
@@ -39,7 +42,7 @@ public class Score {
     @JoinColumn(name = "component_id", referencedColumnName = "component_id", insertable = false, updatable = false)
     private Component component;
 
-    @Expose
+    @PortfolioTree
     @ManyToOne(optional = false)
     @JoinColumn(name = "scoring_criterion_id", referencedColumnName = "scoring_criterion_id", insertable = false, updatable = false)
     private ScoringCriterion scoringCriterion;

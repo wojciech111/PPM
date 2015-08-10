@@ -43,4 +43,5 @@ public interface InventoryServiceInterface {
     Operation updateOperation(Operation operation);
 
     void deleteOperation(Operation operation);
+
 }

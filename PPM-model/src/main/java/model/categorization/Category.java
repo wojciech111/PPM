@@ -1,6 +1,7 @@
 package model.categorization;
 
 import com.google.gson.annotations.Expose;
+import util.annotation.PortfolioTree;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -13,22 +14,22 @@ import java.util.Set;
 @Table(name = "categories", schema = "public")
 public class Category {
     //ID
-    @Expose
+    @PortfolioTree
     @Id
     @SequenceGenerator(name="category_seq", sequenceName="category_id_seq")
     @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="category_seq")
     @Column(name = "category_id", nullable = false, insertable = true, updatable = true)
     private long categoryId;
     //BASICS
-    @Expose
+    @PortfolioTree
     @Basic
     @Column(name = "code", nullable = true, insertable = true, updatable = true, length = 10)
     private String code;
-    @Expose
+    @PortfolioTree
     @Basic
     @Column(name = "name", nullable = false, insertable = true, updatable = true, length = 50)
     private String name;
-    @Expose
+    @PortfolioTree
     @Basic
     @Column(name = "description", nullable = true, insertable = true, updatable = true, length = 2147483647)
     private String description;
@@ -38,8 +39,8 @@ public class Category {
     private Collection<AreaOfFocus> areasOfFocus;*/
     @OneToMany(mappedBy = "category", fetch = FetchType.EAGER)
     private Set<CategoryMembership> categoryMemberships = new HashSet<CategoryMembership>();
-    @Expose
-    @OneToMany(mappedBy = "category", fetch = FetchType.EAGER)
+    @PortfolioTree
+    @OneToMany(mappedBy = "category", fetch = FetchType.EAGER, cascade=CascadeType.ALL, orphanRemoval = true)
     private Set<CategoryEvaluation> categoryEvaluations = new HashSet<CategoryEvaluation>();
 
     public Category() {

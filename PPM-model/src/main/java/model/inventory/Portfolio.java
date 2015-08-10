@@ -3,12 +3,12 @@ package model.inventory;
 import com.google.gson.annotations.Expose;
 import model.categorization.AreaOfFocus;
 import model.inventory.enums.ComponentType;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
+import model.process.*;
+import model.process.Process;
+import util.annotation.PortfolioTree;
 import util.exception.InvalidParentComponentException;
 
 import javax.persistence.*;
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -21,14 +21,17 @@ public class Portfolio extends Component {
     //ID
 
     //BASICS
-    @Expose
+    @PortfolioTree
     @Transient
     private final ComponentType componentType = ComponentType.PORTFOLIO;
 
     //RELATIONS
-    @Expose
-    @OneToMany(mappedBy = "portfolio", fetch = FetchType.EAGER)
+    @PortfolioTree
+    @OneToMany(mappedBy = "portfolio", fetch = FetchType.EAGER, cascade=CascadeType.ALL)
     private Set<AreaOfFocus> areasOfFocus = new HashSet<AreaOfFocus>();
+    //@PortfolioTree
+    @OneToMany(mappedBy = "portfolio", fetch = FetchType.EAGER)
+    private Set<Process> processes = new HashSet<Process>();
 
     public Portfolio() {
     }

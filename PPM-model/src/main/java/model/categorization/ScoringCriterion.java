@@ -3,6 +3,7 @@ package model.categorization;
 import com.google.gson.annotations.Expose;
 import model.categorization.enums.SuperiorityStrategy;
 import org.hibernate.annotations.DiscriminatorOptions;
+import util.annotation.PortfolioTree;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -17,7 +18,7 @@ import java.util.Set;
 @Table(name = "scoring_criteria", schema = "public")
 public class ScoringCriterion {
     //ID
-    @Expose
+    @PortfolioTree
     @Id
     @SequenceGenerator(name="scoring_criterion_seq", sequenceName="scoring_criterion_id_seq")
     @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="scoring_criterion_seq")
@@ -25,32 +26,32 @@ public class ScoringCriterion {
     private long scoringCriterionId;
 
     //BASICS
-    @Expose
+    @PortfolioTree
     @Basic
     @Column(name = "code", nullable = false, insertable = true, updatable = true, length = 10)
     private String code;
-    @Expose
+    @PortfolioTree
     @Basic
     @Column(name = "name", nullable = false, insertable = true, updatable = true, length = 50)
     private String name;
-    @Expose
+    @PortfolioTree
     @Basic
     @Column(name = "description", nullable = true, insertable = true, updatable = true, length = 2147483647)
     private String description;
-    @Expose
+    @PortfolioTree
     @Basic
     @Column(name = "question", nullable = true, insertable = true, updatable = true, length = 150)
     private String question;
-    @Expose
+    @PortfolioTree
     @Basic
     @Enumerated(EnumType.STRING)
     @Column(name = "best_is", nullable = false, insertable = true, updatable = true, length = 3)
     private SuperiorityStrategy bestIs;
-    @Expose
+    @PortfolioTree
     @Basic
     @Column(name = "min_score", nullable = true, insertable = true, updatable = true, precision = 2)
     private BigDecimal minScore;
-    @Expose
+    @PortfolioTree
     @Basic
     @Column(name = "max_score", nullable = true, insertable = true, updatable = true, precision = 2)
     private BigDecimal maxScore;

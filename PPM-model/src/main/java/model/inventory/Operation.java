@@ -4,6 +4,7 @@ import com.google.gson.annotations.Expose;
 import model.inventory.enums.ComponentType;
 import model.inventory.enums.OperationType;
 import model.inventory.enums.RecursionType;
+import util.annotation.PortfolioTree;
 import util.exception.InvalidParentComponentException;
 
 import javax.persistence.*;
@@ -14,21 +15,21 @@ import javax.persistence.*;
 @Entity
 @Table(name = "operations", schema = "public")
 public class Operation extends Component  {
-    @Expose
+    @PortfolioTree
     @Basic
     @Enumerated(EnumType.STRING)
     @Column(name = "recursion_type", nullable = false, insertable = true, updatable = true, length = 1)
     private RecursionType recursionType;
-    @Expose
+    @PortfolioTree
     @Basic
     @Enumerated(EnumType.STRING)
     @Column(name = "type", nullable = true, insertable = true, updatable = true, length = 1)
     private OperationType operationType;
-    @Expose
+    @PortfolioTree
     @Basic
     @Column(name = "number_of_time_units", nullable = true, insertable = true, updatable = true)
     private Integer numberOfTimeUnits;
-    @Expose
+    @PortfolioTree
     @Transient
     private final ComponentType componentType = ComponentType.OPERATION;
 
