@@ -1,11 +1,14 @@
 package api.controller;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import model.inventory.Component;
 import model.inventory.Portfolio;
 import service.inventory.InventoryServiceInterface;
 import spark.Request;
 import spark.Response;
 import spark.Spark;
+import util.ComponentDeserializer;
 import util.JsonUtil;
 import util.ResponseError;
 
@@ -38,10 +41,13 @@ public class InventoryController {
         ), JsonUtil.json());*/
 
         put("/portfolios/:id", (Request req, Response res) -> {
+            String id = req.params(":id");
             String body = req.body();
-            Portfolio portfolio = new Gson().fromJson(req.body(), Portfolio.class);
+            Gson gson = new GsonBuilder().registerTypeAdapter(Component.class, new ComponentDeserializer()).create();
+            Portfolio portfolio = gson.fromJson(req.body(), Portfolio.class);
             Portfolio savedPortfolio = inventoryService.updatePortfolio(portfolio);
-            return savedPortfolio;
+            Portfolio returnedPortfolio = inventoryService.getPortfolio(Long.parseLong(id));
+            return returnedPortfolio;
         }, util.JsonUtil.json());
 
         //COMPONENTS
@@ -68,7 +74,24 @@ public class InventoryController {
                 req.queryParams("email")
         ), util.JsonUtil.json());
         */
+        Spark.options("/*", (request,response)->{
 
+            String accessControlRequestHeaders = request.headers("Access-Control-Request-Headers");
+            if (accessControlRequestHeaders != null) {
+                response.header("Access-Control-Allow-Headers", accessControlRequestHeaders);
+            }
+
+            String accessControlRequestMethod = request.headers("Access-Control-Request-Method");
+            if(accessControlRequestMethod != null){
+                response.header("Access-Control-Allow-Methods", accessControlRequestMethod);
+            }
+
+            return "OK";
+        });
+
+        Spark.before((request,response)->{
+            response.header("Access-Control-Allow-Origin", "*");
+        });
 
         //UTILS
         after((req, res) -> {

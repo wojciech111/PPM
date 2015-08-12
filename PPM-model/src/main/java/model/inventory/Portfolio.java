@@ -26,7 +26,7 @@ public class Portfolio extends Component {
     private final ComponentType componentType = ComponentType.PORTFOLIO;
 
     //RELATIONS
-    @PortfolioTree
+    //@PortfolioTree
     @OneToMany(mappedBy = "portfolio", fetch = FetchType.EAGER, cascade=CascadeType.ALL)
     private Set<AreaOfFocus> areasOfFocus = new HashSet<AreaOfFocus>();
     //@PortfolioTree

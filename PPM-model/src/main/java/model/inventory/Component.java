@@ -7,8 +7,11 @@ import model.categorization.Score;
 import model.inventory.enums.ComponentType;
 import model.inventory.enums.CustomerType;
 import model.process.State;
+
+
 import util.annotation.PortfolioTree;
 import util.exception.InvalidParentComponentException;
+
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -88,16 +91,16 @@ public class Component {
 
     //RELATIONS
     @PortfolioTree
-    @OneToMany(mappedBy = "component", fetch=FetchType.EAGER , cascade=CascadeType.ALL)
+    @OneToMany(mappedBy = "component", fetch=FetchType.EAGER )
     private Set<CategoryMembership> categoryMemberships = new HashSet<CategoryMembership>();
     @ManyToOne
-    @JoinColumn(name = "parent_component_id", referencedColumnName = "component_id", nullable = true)
+    @JoinColumn(name = "parent_component_id", referencedColumnName = "component_id", nullable = true, updatable = false)
     private Component parent;
     @PortfolioTree
-    @OneToMany(mappedBy = "parent", fetch=FetchType.EAGER, cascade=CascadeType.ALL)
-    private Collection<Component> children;
+    @OneToMany(mappedBy = "parent", fetch= FetchType.EAGER, orphanRemoval=true, cascade = CascadeType.ALL)
+    private Set<Component> children = new HashSet<Component>();
     @PortfolioTree
-    @OneToMany(mappedBy = "component", fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+    @OneToMany(mappedBy = "component", fetch=FetchType.EAGER)
     private Set<Score> scores = new HashSet<Score>();
     @ManyToOne
     @JoinColumn(name = "state_id", referencedColumnName = "state_id", nullable = true,insertable = true, updatable = true)
@@ -247,11 +250,11 @@ public class Component {
             throw new InvalidParentComponentException("Component can't be child of himself.");
     }
 
-    public Collection<Component> getChildren() {
+    public Set<Component> getChildren() {
         return children;
     }
 
-    public void setChildren(Collection<Component> children) {
+    public void setChildren(Set<Component> children) {
         this.children = children;
     }
 

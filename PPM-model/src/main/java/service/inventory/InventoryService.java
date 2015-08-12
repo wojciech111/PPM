@@ -36,6 +36,11 @@ public class InventoryService implements InventoryServiceInterface {
     }
 
     public Portfolio updatePortfolio(Portfolio portfolio){
+        /*for (Component child:portfolio.getChildren()){
+            if(child instanceof Project){
+                child = updateProject((Project)child);
+            }
+        }*/
         return PortfolioDAO.update(portfolio);
     }
 

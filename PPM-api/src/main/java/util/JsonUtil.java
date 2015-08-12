@@ -4,6 +4,7 @@ package util; /**
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.LongSerializationPolicy;
+import model.inventory.Component;
 import spark.ResponseTransformer;
 import util.exclusionstrategy.PortfolioTreeExclusionStrategy;
 
