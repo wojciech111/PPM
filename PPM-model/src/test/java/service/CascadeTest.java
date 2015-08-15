@@ -18,7 +18,7 @@ import static org.junit.Assert.*;
  * Created by Wojciech on 2015-08-12.
  */
 public class CascadeTest {
-    @Before
+    @After
     public void clearDataFromDatabase() {
         Session session = null;
         try {
@@ -43,6 +43,14 @@ public class CascadeTest {
 
             session.createQuery("delete from State ").executeUpdate();
             session.createQuery("delete from Process ").executeUpdate();
+            session.createQuery("delete from Decision ").executeUpdate();
+
+            session.createQuery("delete from Stakeholder ").executeUpdate();
+
+            session.createQuery("delete from Employee ").executeUpdate();
+            session.createQuery("delete from Organization  ").executeUpdate();
+            session.createQuery("delete from User ").executeUpdate();
+
 
             tx.commit();
         } catch (Exception e) {

@@ -5,10 +5,15 @@ import model.inventory.Portfolio;
 import model.inventory.Program;
 import model.inventory.Project;
 import model.inventory.enums.RecursionType;
+import model.organization.Employee;
+import model.organization.Organization;
+import model.organization.User;
 import service.categorization.CategorizationService;
 import service.categorization.CategorizationServiceInterface;
 import service.inventory.InventoryService;
 import service.inventory.InventoryServiceInterface;
+import service.organization.OrganizationService;
+import service.organization.OrganizationServiceInterface;
 
 import java.math.BigDecimal;
 
@@ -18,8 +23,20 @@ import java.math.BigDecimal;
 public class CreateTestData {
     public static void main(final String[] args) throws Exception {
 
+
+        OrganizationServiceInterface organizationService = new OrganizationService();
+
+        User user = organizationService.createUser("oxio", "php", "oxio22@gmail.com");
+        Organization organization = organizationService.createOrganization("History Machine org co zoo inc", "HisotryMachine");
+        Employee employee = organizationService.createEmployee("Wojciech", "Oksiñski", organization );
+        employee.setUser(user);
+        employee = organizationService.updateEmployee(employee);
+
+
         InventoryServiceInterface inventoryService = new InventoryService();
         Portfolio portfolioTop = inventoryService.createPortfolio("PT", "portfolioTop", "customer jakis", "Opis Opisik", null);
+        portfolioTop.setOrganization(organization);
+        portfolioTop = inventoryService.updatePortfolio(portfolioTop);
         Project portfolioProject = inventoryService.createProject("PF1", "portfolioProject", "customer jakis", "Opis Opisik", portfolioTop);
 
         //subportfolio

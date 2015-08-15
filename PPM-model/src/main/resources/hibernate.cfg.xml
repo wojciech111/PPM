@@ -40,6 +40,12 @@
 
         <mapping class="model.process.State"/>
         <mapping class="model.process.Process"/>
+        <mapping class="model.process.Decision"/>
+
+        <mapping class="model.organization.Employee"/>
+        <mapping class="model.organization.Organization"/>
+        <mapping class="model.organization.Stakeholder"/>
+        <mapping class="model.organization.User"/>
         <!-- DB schema will be updated if needed -->
 
     </session-factory>

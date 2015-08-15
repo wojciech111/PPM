@@ -6,10 +6,12 @@ import model.categorization.CategoryMembership;
 import model.categorization.Score;
 import model.inventory.enums.ComponentType;
 import model.inventory.enums.CustomerType;
+import model.organization.Stakeholder;
 import model.process.State;
 
 
 import util.annotation.PortfolioTree;
+import util.annotation.UserTree;
 import util.exception.InvalidParentComponentException;
 
 
@@ -27,6 +29,7 @@ import java.util.Set;
 @Inheritance(strategy = InheritanceType.JOINED)
 public class Component {
     //ID
+    @UserTree
     @PortfolioTree
     @Id
     @SequenceGenerator(name="component_seq", sequenceName="component_id_seq")
@@ -35,10 +38,12 @@ public class Component {
     private long componentId;
 
     //BASICS
+    @UserTree
     @PortfolioTree
     @Basic
     @Column(name = "code", nullable = false, insertable = true, updatable = true, length = 10)
     private String code;
+    @UserTree
     @PortfolioTree
     @Basic
     @Column(name = "name", nullable = false, insertable = true, updatable = true, length = 150)
@@ -105,6 +110,10 @@ public class Component {
     @ManyToOne
     @JoinColumn(name = "state_id", referencedColumnName = "state_id", nullable = true,insertable = true, updatable = true)
     private State state;
+    @OneToMany(mappedBy = "employee")
+    private Set<Stakeholder> stakeholders = new HashSet<Stakeholder>();
+
+
 
     public Component() {
     }
@@ -274,4 +283,11 @@ public class Component {
         this.state = state;
     }
 
+    public Set<Stakeholder> getStakeholders() {
+        return stakeholders;
+    }
+
+    public void setStakeholders(Set<Stakeholder> stakeholders) {
+        this.stakeholders = stakeholders;
+    }
 }

@@ -9,7 +9,7 @@ import spark.Request;
 import spark.Response;
 import spark.Spark;
 import util.ComponentDeserializer;
-import util.JsonUtil;
+import util.PortfolioJsonUtil;
 import util.ResponseError;
 
 import static spark.Spark.*;
@@ -21,7 +21,7 @@ import static spark.Spark.*;
 public class InventoryController {
     public InventoryController(InventoryServiceInterface inventoryService) {
         //PORTFOLIOS
-        //Spark.get("/portfolios", (req, res) -> inventoryService.getPortfolios(), JsonUtil.json());
+        //Spark.get("/portfolios", (req, res) -> inventoryService.getPortfolios(), PortfolioJsonUtil.json());
 
         Spark.get("/portfolios/:id", (req, res) -> {
             String id = req.params(":id");
@@ -31,14 +31,14 @@ public class InventoryController {
             }
             res.status(400);
             return new ResponseError("No portfolio with id '%s' found", id);
-        }, JsonUtil.json());
+        }, PortfolioJsonUtil.json());
 
         /*Spark.post("/portfolios", (req, res) -> inventoryService.createPortfolio(
                 req.queryParams("code"),
                 req.queryParams("name"),
                 req.queryParams("description"),
                 Long.parseLong(req.queryParams("parentComponent"))
-        ), JsonUtil.json());*/
+        ), PortfolioJsonUtil.json());*/
 
         put("/portfolios/:id", (Request req, Response res) -> {
             String id = req.params(":id");
@@ -48,10 +48,10 @@ public class InventoryController {
             Portfolio savedPortfolio = inventoryService.updatePortfolio(portfolio);
             Portfolio returnedPortfolio = inventoryService.getPortfolio(Long.parseLong(id));
             return returnedPortfolio;
-        }, util.JsonUtil.json());
+        }, PortfolioJsonUtil.json());
 
         //COMPONENTS
-        /*get("/portfolios/:id/components", (req, res) -> userService.getAllUsers(), util.JsonUtil.json());
+        /*get("/portfolios/:id/components", (req, res) -> userService.getAllUsers(), util.PortfolioJsonUtil.json());
 
         get("/portfolios/:id/components/:cid", (req, res) -> {
             String id = req.params(":id");
@@ -61,19 +61,28 @@ public class InventoryController {
             }
             res.status(400);
             return new util.ResponseError("No user with id '%s' found", id);
-        }, util.JsonUtil.json());
+        }, util.PortfolioJsonUtil.json());
 
         post("/portfolios/:id/components/:cid", (req, res) -> userService.createUser(
                 req.queryParams("name"),
                 req.queryParams("email")
-        ), util.JsonUtil.json());
+        ), util.PortfolioJsonUtil.json());
 
         put("/portfolios/:id/components/:cid", (req, res) -> userService.updateUser(
                 req.params(":id"),
                 req.queryParams("name"),
                 req.queryParams("email")
-        ), util.JsonUtil.json());
+        ), util.PortfolioJsonUtil.json());
         */
+        /*Spark.before((request,response)->{
+            String method = request.requestMethod();
+            if(method.equals("POST") || method.equals("PUT") || method.equals("DELETE")){
+                String authentication = request.headers("Authentication");
+                if(!"PASSWORD".equals(authentication)){
+                    Spark.halt(401, "User Unauthorized");
+                }
+            }
+        });*/
         Spark.options("/*", (request,response)->{
 
             String accessControlRequestHeaders = request.headers("Access-Control-Request-Headers");
@@ -100,7 +109,7 @@ public class InventoryController {
 
         exception(IllegalArgumentException.class, (e, req, res) -> {
             res.status(400);
-            res.body(JsonUtil.toJson(new ResponseError(e)));
+            res.body(PortfolioJsonUtil.toJson(new ResponseError(e)));
         });
     }
 }

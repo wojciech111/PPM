@@ -3,9 +3,11 @@ package model.inventory;
 import com.google.gson.annotations.Expose;
 import model.categorization.AreaOfFocus;
 import model.inventory.enums.ComponentType;
+import model.organization.Organization;
 import model.process.*;
 import model.process.Process;
 import util.annotation.PortfolioTree;
+import util.annotation.UserTree;
 import util.exception.InvalidParentComponentException;
 
 import javax.persistence.*;
@@ -21,6 +23,7 @@ public class Portfolio extends Component {
     //ID
 
     //BASICS
+    @UserTree
     @PortfolioTree
     @Transient
     private final ComponentType componentType = ComponentType.PORTFOLIO;
@@ -32,6 +35,10 @@ public class Portfolio extends Component {
     //@PortfolioTree
     @OneToMany(mappedBy = "portfolio", fetch = FetchType.EAGER)
     private Set<Process> processes = new HashSet<Process>();
+    @ManyToOne
+    @JoinColumn(name = "organization_id", referencedColumnName = "organization_id", nullable = true,insertable = true, updatable = true)
+    private Organization organization;
+
 
     public Portfolio() {
     }
@@ -54,5 +61,21 @@ public class Portfolio extends Component {
 
     public void setAreasOfFocus(Set<AreaOfFocus> areasOfFocus) {
         this.areasOfFocus = areasOfFocus;
+    }
+
+    public Set<Process> getProcesses() {
+        return processes;
+    }
+
+    public void setProcesses(Set<Process> processes) {
+        this.processes = processes;
+    }
+
+    public Organization getOrganization() {
+        return organization;
+    }
+
+    public void setOrganization(Organization organization) {
+        this.organization = organization;
     }
 }
