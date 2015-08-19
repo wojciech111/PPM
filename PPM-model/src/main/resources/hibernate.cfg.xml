@@ -9,7 +9,6 @@
 
         <property name="hibernate.connection.username">postgres</property>
         <property name="hibernate.connection.password">php789</property>
-
         <!-- SQL visibillity -->
         <property name="show_sql">true</property>
         <property name="format_sql">true</property>
@@ -46,6 +45,9 @@
         <mapping class="model.organization.Organization"/>
         <mapping class="model.organization.Stakeholder"/>
         <mapping class="model.organization.User"/>
+
+        <mapping class="model.finance.Budget"/>
+        <mapping class="model.finance.Cost"/>
         <!-- DB schema will be updated if needed -->
 
     </session-factory>

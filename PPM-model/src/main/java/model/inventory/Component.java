@@ -69,6 +69,7 @@ public class Component {
     @Basic
     @Column(name = "purpose", nullable = true, insertable = true, updatable = true, length = 1500)
     private String purpose;
+    @UserTree
     @PortfolioTree
     @Basic
     @Column(name = "description", nullable = true, insertable = true, updatable = true, length = 2147483647)

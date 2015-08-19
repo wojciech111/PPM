@@ -16,7 +16,7 @@ public class AreaOfFocus {
     //ID
     @PortfolioTree
     @EmbeddedId
-    protected model.categorization.pk.AreaOfFocusPK areaOfFocusPK;
+    protected AreaOfFocusPK areaOfFocusPK;
 
     //BASICS
     @PortfolioTree

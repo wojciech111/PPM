@@ -1,5 +1,6 @@
 package model.process;
 
+import model.inventory.Component;
 import model.organization.Employee;
 
 import javax.persistence.*;
@@ -34,9 +35,19 @@ public class Decision {
     @Basic
     @Column(name = "motivation", nullable = true, insertable = true, updatable = true, length = 2147483647)
     private String motivation;
+
     @ManyToOne
     @JoinColumn(name = "employee_id_who_proposed", referencedColumnName = "employee_id", nullable = false)
     private Employee employeeWhoProposed;
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "from_state_id", referencedColumnName = "state_id", nullable = true,insertable = true, updatable = true)
+    private State fromState;
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "to_state_id", referencedColumnName = "state_id", nullable = true,insertable = true, updatable = true)
+    private State toState;
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "component_id", referencedColumnName = "component_id", insertable = true, updatable = false)
+    private Component component;
 
 
     public long getDecisionId() {
@@ -109,5 +120,29 @@ public class Decision {
 
     public void setEmployeeWhoProposed(Employee employeeWhoProposed) {
         this.employeeWhoProposed = employeeWhoProposed;
+    }
+
+    public State getFromState() {
+        return fromState;
+    }
+
+    public void setFromState(State fromState) {
+        this.fromState = fromState;
+    }
+
+    public State getToState() {
+        return toState;
+    }
+
+    public void setToState(State toState) {
+        this.toState = toState;
+    }
+
+    public Component getComponent() {
+        return component;
+    }
+
+    public void setComponent(Component component) {
+        this.component = component;
     }
 }

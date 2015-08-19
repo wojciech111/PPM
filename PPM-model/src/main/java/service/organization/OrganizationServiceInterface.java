@@ -11,6 +11,8 @@ import model.organization.User;
  */
 public interface OrganizationServiceInterface {
     //USER
+    User login(String email, String password);
+
     User createUser(String username, String password, String email);
 
     User getUser(long id);
@@ -43,4 +45,6 @@ public interface OrganizationServiceInterface {
     Stakeholder updateStakeholder(Stakeholder stakeholder);
 
     void deleteStakeholder(Stakeholder stakeholder);
+
+
 }

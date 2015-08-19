@@ -98,9 +98,10 @@ public class InventoryController {
             return "OK";
         });
 
-        Spark.before((request,response)->{
+        /*Spark.before((request,response)->{
             response.header("Access-Control-Allow-Origin", "*");
         });
+*/
 
         //UTILS
         after((req, res) -> {

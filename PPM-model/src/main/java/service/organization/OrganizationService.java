@@ -15,6 +15,11 @@ import model.organization.User;
  */
 public class OrganizationService implements OrganizationServiceInterface {
 
+    @Override
+    public User login(String email, String password) {
+        return UserDAO.login(email,password);
+    }
+
     //USER
     @Override
     public User createUser(String username, String password, String email) {
