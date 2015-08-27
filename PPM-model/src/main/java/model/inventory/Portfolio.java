@@ -35,6 +35,7 @@ public class Portfolio extends Component {
     //@PortfolioTree
     @OneToMany(mappedBy = "portfolio", fetch = FetchType.EAGER)
     private Set<Process> processes = new HashSet<Process>();
+    @PortfolioTree
     @ManyToOne
     @JoinColumn(name = "organization_id", referencedColumnName = "organization_id", nullable = true,insertable = true, updatable = true)
     private Organization organization;

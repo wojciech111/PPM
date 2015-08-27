@@ -1,6 +1,7 @@
 package model.organization;
 
 import model.inventory.Portfolio;
+import util.annotation.PortfolioTree;
 import util.annotation.UserTree;
 
 import javax.persistence.*;
@@ -14,16 +15,20 @@ import java.util.Set;
 @Entity
 @Table(name = "organizations", schema = "public")
 public class Organization {
+    @PortfolioTree
+
     @UserTree
     @Id
     @SequenceGenerator(name="organization_seq", sequenceName="organization_id_seq")
     @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="organization_seq")
     @Column(name = "organization_id", nullable = false, insertable = true, updatable = true)
     private long organizationId;
+    @PortfolioTree
     @UserTree
     @Basic
     @Column(name = "name", nullable = false, insertable = true, updatable = true, length = 150)
     private String name;
+    @PortfolioTree
     @UserTree
     @Basic
     @Column(name = "short_name", nullable = false, insertable = true, updatable = true, length = 30)

@@ -43,7 +43,10 @@ public class InventoryController {
         put("/portfolios/:id", (Request req, Response res) -> {
             String id = req.params(":id");
             String body = req.body();
-            Gson gson = new GsonBuilder().registerTypeAdapter(Component.class, new ComponentDeserializer()).create();
+            Gson gson = new GsonBuilder()
+                    .registerTypeAdapter(Component.class, new ComponentDeserializer())
+                    .setDateFormat("dd/MM/yyyy")
+                    .create();
             Portfolio portfolio = gson.fromJson(req.body(), Portfolio.class);
             Portfolio savedPortfolio = inventoryService.updatePortfolio(portfolio);
             Portfolio returnedPortfolio = inventoryService.getPortfolio(Long.parseLong(id));
