@@ -47,8 +47,8 @@ public class OrganizationService implements OrganizationServiceInterface {
 
     //EMPLOYEE
     @Override
-    public Employee createEmployee(String firstName, String secondName, Organization organization) {
-        Employee employee = new Employee(firstName,secondName,organization);
+    public Employee createEmployee(String firstName, String secondName, Organization organization, User user) {
+        Employee employee = new Employee(firstName,secondName,organization, user);
 
         employee = EmployeeDAO.save(employee);
 

@@ -4,27 +4,115 @@ import model.inventory.Operation;
 import model.inventory.Portfolio;
 import model.inventory.Program;
 import model.inventory.Project;
+import model.inventory.enums.CustomerType;
 import model.inventory.enums.RecursionType;
 import model.organization.Employee;
 import model.organization.Organization;
 import model.organization.User;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 import service.categorization.CategorizationService;
 import service.categorization.CategorizationServiceInterface;
 import service.inventory.InventoryService;
 import service.inventory.InventoryServiceInterface;
 import service.organization.OrganizationService;
 import service.organization.OrganizationServiceInterface;
+import service.process.ProcessService;
+import util.HibernateUtil;
 
 import java.math.BigDecimal;
+import java.sql.Timestamp;
+import java.util.Date;
 
 /**
  * Created by Wojciech on 2015-07-04.
  */
 public class CreateTestData {
     public static void main(final String[] args) throws Exception {
+        Session session = null;
+        try {
+            session = HibernateUtil.getSessionFactory().openSession();
+            Transaction tx =session.beginTransaction();
 
 
-        OrganizationServiceInterface organizationService = new OrganizationService();
+
+            session.createQuery("delete from AreaOfFocus").executeUpdate();
+            session.createQuery("delete from CategoryMembership ").executeUpdate();
+            session.createQuery("delete from CategoryEvaluation ").executeUpdate();
+            session.createQuery("delete from Score ").executeUpdate();
+
+            session.createQuery("delete from Category ").executeUpdate();
+            session.createQuery("delete from ScoringCriterion ").executeUpdate();
+
+            session.createQuery("delete from Cost ").executeUpdate();
+            session.createQuery("delete from Budget ").executeUpdate();
+
+            session.createQuery("delete from Decision ").executeUpdate();
+            session.createQuery("delete from State ").executeUpdate();
+            session.createQuery("delete from Process ").executeUpdate();
+
+            session.createQuery("delete from Component").executeUpdate();
+            session.createQuery("delete from Program").executeUpdate();
+            session.createQuery("delete from Project ").executeUpdate();
+            session.createQuery("delete from Operation ").executeUpdate();
+            session.createQuery("delete from Portfolio").executeUpdate();
+
+
+
+
+
+
+            session.createQuery("delete from Stakeholder ").executeUpdate();
+
+            session.createQuery("delete from Employee ").executeUpdate();
+            session.createQuery("delete from Organization  ").executeUpdate();
+            session.createQuery("delete from User ").executeUpdate();
+
+
+            tx.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (session != null && session.isOpen()) {
+                session.close();
+            }
+        }
+
+        OrganizationServiceInterface os = new OrganizationService();
+        InventoryServiceInterface is = new InventoryService();
+        CategorizationServiceInterface cs = new CategorizationService();
+        ProcessService ps = new ProcessService();
+
+        //Users
+        User user1 = os.createUser("Wojciech111", "php789", "oxio22@gmail.com");
+        User user2 = os.createUser("TestUser", "php789", "test@gmail.com");
+/*
+        //Organizations
+        Organization org1 = os.createOrganization("History Machine Organization", "Hisotr yMachine");
+        Organization org2 = os.createOrganization("Portfolio Manager", "Portfolio Manager");
+
+        //Employees
+        Employee employee_user1_org1 = os.createEmployee("Wojciech", "Oksiñski", org1, user1);
+        Employee employee_user1_org2 = os.createEmployee("Wojciech", "Oksiñski", org1, user2);
+        Employee employee_user2_org2 = os.createEmployee("Jan", "Testowy", org2, user2);
+
+        //Portfolios
+        Portfolio portfolio2 = is.createPortfolio("PrtflMngr", "Portfolio Manager App",
+                CustomerType.EX, "Rynek rozwi¹zañ PPM", null,
+                "Wojciech Oksiñski", "Wype³nienie luki rynkowej rozwi¹zañ wspomagajacych ma³e i œrednie przedsiêbiorstwa zoreintowane projektowo" ,
+                "Stworzenie narzêdzia wspomagaj¹cego organizacje w zarz¹dzaniu portfelem projektów",
+                new Timestamp(new Date().getTime()) ,user1.getUsername(),
+                new Timestamp(new Date().getTime()+2000), user2.getUsername(),
+                null, null, org2);
+        Portfolio portfolio1 = is.createPortfolio("HM.org", "HistoryMachine.org",
+                CustomerType.EX, "Rynek rozwi¹zañ PPM", null,
+                "Wojciech Oksiñski", "Wype³nienie luki rynkowej rozwi¹zañ wspomagajacych ma³e i œrednie przedsiêbiorstwa zoreintowane projektowo",
+                "Stworzenie narzêdzia wspomagaj¹cego organizacje w zarz¹dzaniu portfelem projektów",
+                new Timestamp(new Date().getTime()), user1.getUsername(),
+                new Timestamp(new Date().getTime() + 2000), user2.getUsername(),
+                null, null, org1);
+*/
+        /*OrganizationServiceInterface organizationService = new OrganizationService();
 
         User user = organizationService.createUser("oxio", "php", "oxio22@gmail.com");
         Organization organization = organizationService.createOrganization("History Machine org co zoo inc", "HisotryMachine");
@@ -97,7 +185,7 @@ public class CreateTestData {
         categorizationService.createScore(subPortfolioProject, scoringCriterionEfficiency, new BigDecimal(236.232), "To jes dla tego, ze jest");
 
 
-
+*/
 
     }
 }

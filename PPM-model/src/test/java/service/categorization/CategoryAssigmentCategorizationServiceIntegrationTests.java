@@ -55,21 +55,21 @@ public class CategoryAssigmentCategorizationServiceIntegrationTests {
             }
         }
     }
-
+/*
     //CATEGORY
     @Test
     public void aNewCategoryShouldBeCreated(){
         CategorizationServiceInterface categorizationService = new CategorizationService();
-        Category category = categorizationService.createCategory("CA1", "Kategoria wyborna","opis kategorii ktory jest niezwykle wyczerpuj¹cy");
+        Category category = categorizationService.createCategory("CA1", "Kategoria wyborna","opis kategorii ktory jest niezwykle wyczerpujï¿½cy");
         assertTrue(category.getCode().startsWith("CA1"));
         assertEquals("Kategoria wyborna", category.getName());
-        assertEquals("opis kategorii ktory jest niezwykle wyczerpuj¹cy", category.getDescription());
+        assertEquals("opis kategorii ktory jest niezwykle wyczerpujï¿½cy", category.getDescription());
         assertNotEquals(category.getId(), 0);
     }
     @Test
     public void categoryShouldBeTakenById() {
         CategorizationServiceInterface categorizationService = new CategorizationService();
-        Category category = categorizationService.createCategory("CA1", "Kategoria wyborna","opis kategorii ktory jest niezwykle wyczerpuj¹cy");
+        Category category = categorizationService.createCategory("CA1", "Kategoria wyborna","opis kategorii ktory jest niezwykle wyczerpujï¿½cy");
         Category categoryById = categorizationService.getCategory(category.getId());
         assertTrue(categoryById.getCode().startsWith(category.getCode()));
         assertEquals(categoryById.getName(), category.getName());
@@ -80,7 +80,7 @@ public class CategoryAssigmentCategorizationServiceIntegrationTests {
     @Test
     public void categoryShouldBeUpdated() {
         CategorizationServiceInterface categorizationService = new CategorizationService();
-        Category category = categorizationService.createCategory("CA1", "Kategoria wyborna", "opis kategorii ktory jest niezwykle wyczerpuj¹cy");
+        Category category = categorizationService.createCategory("CA1", "Kategoria wyborna", "opis kategorii ktory jest niezwykle wyczerpujï¿½cy");
         category.setCode("PFFF");
         category.setName("NOWY GrasshosT");
         category = categorizationService.updateCategory(category);
@@ -93,7 +93,7 @@ public class CategoryAssigmentCategorizationServiceIntegrationTests {
     @Test
     public void categoryShouldBeDeleted(){
         CategorizationServiceInterface categorizationService = new CategorizationService();
-        Category category = categorizationService.createCategory("CA1", "Kategoria wyborna", "opis kategorii ktory jest niezwykle wyczerpuj¹cy");
+        Category category = categorizationService.createCategory("CA1", "Kategoria wyborna", "opis kategorii ktory jest niezwykle wyczerpujï¿½cy");
         Category categoryById = categorizationService.getCategory(category.getId());
         categorizationService.deleteCategory(category);
         Category categoryByIdDeleted = categorizationService.getCategory(category.getId());
@@ -106,7 +106,7 @@ public class CategoryAssigmentCategorizationServiceIntegrationTests {
         InventoryServiceInterface inventoryService = new InventoryService();
         CategorizationServiceInterface categorizationService = new CategorizationService();
         Portfolio portfolio = inventoryService.createPortfolio("PF1", "GrassHost", "customer jakis", "Opis Opisik", null);
-        Category category = categorizationService.createCategory("CA1", "Kategoria wyborna", "opis kategorii ktory jest niezwykle wyczerpuj¹cy");
+        Category category = categorizationService.createCategory("CA1", "Kategoria wyborna", "opis kategorii ktory jest niezwykle wyczerpujï¿½cy");
         AreaOfFocus areaOfFocus = categorizationService.createAreaOfFocus(portfolio, category, (short) 5);
         assertEquals(areaOfFocus.getCategory().getId(),category.getId());
         assertEquals(areaOfFocus.getPortfolio().getId(), portfolio.getId());
@@ -119,7 +119,7 @@ public class CategoryAssigmentCategorizationServiceIntegrationTests {
         InventoryServiceInterface inventoryService = new InventoryService();
         CategorizationServiceInterface categorizationService = new CategorizationService();
         Portfolio portfolio = inventoryService.createPortfolio("PF1", "GrassHost", "customer jakis", "Opis Opisik", null);
-        Category category = categorizationService.createCategory("CA1", "Kategoria wyborna", "opis kategorii ktory jest niezwykle wyczerpuj¹cy");
+        Category category = categorizationService.createCategory("CA1", "Kategoria wyborna", "opis kategorii ktory jest niezwykle wyczerpujï¿½cy");
         AreaOfFocus areaOfFocus = categorizationService.createAreaOfFocus(portfolio, category, (short) 101);
     }
     @Test
@@ -127,7 +127,7 @@ public class CategoryAssigmentCategorizationServiceIntegrationTests {
         InventoryServiceInterface inventoryService = new InventoryService();
         CategorizationServiceInterface categorizationService = new CategorizationService();
         Portfolio portfolio = inventoryService.createPortfolio("PF1", "GrassHost", "customer jakis", "Opis Opisik", null);
-        Category category = categorizationService.createCategory("CA1", "Kategoria wyborna", "opis kategorii ktory jest niezwykle wyczerpuj¹cy");
+        Category category = categorizationService.createCategory("CA1", "Kategoria wyborna", "opis kategorii ktory jest niezwykle wyczerpujï¿½cy");
         AreaOfFocus areaOfFocus = categorizationService.createAreaOfFocus(portfolio, category, (short) 5);
         AreaOfFocus newAreaOfFocus = new AreaOfFocus(portfolio,category,(short)66);
         AreaOfFocus areaOfFocusFromUpdate = categorizationService.updateAreaOfFocus(newAreaOfFocus);
@@ -136,14 +136,14 @@ public class CategoryAssigmentCategorizationServiceIntegrationTests {
 
         assertEquals(portfolioAfterUpdate.getAreasOfFocus().size(), 1);
         assertEquals(portfolioAfterUpdate.getAreasOfFocus().iterator().next().getPercentageOfFocus().intValue(),66);
-        //assertEquals(portfolio.getAreasOfFocus().iterator().next().getPercentageOfFocus().intValue(),66); //nie wiem jak to zrobiæ
+        //assertEquals(portfolio.getAreasOfFocus().iterator().next().getPercentageOfFocus().intValue(),66); //nie wiem jak to zrobiï¿½
     }
     @Test(expected=OutOfRangeException.class)
     public void areaOfFocusShouldBeForbidenToUpdateBecouseOutOfRange() throws OutOfRangeException {
         InventoryServiceInterface inventoryService = new InventoryService();
         CategorizationServiceInterface categorizationService = new CategorizationService();
         Portfolio portfolio = inventoryService.createPortfolio("PF1", "GrassHost", "customer jakis", "Opis Opisik", null);
-        Category category = categorizationService.createCategory("CA1", "Kategoria wyborna", "opis kategorii ktory jest niezwykle wyczerpuj¹cy");
+        Category category = categorizationService.createCategory("CA1", "Kategoria wyborna", "opis kategorii ktory jest niezwykle wyczerpujï¿½cy");
         AreaOfFocus areaOfFocus = categorizationService.createAreaOfFocus(portfolio, category, (short) 5);
         AreaOfFocus newAreaOfFocus = new AreaOfFocus(portfolio,category,(short)101);
         AreaOfFocus areaOfFocusFromUpdate = categorizationService.updateAreaOfFocus(newAreaOfFocus);
@@ -154,7 +154,7 @@ public class CategoryAssigmentCategorizationServiceIntegrationTests {
         InventoryServiceInterface inventoryService = new InventoryService();
         CategorizationServiceInterface categorizationService = new CategorizationService();
         Portfolio portfolio = inventoryService.createPortfolio("PF1", "GrassHost", "customer jakis", "Opis Opisik", null);
-        Category category = categorizationService.createCategory("CA1", "Kategoria wyborna", "opis kategorii ktory jest niezwykle wyczerpuj¹cy");
+        Category category = categorizationService.createCategory("CA1", "Kategoria wyborna", "opis kategorii ktory jest niezwykle wyczerpujï¿½cy");
         AreaOfFocus areaOfFocus = categorizationService.createAreaOfFocus(portfolio, category, (short) 5);
         categorizationService.deleteAreaOfFocus(areaOfFocus);
 
@@ -172,7 +172,7 @@ public class CategoryAssigmentCategorizationServiceIntegrationTests {
         CategorizationServiceInterface categorizationService = new CategorizationService();
         Portfolio portfolio = inventoryService.createPortfolio("PF1", "GrassHost", "customer jakis", "Opis Opisik", null);
         Program program = inventoryService.createProgram("P22", "Programmmmm", "customer jakis", "Opis Opisik", portfolio);
-        Category category = categorizationService.createCategory("CA1", "Kategoria wyborna", "opis kategorii ktory jest niezwykle wyczerpuj¹cy");
+        Category category = categorizationService.createCategory("CA1", "Kategoria wyborna", "opis kategorii ktory jest niezwykle wyczerpujï¿½cy");
         CategoryMembership categoryMembership = categorizationService.createCategoryMembership(program, category);
 
         assertEquals(categoryMembership.getCategory().getId(),category.getId());
@@ -187,7 +187,7 @@ public class CategoryAssigmentCategorizationServiceIntegrationTests {
         InventoryServiceInterface inventoryService = new InventoryService();
         CategorizationServiceInterface categorizationService = new CategorizationService();
         Portfolio portfolio = inventoryService.createPortfolio("PF1", "GrassHost", "customer jakis", "Opis Opisik", null);
-        Category category = categorizationService.createCategory("CA1", "Kategoria wyborna", "opis kategorii ktory jest niezwykle wyczerpuj¹cy");
+        Category category = categorizationService.createCategory("CA1", "Kategoria wyborna", "opis kategorii ktory jest niezwykle wyczerpujï¿½cy");
         CategoryMembership categoryMembership = categorizationService.createCategoryMembership(portfolio, category);
     }
     /*@Test
@@ -196,7 +196,7 @@ public class CategoryAssigmentCategorizationServiceIntegrationTests {
         CategorizationServiceInterface categorizationService = new CategorizationService();
         Portfolio portfolio = inventoryService.createPortfolio("PF1", "GrassHost", "customer jakis", "Opis Opisik", null);
         Program program = inventoryService.createProgram("P22", "Programmmmm", "customer jakis", "Opis Opisik", portfolio);
-        Category category = categorizationService.createCategory("CA1", "Kategoria wyborna", "opis kategorii ktory jest niezwykle wyczerpuj¹cy");
+        Category category = categorizationService.createCategory("CA1", "Kategoria wyborna", "opis kategorii ktory jest niezwykle wyczerpujï¿½cy");
         CategoryMembership categoryMembership = categorizationService.createCategoryMembership(program, category);
         categorizationService.deleteCategoryMembership(categoryMembership);
 

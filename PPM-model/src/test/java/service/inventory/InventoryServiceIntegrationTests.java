@@ -54,7 +54,7 @@ public class InventoryServiceIntegrationTests {
             }
         }
     }
-
+/*
     //COMPONENT
     @Test(expected=InvalidParentComponentException.class)
     public void componentWithParentComponentShouldBeForbidenToUpdate() throws InvalidParentComponentException {
@@ -456,5 +456,5 @@ public class InventoryServiceIntegrationTests {
         Project portfolioProgramSubprogramProject = inventoryService.createProject("PF1", "GrassHost", "customer jakis", "Opis Opisik", portfolioProgramSubprogram);
 
     }
-
+*/
 }

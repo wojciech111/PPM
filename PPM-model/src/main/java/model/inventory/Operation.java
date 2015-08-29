@@ -1,13 +1,16 @@
 package model.inventory;
 
-import com.google.gson.annotations.Expose;
+
 import model.inventory.enums.ComponentType;
+import model.inventory.enums.CustomerType;
 import model.inventory.enums.OperationType;
 import model.inventory.enums.RecursionType;
+import model.process.State;
 import util.annotation.PortfolioTree;
 import util.exception.InvalidParentComponentException;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 
 /**
  * Created by Wojciech on 2015-06-23.
@@ -39,6 +42,18 @@ public class Operation extends Component  {
     public Operation(String code, String name, String customer, String description, RecursionType recursionType) {
         super(code, name, customer, description);
         this.recursionType= recursionType;
+    }
+
+    public Operation(String code, String name, CustomerType customerType,
+                     String customer, String sponsor, String manager,
+                     String purpose, String description,
+                     Timestamp creationDate, String createdBy, Timestamp updateDate, String updatedBy,
+                     Component parent, State state,
+                     OperationType operationType, RecursionType recursionType, Integer numberOfTimeUnits) {
+        super(code, name, customerType, customer, sponsor, manager, purpose, description, creationDate, createdBy, updateDate, updatedBy, parent, state);
+        this.operationType = operationType;
+        this.recursionType = recursionType;
+        this.numberOfTimeUnits = numberOfTimeUnits;
     }
 
     @Override

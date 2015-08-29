@@ -1,6 +1,6 @@
 package model.process;
 
-import com.google.gson.annotations.Expose;
+
 import model.inventory.enums.OperationType;
 import model.process.enums.StateType;
 import util.annotation.PortfolioTree;
@@ -15,12 +15,18 @@ import javax.persistence.*;
 public class State {
     @PortfolioTree
     @Id
+    @SequenceGenerator(name="state_seq", sequenceName="state_id_seq")
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="state_seq")
     @Column(name = "state_id", nullable = false, insertable = true, updatable = true)
     private long stateId;
     @PortfolioTree
     @Basic
     @Column(name = "name", nullable = false, insertable = true, updatable = true, length = 30)
     private String name;
+    @PortfolioTree
+    @Basic
+    @Column(name = "color", nullable = false, insertable = true, updatable = true, length = 6)
+    private String color;
     @PortfolioTree
     @Basic
     @Enumerated(EnumType.STRING)
@@ -52,6 +58,17 @@ public class State {
         this.description = description;
     }
 
+    public State(Process process, String name, String description, StateType stateType, String color,
+                 State nextState, State alternativeNextState) {
+        this.process = process;
+        this.name = name;
+        this.description = description;
+        this.stateType = stateType;
+        this.color = color;
+        this.nextState = nextState;
+        this.alternativeNextState = alternativeNextState;
+    }
+
     public long getId() {
         return stateId;
     }
@@ -66,6 +83,14 @@ public class State {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
     }
 
     public StateType getStateType() {

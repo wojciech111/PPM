@@ -1,6 +1,6 @@
 package model.categorization;
 
-import com.google.gson.annotations.Expose;
+
 import model.inventory.Component;
 import model.categorization.pk.ScorePK;
 import org.hibernate.annotations.DiscriminatorOptions;

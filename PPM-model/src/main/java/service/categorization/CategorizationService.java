@@ -67,6 +67,16 @@ public class CategorizationService implements CategorizationServiceInterface {
     }
 
     //CATEGORY MEMBERSHIP
+    public CategoryMembership createCategoryMembership(Component component, Category category, Short percentageOfSupport, BigDecimal overallScore, Short rankInCategory) throws CannotBeMemberOfCategoryIfNotMemberOfPortfolioException {
+        if (component.getParent() == null)
+            throw new CannotBeMemberOfCategoryIfNotMemberOfPortfolioException("Portfolio without parent cannot be member of category");
+        CategoryMembership categoryMembership = new CategoryMembership(component,category, percentageOfSupport,overallScore, rankInCategory);
+        component.getCategoryMemberships().add(categoryMembership);
+        category.getCategoryMemberships().add(categoryMembership);
+        categoryMembership = CategoryMembershipDAO.save(categoryMembership);
+        return categoryMembership;
+    }
+
     public CategoryMembership createCategoryMembership(Component component, Category category) throws CannotBeMemberOfCategoryIfNotMemberOfPortfolioException {
         if (component.getParent() == null)
             throw new CannotBeMemberOfCategoryIfNotMemberOfPortfolioException("Portfolio without parent cannot be member of category");
@@ -76,6 +86,8 @@ public class CategorizationService implements CategorizationServiceInterface {
         categoryMembership = CategoryMembershipDAO.save(categoryMembership);
         return categoryMembership;
     }
+
+
     public void deleteCategoryMembership(CategoryMembership categoryMembership) {
         CategoryMembershipDAO.delete(categoryMembership);
         categoryMembership.getComponent().getCategoryMemberships().remove(categoryMembership);

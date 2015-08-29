@@ -5,7 +5,13 @@ package model.process.enums;
  */
 public enum StateType {
     B  ("Begin"),
+    E  ("Evaluation"),
+    P  ("Planing"),
+    V  ("Voting"),
+    W  ("Waiting for resources"),
+    X  ("Executing"),
     C ("Cancel"),
+    D ("Delayed"),
     A ("Archive")
     ;
     private final String name;

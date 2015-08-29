@@ -1,6 +1,6 @@
 package model.categorization;
 
-import com.google.gson.annotations.Expose;
+
 import util.annotation.PortfolioTree;
 
 import javax.persistence.*;

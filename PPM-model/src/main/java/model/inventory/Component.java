@@ -1,7 +1,7 @@
 package model.inventory;
 
 
-import com.google.gson.annotations.Expose;
+
 import model.categorization.CategoryMembership;
 import model.categorization.Score;
 import model.inventory.enums.ComponentType;
@@ -126,6 +126,26 @@ public class Component {
         this.description = description;
     }
 
+    public Component(String code, String name, CustomerType customerType, String customer,
+                     String sponsor, String manager, String purpose, String description,
+                     Timestamp creationDate, String createdBy,
+                     Timestamp updateDate, String updatedBy,
+                     Component parent, State state) {
+        this.code = code;
+        this.name = name;
+        this.customerType = customerType;
+        this.customer = customer;
+        this.sponsor = sponsor;
+        this.manager = manager;
+        this.purpose = purpose;
+        this.description = description;
+        this.creationDate = creationDate;
+        this.createdBy = createdBy;
+        this.updateDate = updateDate;
+        this.updatedBy = updatedBy;
+        this.parent = parent;
+        this.state = state;
+    }
 
     public long getId() {
         return componentId;

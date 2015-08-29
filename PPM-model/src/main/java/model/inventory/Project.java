@@ -1,12 +1,15 @@
 package model.inventory;
 
-import com.google.gson.annotations.Expose;
+
 import model.inventory.enums.ComponentType;
+import model.inventory.enums.CustomerType;
+import model.process.State;
 import util.annotation.PortfolioTree;
 import util.exception.InvalidParentComponentException;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.sql.Timestamp;
 
 /**
  * Created by Wojciech on 2015-06-23.
@@ -58,6 +61,24 @@ public class Project extends Component  {
     public Project(String code, String name, String customer, String description) {
         super(code, name, customer, description);
     }
+
+    public Project(String code, String name, CustomerType customerType,
+                   String customer, String sponsor, String manager,
+                   String purpose, String description,
+                   Timestamp creationDate, String createdBy, Timestamp updateDate, String updatedBy,
+                   Component parent, State state,
+                   String health, String scope, String schedule, String budget,
+                   Date startDate, Date endDate, Date deadlineDate) {
+        super(code, name, customerType, customer, sponsor, manager, purpose, description, creationDate, createdBy, updateDate, updatedBy, parent, state);
+        this.health = health;
+        this.scope = scope;
+        this.schedule = schedule;
+        this.budget = budget;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.deadlineDate = deadlineDate;
+    }
+
     @Override
     public void setParent(Component parent) throws InvalidParentComponentException {
         if ( parent instanceof Portfolio || parent instanceof Program)

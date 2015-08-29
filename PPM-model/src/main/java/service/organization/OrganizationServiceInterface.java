@@ -22,7 +22,7 @@ public interface OrganizationServiceInterface {
     void deleteUser(User user);
 
     //EMPLOYEE
-    Employee createEmployee(String firstName, String secondName, Organization organization);
+    Employee createEmployee(String firstName, String secondName, Organization organization, User user);
 
     Employee getEmployee(long id);
 

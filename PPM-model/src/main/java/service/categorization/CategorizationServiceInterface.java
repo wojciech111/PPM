@@ -4,6 +4,7 @@ import model.categorization.*;
 import model.categorization.enums.SuperiorityStrategy;
 import model.inventory.Component;
 import model.inventory.Portfolio;
+import model.inventory.Program;
 import util.exception.CannotBeMemberOfCategoryIfNotMemberOfPortfolioException;
 import util.exception.CannotScoreIfNotMemberOfPortfolioException;
 import util.exception.OutOfRangeException;
@@ -31,6 +32,9 @@ public interface CategorizationServiceInterface {
     void deleteAreaOfFocus(AreaOfFocus areaOfFocus);
 
     //CATEGORY MEMBERSHIP
+    CategoryMembership createCategoryMembership(Component component, Category category, Short percentageOfSupport,
+                                                BigDecimal overallScore, Short rankInCategory) throws CannotBeMemberOfCategoryIfNotMemberOfPortfolioException;
+
     CategoryMembership createCategoryMembership(Component component, Category category) throws CannotBeMemberOfCategoryIfNotMemberOfPortfolioException;
 
     void deleteCategoryMembership(CategoryMembership categoryMembership);
@@ -60,4 +64,5 @@ public interface CategorizationServiceInterface {
     Score updateScore(Score score);
 
     void deleteScore(Score score);
+
 }

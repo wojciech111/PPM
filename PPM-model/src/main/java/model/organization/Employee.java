@@ -46,10 +46,11 @@ public class Employee {
     public Employee() {
     }
 
-    public Employee(String firstName, String secondName,Organization organization) {
+    public Employee(String firstName, String secondName,Organization organization, User user) {
         this.organization = organization;
         this.secondName = secondName;
         this.firstName = firstName;
+        this.user = user;
     }
 
     public long getId() {

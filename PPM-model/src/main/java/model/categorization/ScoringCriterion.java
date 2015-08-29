@@ -1,7 +1,8 @@
 package model.categorization;
 
-import com.google.gson.annotations.Expose;
+
 import model.categorization.enums.SuperiorityStrategy;
+import model.inventory.Portfolio;
 import org.hibernate.annotations.DiscriminatorOptions;
 import util.annotation.PortfolioTree;
 
@@ -55,6 +56,10 @@ public class ScoringCriterion {
     @Basic
     @Column(name = "max_score", nullable = true, insertable = true, updatable = true, precision = 2)
     private BigDecimal maxScore;
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "component_id", referencedColumnName = "component_id", insertable = true, updatable = true)
+    private Portfolio portfolio;
 
     //RELATIONS
     /*@OneToMany(mappedBy = "scoringCriterion", fetch = FetchType.EAGER)
@@ -136,4 +141,11 @@ public class ScoringCriterion {
         this.maxScore = maxScore;
     }
 
+    public Portfolio getPortfolio() {
+        return portfolio;
+    }
+
+    public void setPortfolio(Portfolio portfolio) {
+        this.portfolio = portfolio;
+    }
 }

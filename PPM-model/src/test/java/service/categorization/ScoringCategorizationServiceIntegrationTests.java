@@ -58,7 +58,7 @@ public class ScoringCategorizationServiceIntegrationTests {
     }
 
     //SCORING CRITERION
-
+/*
     @Test
     public void aNewScoringCriterionShouldBeCreated(){
         CategorizationServiceInterface categorizationService = new CategorizationService();
@@ -206,6 +206,6 @@ public class ScoringCategorizationServiceIntegrationTests {
         assertEquals(program.getScores().size(), 0);
     }
 
-
+*/
 
 }

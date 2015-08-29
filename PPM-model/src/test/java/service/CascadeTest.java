@@ -61,7 +61,7 @@ public class CascadeTest {
             }
         }
     }
-
+/*
     @Test
     public void parentShouldUpdate() throws InvalidParentComponentException {
         InventoryServiceInterface inventoryService = new InventoryService();
@@ -90,4 +90,5 @@ public class CascadeTest {
         assertEquals(projectUpdatedPortfolio.getName(), "SUKCESUPDATED");
         assertEquals(projectSavedPortfolio.getName(), "SUKCESUPDATED");
     }
+    */
 }

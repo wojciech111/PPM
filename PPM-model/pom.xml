@@ -15,6 +15,11 @@
             <artifactId>postgresql</artifactId>
             <version>9.1-901.jdbc4</version>
         </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-c3p0</artifactId>
+            <version>3.6.3.Final</version>
+        </dependency>
 
         <!-- logback -->
         <dependency>
@@ -28,6 +33,7 @@
             <artifactId>logback-classic</artifactId>
             <version>0.9.28</version>
         </dependency>
+
     </dependencies>
 
 </project>

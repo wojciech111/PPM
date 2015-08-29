@@ -1,6 +1,6 @@
 package model.categorization;
 
-import com.google.gson.annotations.Expose;
+
 import model.categorization.pk.AreaOfFocusPK;
 import model.inventory.Portfolio;
 import util.annotation.PortfolioTree;

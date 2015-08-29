@@ -1,8 +1,10 @@
 package model.inventory;
 
-import com.google.gson.annotations.Expose;
+
 import model.categorization.AreaOfFocus;
+import model.categorization.ScoringCriterion;
 import model.inventory.enums.ComponentType;
+import model.inventory.enums.CustomerType;
 import model.organization.Organization;
 import model.process.*;
 import model.process.Process;
@@ -11,6 +13,7 @@ import util.annotation.UserTree;
 import util.exception.InvalidParentComponentException;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -32,9 +35,12 @@ public class Portfolio extends Component {
     //@PortfolioTree
     @OneToMany(mappedBy = "portfolio", fetch = FetchType.EAGER, cascade=CascadeType.ALL)
     private Set<AreaOfFocus> areasOfFocus = new HashSet<AreaOfFocus>();
-    //@PortfolioTree
+    @PortfolioTree
     @OneToMany(mappedBy = "portfolio", fetch = FetchType.EAGER)
     private Set<Process> processes = new HashSet<Process>();
+    @PortfolioTree
+    @OneToMany(mappedBy = "portfolio", fetch = FetchType.EAGER)
+    private Set<ScoringCriterion> scoringCriterions = new HashSet<ScoringCriterion>();
     @PortfolioTree
     @ManyToOne
     @JoinColumn(name = "organization_id", referencedColumnName = "organization_id", nullable = true,insertable = true, updatable = true)
@@ -46,6 +52,15 @@ public class Portfolio extends Component {
 
     public Portfolio(String code, String name, String customer, String description) {
         super(code, name, customer, description);
+    }
+
+    public Portfolio(String code, String name, CustomerType customerType, String customer, String sponsor,
+                     String manager, String purpose, String description,
+                     Timestamp creationDate, String createdBy,
+                     Timestamp updateDate, String updatedBy,
+                     Component parent, State state, Organization organization) {
+        super(code, name, customerType, customer, sponsor, manager, purpose, description, creationDate, createdBy, updateDate, updatedBy, parent, state);
+        this.organization = organization;
     }
 
     @Override
@@ -70,6 +85,14 @@ public class Portfolio extends Component {
 
     public void setProcesses(Set<Process> processes) {
         this.processes = processes;
+    }
+
+    public Set<ScoringCriterion> getScoringCriterions() {
+        return scoringCriterions;
+    }
+
+    public void setScoringCriterions(Set<ScoringCriterion> scoringCriterions) {
+        this.scoringCriterions = scoringCriterions;
     }
 
     public Organization getOrganization() {

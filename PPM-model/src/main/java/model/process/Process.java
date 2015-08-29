@@ -1,7 +1,7 @@
 package model.process;
 
 
-import com.google.gson.annotations.Expose;
+
 import model.inventory.Portfolio;
 import util.annotation.PortfolioTree;
 
@@ -47,6 +47,7 @@ public class Process {
         this.description = description;
         this.portfolio = portfolio;
     }
+
 
     public long getId() {
         return processId;

@@ -1,6 +1,6 @@
 package model.categorization;
 
-import com.google.gson.annotations.Expose;
+
 import model.inventory.Component;
 import model.categorization.pk.CategoryMembershipPK;
 import util.annotation.PortfolioTree;
@@ -49,6 +49,16 @@ public class CategoryMembership {
         this.categoryMembershipPK= new CategoryMembershipPK(component.getId(),category.getId());
         this.component = component;
         this.category = category;
+    }
+
+    public CategoryMembership(Component component, Category category, Short percentageOfSupport,
+                              BigDecimal overallScore, Short rankInCategory) {
+        this.categoryMembershipPK= new CategoryMembershipPK(component.getId(),category.getId());
+        this.component = component;
+        this.category = category;
+        this.percentageOfSupport = percentageOfSupport;
+        this.overallScore = overallScore;
+        this.rankInCategory = rankInCategory;
     }
 
     public CategoryMembershipPK getCategoryMembershipPK() {
