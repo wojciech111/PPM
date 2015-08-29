@@ -44,6 +44,14 @@ public class CategoryEvaluation {
         this.category = category;
     }
 
+    public CategoryEvaluation(ScoringCriterion scoringCriterion, Category category, String isKey, Short weight) {
+        this.categoryEvaluationPK = new CategoryEvaluationPK(scoringCriterion.getId(),category.getId());
+        this.scoringCriterion = scoringCriterion;
+        this.category = category;
+        this.isKey = isKey;
+        this.weight = weight;
+    }
+
     public String getIsKey() {
         return isKey;
     }

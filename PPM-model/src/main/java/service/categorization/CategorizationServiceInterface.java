@@ -40,6 +40,11 @@ public interface CategorizationServiceInterface {
     void deleteCategoryMembership(CategoryMembership categoryMembership);
 
     //SCORING CRITERION
+    public ScoringCriterion createScoringCriterion(String code, String name,
+                                                   String description, String question,
+                                                   SuperiorityStrategy bestIs,
+                                                   BigDecimal minScore, BigDecimal maxScore,
+                                                   Portfolio portfolio);
 
     ScoringCriterion createScoringCriterion(String code, String name, String description, SuperiorityStrategy bestIs);
 
@@ -50,6 +55,8 @@ public interface CategorizationServiceInterface {
     void deleteScoringCriterion(ScoringCriterion scoringCriterion);
 
     //CATEGORY EVALUATION
+
+    CategoryEvaluation createCategoryEvaluation(ScoringCriterion scoringCriterion, Category category, String isKey, Short weight);
 
     CategoryEvaluation createCategoryEvaluation(ScoringCriterion scoringCriterion, Category category);
 

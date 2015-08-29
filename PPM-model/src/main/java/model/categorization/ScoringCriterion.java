@@ -77,6 +77,21 @@ public class ScoringCriterion {
         this.bestIs=bestIs;
     }
 
+    public ScoringCriterion(String code, String name,
+                            String description, String question,
+                            SuperiorityStrategy bestIs,
+                            BigDecimal minScore, BigDecimal maxScore,
+                            Portfolio portfolio) {
+        this.code = code;
+        this.name = name;
+        this.description = description;
+        this.question = question;
+        this.bestIs = bestIs;
+        this.minScore = minScore;
+        this.maxScore = maxScore;
+        this.portfolio = portfolio;
+    }
+
     public long getId() {
         return scoringCriterionId;
     }

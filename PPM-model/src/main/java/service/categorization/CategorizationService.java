@@ -96,6 +96,20 @@ public class CategorizationService implements CategorizationServiceInterface {
 
     //SCORING CRITERION
 
+    public ScoringCriterion createScoringCriterion(String code, String name,
+                                                   String description, String question,
+                                                   SuperiorityStrategy bestIs,
+                                                   BigDecimal minScore, BigDecimal maxScore,
+                                                   Portfolio portfolio) {
+        ScoringCriterion numericScoringCriterion = new ScoringCriterion( code,  name,
+                 description,  question,bestIs,
+                 minScore,  maxScore,portfolio);
+
+        numericScoringCriterion = (ScoringCriterion) ScoringCriterionDAO.save(numericScoringCriterion);
+
+        return numericScoringCriterion;
+    }
+
     public ScoringCriterion createScoringCriterion(String code, String name, String description, SuperiorityStrategy bestIs) {
         ScoringCriterion numericScoringCriterion = new ScoringCriterion(code,name,description,bestIs);
 
@@ -118,6 +132,12 @@ public class CategorizationService implements CategorizationServiceInterface {
 
     //CATEGORY EVALUATION
 
+    public CategoryEvaluation createCategoryEvaluation(ScoringCriterion scoringCriterion, Category category, String isKey, Short weight) {
+        CategoryEvaluation categoryEvaluation = new CategoryEvaluation(scoringCriterion,category,  isKey,  weight);
+        category.getCategoryEvaluations().add(categoryEvaluation);
+        categoryEvaluation = CategoryEvaluationDAO.save(categoryEvaluation);
+        return categoryEvaluation;
+    }
     public CategoryEvaluation createCategoryEvaluation(ScoringCriterion scoringCriterion, Category category) {
         CategoryEvaluation categoryEvaluation = new CategoryEvaluation(scoringCriterion,category);
         category.getCategoryEvaluations().add(categoryEvaluation);

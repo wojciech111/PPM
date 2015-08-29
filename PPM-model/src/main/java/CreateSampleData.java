@@ -303,75 +303,103 @@ public class CreateSampleData {
 
         //Scoring criteria
 
+        ScoringCriterion scoringCriterion1_1 = cs.createScoringCriterion("CDI", "Code maintenance increase",
+                "Description", "How it will increase code maintenance",
+                SuperiorityStrategy.MAX,new BigDecimal(1),new BigDecimal(10),portfolio2);
+
+        
+        
+         ScoringCriterion scoringCriterion1_2 = cs.createScoringCriterion("CDI", "Development speed increase",
+                "Description", "How it will increase development speed",
+                SuperiorityStrategy.MAX,new BigDecimal(1),new BigDecimal(10),portfolio2);
+
+        
+        
+         ScoringCriterion scoringCriterion1_3 = cs.createScoringCriterion("OMI", "Overall maintainability increase ",
+                "Description", null,
+                SuperiorityStrategy.MAX,new BigDecimal(1),new BigDecimal(10),portfolio2);
+
+        
+        
+         ScoringCriterion scoringCriterion1_4 = cs.createScoringCriterion("CD", "Cost decrease",
+                "Description", null,
+                SuperiorityStrategy.MAX,new BigDecimal(0),null,portfolio2);
+
+        
+        
+         ScoringCriterion scoringCriterion2_1 = cs.createScoringCriterion("NNF", "No of new features ",
+                "Description", "What are the features",
+                SuperiorityStrategy.MAX,new BigDecimal(1),new BigDecimal(10),portfolio2);
+
+        
+        
+         ScoringCriterion scoringCriterion2_2 = cs.createScoringCriterion("CFI", "Current functions improvement",
+                "Description", "How it will improve current functions",
+                SuperiorityStrategy.MAX,new BigDecimal(1),new BigDecimal(10),portfolio2);
+
+        
+        
+         ScoringCriterion scoringCriterion3_1 = cs.createScoringCriterion("CGNW", "Customer growth in new markets",
+                "Description", "Why",
+                SuperiorityStrategy.MAX,null,null,portfolio2);
+
+        
+        
+         ScoringCriterion scoringCriterion3_2 = cs.createScoringCriterion("CGCM", "Customer growth in current markets",
+                "Description", "Why",
+                SuperiorityStrategy.MAX,null,null,portfolio2);
+
+        
+        
+         ScoringCriterion scoringCriterion4_1 = cs.createScoringCriterion("PI", "Profit increase",
+                "Description", "Why it will increase profit",
+                SuperiorityStrategy.MAX,null,null,portfolio2);
+
+        
+        
+         ScoringCriterion scoringCriterion5_1 = cs.createScoringCriterion("NNS", "Need of new skill",
+                "Description", "Why",
+                SuperiorityStrategy.MAX,new BigDecimal(1),new BigDecimal(10),portfolio2);
+
+        
+        
+         ScoringCriterion scoringCriterion5_2 = cs.createScoringCriterion("CDI", "Usage of new skill",
+                "Description", "Why",
+                SuperiorityStrategy.MAX,new BigDecimal(1),new BigDecimal(10),portfolio2);
+
+        
+        
+         ScoringCriterion scoringCriterionX_1 = cs.createScoringCriterion("NoU", "Number of users",
+                "Description", "How it will increase code maintenance",
+                SuperiorityStrategy.MAX,new BigDecimal(1),null,portfolio2);
+
+        
+        //Category to ScoringCriteria
+
+        cs.createCategoryEvaluation(scoringCriterion1_1, category1, "N",(short) 10 );
+        cs.createCategoryEvaluation(scoringCriterion1_2, category1, "Y",(short) 30 );
+        cs.createCategoryEvaluation(scoringCriterion1_3, category1, "N",(short) 10 );
+        cs.createCategoryEvaluation(scoringCriterion1_4, category1, "N",(short) 50 );
+        cs.createCategoryEvaluation(scoringCriterion2_1, category2, "N",(short) 30 );
+        cs.createCategoryEvaluation(scoringCriterion2_2, category2, "N",(short) 70 );
+        cs.createCategoryEvaluation(scoringCriterion3_1, category3, "Y",(short) 80 );
+        cs.createCategoryEvaluation(scoringCriterion3_2, category3, "N",(short) 20 );
+        cs.createCategoryEvaluation(scoringCriterion4_1, category4, "N",(short) 40 );
+        cs.createCategoryEvaluation(scoringCriterion5_1, category5, "N",(short) 50 );
+        cs.createCategoryEvaluation(scoringCriterion5_2, category5, "Y",(short) 60 );
 
 
-/*
+        //Scores
 
-        //scroing criteria
-        ScoringCriterion scoringCriterionROI = cs.createScoringCriterion("ROI", "Return on investment", "Pi?kny opis tego czym ten wska?nik jest", SuperiorityStrategy.MAX);
-        ScoringCriterion scoringCriterionEfficiency = cs.createScoringCriterion("Eff", "Efficiency improvement", "Pi?kny opis tego czym ten wska?nik jest", SuperiorityStrategy.MAX);
+        cs.createScore(project2_1_3_1, scoringCriterion1_1, new BigDecimal(3), "To jest dla tego, ¿e jest");
+        cs.createScore(project2_1_3_1, scoringCriterion1_2, new BigDecimal(3), "To jest dla tego, ¿e jest");
+        cs.createScore(project2_1_3_1, scoringCriterion1_3, new BigDecimal(9), "To jest dla tego, ¿e jest");
+        cs.createScore(project2_1_3_1, scoringCriterion1_4, new BigDecimal(0), "To jest dla tego, ¿e jest");
+        cs.createScore(project2_1_3_1, scoringCriterion2_1, new BigDecimal(0), "To jest dla tego, ¿e jest");
+        cs.createScore(project2_1_3_1, scoringCriterion2_2, new BigDecimal(3), "To jest dla tego, ¿e jest");
 
+        
 
-
-        Project portfolioProject = is.createProject("PF1", "portfolioProject", "customer jakis", "Opis Opisik", portfolioTop);
-
-        //subportfolio
-        Portfolio subPortfolio = is.createPortfolio("SPT", "subPortfolio", "customer jakis", "Opis Opisik", portfolioTop);
-        Program subPortfolioProgram = is.createProgram("PF1", "subPortfolioProgram", "customer jakis", "Opis Opisik", subPortfolio);
-        Project subPortfolioProgramProject = is.createProject("PF1", "subPortfolioProgramProject", "customer jakis", "Opis Opisik", subPortfolioProgram);
-        Project subPortfolioProject = is.createProject("PF1", "subPortfolioProject", "customer jakis", "Opis Opisik", subPortfolio);
-
-        //program
-        Program portfolioProgram = is.createProgram("PF1", "portfolioProgram", "customer jakis", "Opis Opisik", portfolioTop);
-        Operation portfolioProgramOperation = is.createOperation("PF2", "portfolioProgramOperation", "customer jakis", "Opis Opisik", portfolioProgram, RecursionType.M);
-        Project portfolioProgramProject = is.createProject("PF1", "portfolioProgramProject", "customer jakis", "Opis Opisik", portfolioProgram);
-
-        //subprogram
-        Program portfolioProgramSubprogram = is.createProgram("PF1", "portfolioProgramSubprogram", "customer jakis", "Opis Opisik", portfolioProgram);
-        Project portfolioProgramSubprogramProject = is.createProject("PF1", "portfolioProgramSubprogramProject", "customer jakis", "Opis Opisik", portfolioProgramSubprogram);
-
-
-
-        //category
-        Category category1 = cs.createCategory("CA1", "Kategoria wyborna","opis kategorii ktory jest niezwykle wyczerpuj¹cy");
-        Category category2 = cs.createCategory("CA2", "Kategoria mniej wyborna","opis kategorii ktory jest zwykle wyczerpuj¹cy");
-
-        //category to portfolios
-        cs.createAreaOfFocus(portfolioTop, category1, (short) 65);
-        cs.createAreaOfFocus(portfolioTop, category2, (short) 35);
-        cs.createAreaOfFocus(subPortfolio, category2, (short) 100);
-
-        //category to components
-        cs.createCategoryMembership(portfolioProject, category1);
-        cs.createCategoryMembership(subPortfolio, category2);
-        cs.createCategoryMembership(subPortfolioProgram, category2);
-        cs.createCategoryMembership(subPortfolioProgramProject, category2);
-        cs.createCategoryMembership(subPortfolioProject, category2);
-        cs.createCategoryMembership(portfolioProgramOperation, category1);
-        cs.createCategoryMembership(portfolioProgramProject, category1);
-        cs.createCategoryMembership(portfolioProgramSubprogram, category1);
-        cs.createCategoryMembership(portfolioProgramSubprogramProject, category1);
-
-        //scroing criteria
-        ScoringCriterion scoringCriterionROI = cs.createScoringCriterion("ROI", "Return on investment", "Pi?kny opis tego czym ten wska?nik jest", SuperiorityStrategy.MAX);
-        ScoringCriterion scoringCriterionEfficiency = cs.createScoringCriterion("Eff", "Efficiency improvement", "Pi?kny opis tego czym ten wska?nik jest", SuperiorityStrategy.MAX);
-
-        //criteria to category
-        cs.createCategoryEvaluation(scoringCriterionROI, category1);
-        cs.createCategoryEvaluation(scoringCriterionEfficiency, category2);
-
-        //scores
-        cs.createScore(portfolioProject, scoringCriterionROI, new BigDecimal(456.232), "To jes dla tego, ze jest");
-        cs.createScore(portfolioProgramProject, scoringCriterionROI, new BigDecimal(346.232), "To jes dla tego, ze jest");
-        cs.createScore(portfolioProgramSubprogram, scoringCriterionROI, new BigDecimal(77.232), "To jes dla tego, ze jest");
-        cs.createScore(portfolioProgramSubprogramProject, scoringCriterionROI, new BigDecimal(654), "To jes dla tego, ze jest");
-
-        cs.createScore(subPortfolio, scoringCriterionEfficiency, new BigDecimal(66.232), "To jes dla tego, ze jest");
-        cs.createScore(subPortfolioProgram, scoringCriterionEfficiency, new BigDecimal(634.232), "To jes dla tego, ze jest");
-        cs.createScore(subPortfolioProgramProject, scoringCriterionEfficiency, new BigDecimal(226.232), "To jes dla tego, ze jest");
-        cs.createScore(subPortfolioProject, scoringCriterionEfficiency, new BigDecimal(236.232), "To jes dla tego, ze jest");
-
-*/
 
 
     }
