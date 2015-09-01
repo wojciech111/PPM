@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import model.inventory.Component;
 import model.inventory.Portfolio;
+import model.inventory.Project;
 import service.inventory.InventoryServiceInterface;
 import spark.Request;
 import spark.Response;

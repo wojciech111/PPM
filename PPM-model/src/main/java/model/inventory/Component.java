@@ -7,6 +7,7 @@ import model.categorization.Score;
 import model.inventory.enums.ComponentType;
 import model.inventory.enums.CustomerType;
 import model.organization.Stakeholder;
+import model.process.Decision;
 import model.process.State;
 import model.process.Process;
 
@@ -109,6 +110,9 @@ public class Component {
     @PortfolioTree
     @OneToMany(mappedBy = "component", fetch=FetchType.EAGER, orphanRemoval=true, cascade=CascadeType.ALL)
     private Set<Score> scores = new HashSet<Score>();
+    @PortfolioTree
+    @OneToMany(mappedBy = "component", fetch=FetchType.EAGER, orphanRemoval=true, cascade=CascadeType.ALL)
+    private Set<Decision> decisions = new HashSet<Decision>();
     @PortfolioTree
     @ManyToOne
     @JoinColumn(name = "state_id", referencedColumnName = "state_id", nullable = true,insertable = true, updatable = true)
@@ -326,5 +330,13 @@ public class Component {
 
     public void setProcess(Process process) {
         this.process = process;
+    }
+
+    public Set<Decision> getDecisions() {
+        return decisions;
+    }
+
+    public void setDecisions(Set<Decision> decisions) {
+        this.decisions = decisions;
     }
 }

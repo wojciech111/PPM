@@ -96,22 +96,22 @@ public class CreateSampleData {
         Organization org2 = os.createOrganization("Portfolio Manager", "Portfolio Manager");
 
         //Employees
-        Employee employee_user1_org1 = os.createEmployee("Wojciech", "Oksiñski", org1, user1);
-        Employee employee_user1_org2 = os.createEmployee("Wojciech", "Oksiñski", org2, user1);
+        Employee employee_user1_org1 = os.createEmployee("Wojciech", "Oksiï¿½ski", org1, user1);
+        Employee employee_user1_org2 = os.createEmployee("Wojciech", "Oksiï¿½ski", org2, user1);
         Employee employee_user2_org2 = os.createEmployee("Jan", "Testowy", org2, user2);
 
         //Portfolios
         Portfolio portfolio2 = is.createPortfolio("PrtflMngr", "Portfolio Manager App",
-                CustomerType.EX, "Rynek rozwi¹zañ PPM", null,
-                "Wojciech Oksiñski", "Wype³nienie luki rynkowej rozwi¹zañ wspomagajacych ma³e i œrednie przedsiêbiorstwa zoreintowane projektowo" ,
-                "Stworzenie narzêdzia wspomagaj¹cego organizacje w zarz¹dzaniu portfelem projektów",
+                CustomerType.EX, "Rynek rozwiï¿½zaï¿½ PPM", null,
+                "Wojciech Oksiï¿½ski", "Wypeï¿½nienie luki rynkowej rozwiï¿½zaï¿½ wspomagajacych maï¿½e i ï¿½rednie przedsiï¿½biorstwa zoreintowane projektowo" ,
+                "Stworzenie narzï¿½dzia wspomagajï¿½cego organizacje w zarzï¿½dzaniu portfelem projektï¿½w",
                 new Timestamp(new Date().getTime()) ,user1.getUsername(),
                 new Timestamp(new Date().getTime()+2000), user2.getUsername(),
                 null, null, org2);
         Portfolio portfolio1 = is.createPortfolio("HM.org", "HistoryMachine.org",
-                CustomerType.EX, "Rynek rozwi¹zañ PPM", null,
-                "Wojciech Oksiñski", "Wype³nienie luki rynkowej rozwi¹zañ wspomagajacych ma³e i œrednie przedsiêbiorstwa zoreintowane projektowo",
-                "Stworzenie narzêdzia wspomagaj¹cego organizacje w zarz¹dzaniu portfelem projektów",
+                CustomerType.EX, "Rynek rozwiï¿½zaï¿½ PPM", null,
+                "Wojciech Oksiï¿½ski", "Wypeï¿½nienie luki rynkowej rozwiï¿½zaï¿½ wspomagajacych maï¿½e i ï¿½rednie przedsiï¿½biorstwa zoreintowane projektowo",
+                "Stworzenie narzï¿½dzia wspomagajï¿½cego organizacje w zarzï¿½dzaniu portfelem projektï¿½w",
                 new Timestamp(new Date().getTime()), user1.getUsername(),
                 new Timestamp(new Date().getTime() + 2000), user2.getUsername(),
                 null, null, org1);
@@ -122,36 +122,36 @@ public class CreateSampleData {
 
 
         //State helpers
-        State state1_arch = ps.createState(process1, "1.A Archived", "Evaluation stage", StateType.A, "440000",
+        State state1_arch = ps.createState(process1, "Archived", "Evaluation stage", StateType.A, "440000",
                 null, null);
-        State state1_can = ps.createState(process1, "1.C Canceled", "Evaluation stage", StateType.C, "440000",
+        State state1_can = ps.createState(process1, "Canceled", "Evaluation stage", StateType.C, "440000",
                 state1_arch, null);
-        State state1_del = ps.createState(process1, "1.D Delayed", "Evaluation stage", StateType.D, "440000",
+        State state1_del = ps.createState(process1, "Delayed", "Evaluation stage", StateType.D, "440000",
                 state1_can, null);
 
         //States helpers
-        State state1_8 = ps.createState(process1, "1.8 Finished", "Finished stage", StateType.A, "440000",
+        State state1_8 = ps.createState(process1, "Finished", "Finished stage", StateType.A, "440000",
                 state1_arch, null);
-        State state1_7 = ps.createState(process1, "1.7 Collecting benefits", "Collecting stage", StateType.A, "440000",
+        State state1_7 = ps.createState(process1, "Collecting benefits", "Collecting stage", StateType.A, "440000",
                 state1_8, state1_del);
-        State state1_6 = ps.createState(process1, "1.6 Executing", "Executing stage", StateType.X, "440000",
+        State state1_6 = ps.createState(process1, "Executing", "Executing stage", StateType.X, "440000",
                 state1_7, state1_del);
-        State state1_5 = ps.createState(process1, "1.5 Waiting for resources", "Waiting stage", StateType.W, "440000",
+        State state1_5 = ps.createState(process1, "Waiting for resources", "Waiting stage", StateType.W, "440000",
                 state1_6, state1_del);
-        State state1_4 = ps.createState(process1, "1.4 Budgeting", "Budgeting stage", StateType.V, "440000",
+        State state1_4 = ps.createState(process1, "Budgeting", "Budgeting stage", StateType.V, "440000",
                 state1_5, state1_del);
-        State state1_3 = ps.createState(process1, "1.3 Planning", "Planning stage", StateType.P, "440000",
+        State state1_3 = ps.createState(process1, "Planning", "Planning stage", StateType.P, "440000",
                 state1_4, state1_del);
-        State state1_2 = ps.createState(process1, "1.2 Evaluation", "Evaluation stage", StateType.E, "440000",
+        State state1_2 = ps.createState(process1, "Evaluation", "Evaluation stage", StateType.E, "440000",
                 state1_3, state1_del);
-        State state1_1 = ps.createState(process1, "1.1 Initiation", "Initiation stage", StateType.B, "440000",
+        State state1_1 = ps.createState(process1, "Initiation", "Initiation stage", StateType.B, "440000",
                 state1_2, state1_del);
 
         //Programs
         Program program2_1 = is.createProgram("Prgrm2.1", "Portfolio Manager App version 1.0 development",
                 CustomerType.EX, "Rynek", "WO", "WO",
-                "Stworzenie dzia³aj¹cej aplikacji do zarz¹dzania portfelem projektów",
-                "Stworzenie dzia³aj¹cej aplikacji do zarz¹dzania portfelem projektów",
+                "Stworzenie dziaï¿½ajï¿½cej aplikacji do zarzï¿½dzania portfelem projektï¿½w",
+                "Stworzenie dziaï¿½ajï¿½cej aplikacji do zarzï¿½dzania portfelem projektï¿½w",
                 new Timestamp(new Date().getTime()), user1.getUsername(),
                 new Timestamp(new Date().getTime()), user2.getUsername(),
                 portfolio2, state1_1,process1, null, null, null, null,
@@ -160,18 +160,18 @@ public class CreateSampleData {
                 new BigDecimal(10), new BigDecimal(10));
         Program program2_1_3 = is.createProgram("Prg2.1.3", "Devevelopment of Web App",
                 CustomerType.EX, "Rynek", "WO", "WO",
-                "Stworzenie dzia³aj¹cej aplikacji przegl¹darkowej do zarz¹dzania portfelem projektów",
-                "Stworzenie dzia³aj¹cej aplikacji przegl¹darkowej do zarz¹dzania portfelem projektów",
+                "Stworzenie dziaï¿½ajï¿½cej aplikacji przeglï¿½darkowej do zarzï¿½dzania portfelem projektï¿½w",
+                "Stworzenie dziaï¿½ajï¿½cej aplikacji przeglï¿½darkowej do zarzï¿½dzania portfelem projektï¿½w",
                 new Timestamp(new Date().getTime()), user1.getUsername(),
                 new Timestamp(new Date().getTime()), user2.getUsername(),
                 portfolio2, state1_1,process1, null, null, null, null,
                 null, null, null,
                 null, null, null, null);
         //Operations
-        Operation operation = is.createOperation("Op2.1", "Nadzór promotora nad kszta³tem narzêdzia",
+        Operation operation = is.createOperation("Op2.1", "Nadzï¿½r promotora nad ksztaï¿½tem narzï¿½dzia",
                 CustomerType.EX, "Rynek", "WO", "WO",
-                "Stworzenie dzia³aj¹cej aplikacji przegl¹darkowej do zarz¹dzania portfelem projektów",
-                "Stworzenie dzia³aj¹cej aplikacji przegl¹darkowej do zarz¹dzania portfelem projektów",
+                "Stworzenie dziaï¿½ajï¿½cej aplikacji przeglï¿½darkowej do zarzï¿½dzania portfelem projektï¿½w",
+                "Stworzenie dziaï¿½ajï¿½cej aplikacji przeglï¿½darkowej do zarzï¿½dzania portfelem projektï¿½w",
                 new Timestamp(new Date().getTime()), user1.getUsername(),
                 new Timestamp(new Date().getTime()), user2.getUsername(),
                 program2_1, state1_1,process1,
@@ -183,8 +183,8 @@ public class CreateSampleData {
         //Projects
         Project project2_1_1 = is.createProject("Prjc2.1.1", "Creation of database",
                 CustomerType.EX, "Rynek", "WO", "WO",
-                "Stworzenie dzia³aj¹cej aplikacji do zarz¹dzania portfelem projektów",
-                "Stworzenie dzia³aj¹cej aplikacji do zarz¹dzania portfelem projektów",
+                "Stworzenie dziaï¿½ajï¿½cej aplikacji do zarzï¿½dzania portfelem projektï¿½w",
+                "Stworzenie dziaï¿½ajï¿½cej aplikacji do zarzï¿½dzania portfelem projektï¿½w",
                 new Timestamp(new Date().getTime()), user1.getUsername(),
                 new Timestamp(new Date().getTime()), user2.getUsername(),
                 program2_1, state1_1,process1,null,  null,  null,  null,
@@ -193,8 +193,8 @@ public class CreateSampleData {
 
         Project project2_1_2 = is.createProject("Prjc2.1.2", "Creation of Web API",
                 CustomerType.EX, "Rynek", "WO", "WO",
-                "Stworzenie dzia³aj¹cej aplikacji do zarz¹dzania portfelem projektów",
-                "Stworzenie dzia³aj¹cej aplikacji do zarz¹dzania portfelem projektów",
+                "Stworzenie dziaï¿½ajï¿½cej aplikacji do zarzï¿½dzania portfelem projektï¿½w",
+                "Stworzenie dziaï¿½ajï¿½cej aplikacji do zarzï¿½dzania portfelem projektï¿½w",
                 new Timestamp(new Date().getTime()), user1.getUsername(),
                 new Timestamp(new Date().getTime()), user2.getUsername(),
                 program2_1, state1_1,process1,null,  null,  null,  null,
@@ -203,8 +203,8 @@ public class CreateSampleData {
 
         Project project2_1_3_1 = is.createProject("Pj2.1.3.1", "Creation of web app architecture in FLUX",
                 CustomerType.EX, "Rynek", "WO", "WO",
-                "Stworzenie dzia³aj¹cej aplikacji do zarz¹dzania portfelem projektów",
-                "Stworzenie dzia³aj¹cej aplikacji do zarz¹dzania portfelem projektów",
+                "Stworzenie dziaï¿½ajï¿½cej aplikacji do zarzï¿½dzania portfelem projektï¿½w",
+                "Stworzenie dziaï¿½ajï¿½cej aplikacji do zarzï¿½dzania portfelem projektï¿½w",
                 new Timestamp(new Date().getTime()), user1.getUsername(),
                 new Timestamp(new Date().getTime()), user2.getUsername(),
                 program2_1_3, state1_1,process1,null,  null,  null,  null,
@@ -213,18 +213,18 @@ public class CreateSampleData {
 
         Project project2_1_3_2 = is.createProject("Pj2.1.3.2", "Creation of Views",
                 CustomerType.EX, "Rynek", "WO", "WO",
-                "Stworzenie dzia³aj¹cej aplikacji do zarz¹dzania portfelem projektów",
-                "Stworzenie dzia³aj¹cej aplikacji do zarz¹dzania portfelem projektów",
+                "Stworzenie dziaï¿½ajï¿½cej aplikacji do zarzï¿½dzania portfelem projektï¿½w",
+                "Stworzenie dziaï¿½ajï¿½cej aplikacji do zarzï¿½dzania portfelem projektï¿½w",
                 new Timestamp(new Date().getTime()), user1.getUsername(),
                 new Timestamp(new Date().getTime()), user2.getUsername(),
                 program2_1_3, state1_1,process1,null,  null,  null,  null,
                 null,  null,  null);
 
 
-        Project project2_2 = is.createProject("Prjc2.2", "Zaznajomienie siê z litaratur¹ dziedziny",
+        Project project2_2 = is.createProject("Prjc2.2", "Zaznajomienie siï¿½ z litaraturï¿½ dziedziny",
                 CustomerType.IN, "WO", "WO", "WO",
-                "Stworzenie dzia³aj¹cej aplikacji do zarz¹dzania portfelem projektów",
-                "Stworzenie dzia³aj¹cej aplikacji do zarz¹dzania portfelem projektów",
+                "Stworzenie dziaï¿½ajï¿½cej aplikacji do zarzï¿½dzania portfelem projektï¿½w",
+                "Stworzenie dziaï¿½ajï¿½cej aplikacji do zarzï¿½dzania portfelem projektï¿½w",
                 new Timestamp(new Date().getTime()), user1.getUsername(),
                 new Timestamp(new Date().getTime()), user2.getUsername(),
                 portfolio2, state1_1,process1,null,  null,  null,  null,
@@ -233,8 +233,8 @@ public class CreateSampleData {
 
         Project project2_3 = is.createProject("Prjc2.3", "Writing thesis",
                 CustomerType.EX, "Rynek", "WO", "WO",
-                "Stworzenie dzia³aj¹cej aplikacji do zarz¹dzania portfelem projektów",
-                "Stworzenie dzia³aj¹cej aplikacji do zarz¹dzania portfelem projektów",
+                "Stworzenie dziaï¿½ajï¿½cej aplikacji do zarzï¿½dzania portfelem projektï¿½w",
+                "Stworzenie dziaï¿½ajï¿½cej aplikacji do zarzï¿½dzania portfelem projektï¿½w",
                 new Timestamp(new Date().getTime()), user1.getUsername(),
                 new Timestamp(new Date().getTime()), user2.getUsername(),
                 portfolio2, state1_1,process1,null,  null,  null,  null,
@@ -243,8 +243,8 @@ public class CreateSampleData {
 
         Project project2_4 = is.createProject("Prjc2.4", "Deployment of version 1.0 to the cloud",
                 CustomerType.EX, "Rynek", "WO", "WO",
-                "Stworzenie dzia³aj¹cej aplikacji do zarz¹dzania portfelem projektów",
-                "Stworzenie dzia³aj¹cej aplikacji do zarz¹dzania portfelem projektów",
+                "Stworzenie dziaï¿½ajï¿½cej aplikacji do zarzï¿½dzania portfelem projektï¿½w",
+                "Stworzenie dziaï¿½ajï¿½cej aplikacji do zarzï¿½dzania portfelem projektï¿½w",
                 new Timestamp(new Date().getTime()), user1.getUsername(),
                 new Timestamp(new Date().getTime()), user2.getUsername(),
                 portfolio2, state1_1,process1,null,  null,  null,  null,
@@ -258,11 +258,11 @@ public class CreateSampleData {
         //CATEGORIZATION
 
         //Category
-        Category category1 = cs.createCategory("ProductQ", "Product quality improvement","Opis kategorii ktory jest niezwykle wyczerpuj¹cy");
-        Category category2 = cs.createCategory("ProductDev", "Product development","Opis kategorii ktory jest niezwykle wyczerpuj¹cy");
-        Category category3 = cs.createCategory("Customers", "Acquire customers","Opis kategorii ktory jest niezwykle wyczerpuj¹cy");
-        Category category4 = cs.createCategory("Profit", "Profit growth","Opis kategorii ktory jest niezwykle wyczerpuj¹cy");
-        Category category5 = cs.createCategory("HRQ", "Human resources quality improvment","Opis kategorii ktory jest niezwykle wyczerpuj¹cy");
+        Category category1 = cs.createCategory("ProductQ", "Product quality improvement","Opis kategorii ktory jest niezwykle wyczerpujï¿½cy");
+        Category category2 = cs.createCategory("ProductDev", "Product development","Opis kategorii ktory jest niezwykle wyczerpujï¿½cy");
+        Category category3 = cs.createCategory("Customers", "Acquire customers","Opis kategorii ktory jest niezwykle wyczerpujï¿½cy");
+        Category category4 = cs.createCategory("Profit", "Profit growth","Opis kategorii ktory jest niezwykle wyczerpujï¿½cy");
+        Category category5 = cs.createCategory("HRQ", "Human resources quality improvment","Opis kategorii ktory jest niezwykle wyczerpujï¿½cy");
 
         //AreaOfFocus
 
@@ -391,12 +391,12 @@ public class CreateSampleData {
 
         //Scores
 
-        cs.createScore(project2_1_3_1, scoringCriterion1_1, new BigDecimal(3), "To jest dla tego, ¿e jest");
-        cs.createScore(project2_1_3_1, scoringCriterion1_2, new BigDecimal(3), "To jest dla tego, ¿e jest");
-        cs.createScore(project2_1_3_1, scoringCriterion1_3, new BigDecimal(9), "To jest dla tego, ¿e jest");
-        cs.createScore(project2_1_3_1, scoringCriterion1_4, new BigDecimal(0), "To jest dla tego, ¿e jest");
-        cs.createScore(project2_1_3_1, scoringCriterion2_1, new BigDecimal(0), "To jest dla tego, ¿e jest");
-        cs.createScore(project2_1_3_1, scoringCriterion2_2, new BigDecimal(3), "To jest dla tego, ¿e jest");
+        cs.createScore(project2_1_3_1, scoringCriterion1_1, new BigDecimal(3), "To jest dla tego, ï¿½e jest");
+        cs.createScore(project2_1_3_1, scoringCriterion1_2, new BigDecimal(3), "To jest dla tego, ï¿½e jest");
+        cs.createScore(project2_1_3_1, scoringCriterion1_3, new BigDecimal(9), "To jest dla tego, ï¿½e jest");
+        cs.createScore(project2_1_3_1, scoringCriterion1_4, new BigDecimal(0), "To jest dla tego, ï¿½e jest");
+        cs.createScore(project2_1_3_1, scoringCriterion2_1, new BigDecimal(0), "To jest dla tego, ï¿½e jest");
+        cs.createScore(project2_1_3_1, scoringCriterion2_2, new BigDecimal(3), "To jest dla tego, ï¿½e jest");
 
         
 

@@ -2,6 +2,7 @@ package model.process;
 
 import model.inventory.Component;
 import model.organization.Employee;
+import util.annotation.PortfolioTree;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -12,36 +13,46 @@ import java.sql.Timestamp;
 @Entity
 @Table(name = "decisions", schema = "public")
 public class Decision {
+    @PortfolioTree
     @Id
     @SequenceGenerator(name="decision_seq", sequenceName="decision_id_seq")
     @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="decision_seq")
     @Column(name = "decision_id", nullable = false, insertable = true, updatable = true)
     private long decisionId;
+    @PortfolioTree
     @Basic
     @Column(name = "type_of_decision", nullable = false, insertable = true, updatable = true, length = 1)
     private String typeOfDecision;
+    @PortfolioTree
     @Basic
     @Column(name = "state_of_decision", nullable = false, insertable = true, updatable = true, length = 1)
     private String stateOfDecision;
+    @PortfolioTree
     @Basic
-    @Column(name = "date_of_apperance", nullable = false, insertable = true, updatable = true)
+    @Column(name = "date_of_apperance", nullable = true, insertable = true, updatable = true)
     private Timestamp dateOfApperance;
+    @PortfolioTree
     @Basic
-    @Column(name = "last_update_date", nullable = false, insertable = true, updatable = true)
+    @Column(name = "last_update_date", nullable = true, insertable = true, updatable = true)
     private Timestamp lastUpdateDate;
+    @PortfolioTree
     @Basic
-    @Column(name = "date_of_settlement", nullable = false, insertable = true, updatable = true)
+    @Column(name = "date_of_settlement", nullable = true, insertable = true, updatable = true)
     private Timestamp dateOfSettlement;
+    @PortfolioTree
     @Basic
     @Column(name = "motivation", nullable = true, insertable = true, updatable = true, length = 2147483647)
     private String motivation;
 
+    @PortfolioTree
     @ManyToOne
-    @JoinColumn(name = "employee_id_who_proposed", referencedColumnName = "employee_id", nullable = false)
+    @JoinColumn(name = "employee_id_who_proposed", referencedColumnName = "employee_id", nullable = true)
     private Employee employeeWhoProposed;
+    @PortfolioTree
     @ManyToOne(optional = false)
     @JoinColumn(name = "from_state_id", referencedColumnName = "state_id", nullable = true,insertable = true, updatable = true)
     private State fromState;
+    @PortfolioTree
     @ManyToOne(optional = false)
     @JoinColumn(name = "to_state_id", referencedColumnName = "state_id", nullable = true,insertable = true, updatable = true)
     private State toState;
@@ -49,12 +60,27 @@ public class Decision {
     @JoinColumn(name = "component_id", referencedColumnName = "component_id", insertable = true, updatable = false)
     private Component component;
 
+    public Decision() {
+    }
 
-    public long getDecisionId() {
+    public Decision(Component component, State fromState, State toState, String stateOfDecision, String typeOfDecision, String motivation, Employee employeeWhoProposed, Timestamp dateOfApperance, Timestamp lastUpdateDate, Timestamp dateOfSettlement) {
+        this.component = component;
+        this.fromState = fromState;
+        this.toState = toState;
+        this.stateOfDecision = stateOfDecision;
+        this.typeOfDecision = typeOfDecision;
+        this.motivation = motivation;
+        this.employeeWhoProposed = employeeWhoProposed;
+        this.dateOfApperance = dateOfApperance;
+        this.lastUpdateDate = lastUpdateDate;
+        this.dateOfSettlement = dateOfSettlement;
+    }
+
+    public long getId() {
         return decisionId;
     }
 
-    public void setDecisionId(long decisionId) {
+    public void setId(long decisionId) {
         this.decisionId = decisionId;
     }
 

@@ -1,9 +1,12 @@
 package service.process;
 
+import dao.process.DecisionDAO;
 import dao.process.ProcessDAO;
 import dao.process.StateDAO;
+import model.inventory.Component;
 import model.inventory.Portfolio;
 import model.organization.Organization;
+import model.process.Decision;
 import model.process.Process;
 import model.process.State;
 import model.process.enums.StateType;
@@ -28,6 +31,14 @@ public class ProcessService {
 
         return state;
     }
+    public State getState(long id) {
+        return StateDAO.getById(id);
+    }
 
+    public Decision createDecision(Component component,State fromState, State toState, String decisionState, String decisionType, String motivation) {
+        Decision decision= new Decision(component,fromState,toState,decisionState,decisionType,motivation,null,null,null,null);
+        decision= DecisionDAO.save(decision);
+        return decision;
+    }
 
 }
