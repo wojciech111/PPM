@@ -231,7 +231,7 @@ public class CreateSampleData {
                 null,  null,  null);
 
 
-        Project project2_3 = is.createProject("Prjc2.3", "Napisanie pracy in¿ynierskiej",
+        Project project2_3 = is.createProject("Prjc2.3", "Writing thesis",
                 CustomerType.EX, "Rynek", "WO", "WO",
                 "Stworzenie dzia³aj¹cej aplikacji do zarz¹dzania portfelem projektów",
                 "Stworzenie dzia³aj¹cej aplikacji do zarz¹dzania portfelem projektów",
@@ -241,7 +241,7 @@ public class CreateSampleData {
                 null,  null,  null);
 
 
-        Project project2_4 = is.createProject("Prjc2.4", "Deployent of version 1.0 to the cloud",
+        Project project2_4 = is.createProject("Prjc2.4", "Deployment of version 1.0 to the cloud",
                 CustomerType.EX, "Rynek", "WO", "WO",
                 "Stworzenie dzia³aj¹cej aplikacji do zarz¹dzania portfelem projektów",
                 "Stworzenie dzia³aj¹cej aplikacji do zarz¹dzania portfelem projektów",

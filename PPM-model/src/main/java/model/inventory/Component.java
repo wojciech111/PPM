@@ -55,15 +55,15 @@ public class Component {
     private CustomerType customerType;
     @PortfolioTree
     @Basic
-    @Column(name = "customer", nullable = true, insertable = true, updatable = true, length = 50)
+    @Column(name = "customer", nullable = true, insertable = true, updatable = true, length = 40)
     private String customer;
     @PortfolioTree
     @Basic
-    @Column(name = "sponsor", nullable = true, insertable = true, updatable = true, length = 50)
+    @Column(name = "sponsor", nullable = true, insertable = true, updatable = true, length = 40)
     private String sponsor;
     @PortfolioTree
     @Basic
-    @Column(name = "manager", nullable = true, insertable = true, updatable = true, length = 50)
+    @Column(name = "manager", nullable = true, insertable = true, updatable = true, length = 40)
     private String manager;
     @PortfolioTree
     @Basic
@@ -84,7 +84,7 @@ public class Component {
     private Timestamp creationDate;
     @PortfolioTree
     @Basic
-    @Column(name = "created_by", nullable = true, insertable = true, updatable = true, length = 50)
+    @Column(name = "created_by", nullable = true, insertable = true, updatable = true, length = 140)
     private String createdBy;
     @PortfolioTree
     @Basic
@@ -92,7 +92,7 @@ public class Component {
     private Timestamp updateDate;
     @PortfolioTree
     @Basic
-    @Column(name = "updated_by", nullable = true, insertable = true, updatable = true, length = 50)
+    @Column(name = "updated_by", nullable = true, insertable = true, updatable = true, length = 140)
     private String updatedBy;
 
     //RELATIONS
@@ -106,7 +106,7 @@ public class Component {
     @OneToMany(mappedBy = "parent", fetch= FetchType.EAGER, orphanRemoval=true, cascade = CascadeType.ALL)
     private Set<Component> children = new HashSet<Component>();
     @PortfolioTree
-    @OneToMany(mappedBy = "component", fetch=FetchType.EAGER)
+    @OneToMany(mappedBy = "component", fetch=FetchType.EAGER, orphanRemoval=true, cascade=CascadeType.ALL)
     private Set<Score> scores = new HashSet<Score>();
     @ManyToOne
     @JoinColumn(name = "state_id", referencedColumnName = "state_id", nullable = true,insertable = true, updatable = true)
