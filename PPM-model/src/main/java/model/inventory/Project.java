@@ -4,6 +4,8 @@ package model.inventory;
 import model.inventory.enums.ComponentType;
 import model.inventory.enums.CustomerType;
 import model.process.State;
+import model.process.Process;
+
 import util.annotation.PortfolioTree;
 import util.exception.InvalidParentComponentException;
 
@@ -66,10 +68,10 @@ public class Project extends Component  {
                    String customer, String sponsor, String manager,
                    String purpose, String description,
                    Timestamp creationDate, String createdBy, Timestamp updateDate, String updatedBy,
-                   Component parent, State state,
+                   Component parent, State state,Process process,
                    String health, String scope, String schedule, String budget,
                    Date startDate, Date endDate, Date deadlineDate) {
-        super(code, name, customerType, customer, sponsor, manager, purpose, description, creationDate, createdBy, updateDate, updatedBy, parent, state);
+        super(code, name, customerType, customer, sponsor, manager, purpose, description, creationDate, createdBy, updateDate, updatedBy, parent, state,process);
         this.health = health;
         this.scope = scope;
         this.schedule = schedule;

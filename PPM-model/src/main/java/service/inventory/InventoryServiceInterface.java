@@ -5,7 +5,8 @@ import model.inventory.enums.CustomerType;
 import model.inventory.enums.OperationType;
 import model.inventory.enums.RecursionType;
 import model.organization.Organization;
-import model.process.State;
+import model.process.*;
+import model.process.Process;
 import util.exception.InvalidParentComponentException;
 
 import java.math.BigDecimal;
@@ -38,7 +39,7 @@ public interface InventoryServiceInterface {
                                  String customer, String sponsor, String manager,
                                  String purpose, String description,
                                  Timestamp creationDate, String createdBy, Timestamp updateDate, String updatedBy,
-                                 Component parent, State state,
+                                 Component parent, State state,Process process,
                                  String health, String scope, String schedule, String budget,
                                  Date startDate, Date endDate, Date deadlineDate,
                                  BigDecimal costOfStart, BigDecimal costOfStop,
@@ -57,7 +58,7 @@ public interface InventoryServiceInterface {
                           String customer, String sponsor, String manager,
                           String purpose, String description,
                           Timestamp creationDate, String createdBy, Timestamp updateDate, String updatedBy,
-                          Component parent, State state,
+                          Component parent, State state, Process process,
                           String health, String scope, String schedule, String budget,
                           Date startDate, Date endDate, Date deadlineDate) throws InvalidParentComponentException;
 
@@ -73,7 +74,7 @@ public interface InventoryServiceInterface {
                               String customer, String sponsor, String manager,
                               String purpose, String description,
                               Timestamp creationDate, String createdBy, Timestamp updateDate, String updatedBy,
-                              Component parent, State state,
+                              Component parent, State state,Process process,
                               OperationType operationType, RecursionType recursionType, Integer numberOfTimeUnits)
             throws InvalidParentComponentException;
 

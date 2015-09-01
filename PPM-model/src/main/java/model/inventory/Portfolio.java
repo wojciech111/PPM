@@ -59,7 +59,7 @@ public class Portfolio extends Component {
                      Timestamp creationDate, String createdBy,
                      Timestamp updateDate, String updatedBy,
                      Component parent, State state, Organization organization) {
-        super(code, name, customerType, customer, sponsor, manager, purpose, description, creationDate, createdBy, updateDate, updatedBy, parent, state);
+        super(code, name, customerType, customer, sponsor, manager, purpose, description, creationDate, createdBy, updateDate, updatedBy, parent, state,null);
         this.organization = organization;
     }
 

@@ -10,6 +10,7 @@ import model.inventory.enums.OperationType;
 import model.inventory.enums.RecursionType;
 import model.organization.Organization;
 import model.process.State;
+import model.process.Process;
 import util.exception.InvalidParentComponentException;
 
 import java.math.BigDecimal;
@@ -87,13 +88,13 @@ public class InventoryService implements InventoryServiceInterface {
                                  String customer, String sponsor, String manager,
                                  String purpose, String description,
                                  Timestamp creationDate, String createdBy, Timestamp updateDate, String updatedBy,
-                                 Component parent, State state,
+                                 Component parent, State state,Process process,
                                  String health, String scope, String schedule, String budget,
                                  Date startDate, Date endDate, Date deadlineDate,
                                  BigDecimal costOfStart, BigDecimal costOfStop,
                                  BigDecimal costOfRestart, BigDecimal costOfClose) throws InvalidParentComponentException {
         Program program = new Program(code, name, customerType, customer, sponsor, manager, purpose, description,
-                creationDate, createdBy, updateDate, updatedBy, parent, state,health,  scope,  schedule,  budget,
+                creationDate, createdBy, updateDate, updatedBy, parent, state,process,health,  scope,  schedule,  budget,
                  startDate,  endDate,  deadlineDate,
                  costOfStart,  costOfStop,
                  costOfRestart,  costOfClose);
@@ -153,11 +154,11 @@ public class InventoryService implements InventoryServiceInterface {
                                  String customer, String sponsor, String manager,
                                  String purpose, String description,
                                  Timestamp creationDate, String createdBy, Timestamp updateDate, String updatedBy,
-                                 Component parent, State state,
+                                 Component parent, State state,Process process,
                                  String health, String scope, String schedule, String budget,
                                  Date startDate, Date endDate, Date deadlineDate) throws InvalidParentComponentException {
         Project project = new Project(code, name, customerType, customer, sponsor, manager, purpose, description,
-                creationDate, createdBy, updateDate, updatedBy, parent, state,health,  scope,  schedule,  budget,
+                creationDate, createdBy, updateDate, updatedBy, parent, state,process,health,  scope,  schedule,  budget,
                 startDate,  endDate,  deadlineDate);
         if(parent == null) {
             throw new InvalidParentComponentException("Project need parent Portfolio or Program");
@@ -214,10 +215,10 @@ public class InventoryService implements InventoryServiceInterface {
                                      String customer, String sponsor, String manager,
                                      String purpose, String description,
                                      Timestamp creationDate, String createdBy, Timestamp updateDate, String updatedBy,
-                                     Component parent, State state,
+                                     Component parent, State state,Process process,
                                      OperationType operationType, RecursionType recursionType, Integer numberOfTimeUnits) throws InvalidParentComponentException {
         Operation operation = new Operation(code, name, customerType, customer, sponsor, manager, purpose, description,
-                creationDate, createdBy, updateDate, updatedBy, parent, state,operationType,recursionType,numberOfTimeUnits);
+                creationDate, createdBy, updateDate, updatedBy, parent, state,process,operationType,recursionType,numberOfTimeUnits);
         if(parent == null) {
             throw new InvalidParentComponentException("Operation need parent Program");
         }else{

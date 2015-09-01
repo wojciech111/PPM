@@ -6,6 +6,7 @@ import model.inventory.enums.CustomerType;
 import model.inventory.enums.OperationType;
 import model.inventory.enums.RecursionType;
 import model.process.State;
+import model.process.Process;
 import util.annotation.PortfolioTree;
 import util.exception.InvalidParentComponentException;
 
@@ -48,9 +49,9 @@ public class Operation extends Component  {
                      String customer, String sponsor, String manager,
                      String purpose, String description,
                      Timestamp creationDate, String createdBy, Timestamp updateDate, String updatedBy,
-                     Component parent, State state,
+                     Component parent, State state, Process process,
                      OperationType operationType, RecursionType recursionType, Integer numberOfTimeUnits) {
-        super(code, name, customerType, customer, sponsor, manager, purpose, description, creationDate, createdBy, updateDate, updatedBy, parent, state);
+        super(code, name, customerType, customer, sponsor, manager, purpose, description, creationDate, createdBy, updateDate, updatedBy, parent, state,process);
         this.operationType = operationType;
         this.recursionType = recursionType;
         this.numberOfTimeUnits = numberOfTimeUnits;

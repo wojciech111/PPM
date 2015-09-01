@@ -8,6 +8,7 @@ import model.inventory.enums.ComponentType;
 import model.inventory.enums.CustomerType;
 import model.organization.Stakeholder;
 import model.process.State;
+import model.process.Process;
 
 
 import util.annotation.PortfolioTree;
@@ -108,9 +109,14 @@ public class Component {
     @PortfolioTree
     @OneToMany(mappedBy = "component", fetch=FetchType.EAGER, orphanRemoval=true, cascade=CascadeType.ALL)
     private Set<Score> scores = new HashSet<Score>();
+    @PortfolioTree
     @ManyToOne
     @JoinColumn(name = "state_id", referencedColumnName = "state_id", nullable = true,insertable = true, updatable = true)
     private State state;
+    @PortfolioTree
+    @ManyToOne
+    @JoinColumn(name = "process_id", referencedColumnName = "process_id", nullable = true,insertable = true, updatable = true)
+    private Process process;
     @OneToMany(mappedBy = "employee")
     private Set<Stakeholder> stakeholders = new HashSet<Stakeholder>();
 
@@ -130,7 +136,7 @@ public class Component {
                      String sponsor, String manager, String purpose, String description,
                      Timestamp creationDate, String createdBy,
                      Timestamp updateDate, String updatedBy,
-                     Component parent, State state) {
+                     Component parent, State state, Process process) {
         this.code = code;
         this.name = name;
         this.customerType = customerType;
@@ -145,6 +151,8 @@ public class Component {
         this.updatedBy = updatedBy;
         this.parent = parent;
         this.state = state;
+        this.process = process;
+
     }
 
     public long getId() {
@@ -310,5 +318,13 @@ public class Component {
 
     public void setStakeholders(Set<Stakeholder> stakeholders) {
         this.stakeholders = stakeholders;
+    }
+
+    public Process getProcess() {
+        return process;
+    }
+
+    public void setProcess(Process process) {
+        this.process = process;
     }
 }

@@ -154,7 +154,7 @@ public class CreateSampleData {
                 "Stworzenie dzia³aj¹cej aplikacji do zarz¹dzania portfelem projektów",
                 new Timestamp(new Date().getTime()), user1.getUsername(),
                 new Timestamp(new Date().getTime()), user2.getUsername(),
-                portfolio2, state1_1, null, null, null, null,
+                portfolio2, state1_1,process1, null, null, null, null,
                 null, null, null,
                 new BigDecimal(40), new BigDecimal(5),
                 new BigDecimal(10), new BigDecimal(10));
@@ -164,7 +164,7 @@ public class CreateSampleData {
                 "Stworzenie dzia³aj¹cej aplikacji przegl¹darkowej do zarz¹dzania portfelem projektów",
                 new Timestamp(new Date().getTime()), user1.getUsername(),
                 new Timestamp(new Date().getTime()), user2.getUsername(),
-                portfolio2, state1_1, null, null, null, null,
+                portfolio2, state1_1,process1, null, null, null, null,
                 null, null, null,
                 null, null, null, null);
         //Operations
@@ -174,7 +174,7 @@ public class CreateSampleData {
                 "Stworzenie dzia³aj¹cej aplikacji przegl¹darkowej do zarz¹dzania portfelem projektów",
                 new Timestamp(new Date().getTime()), user1.getUsername(),
                 new Timestamp(new Date().getTime()), user2.getUsername(),
-                program2_1, state1_1,
+                program2_1, state1_1,process1,
                 OperationType.P, RecursionType.D, 14);
 
 
@@ -187,7 +187,7 @@ public class CreateSampleData {
                 "Stworzenie dzia³aj¹cej aplikacji do zarz¹dzania portfelem projektów",
                 new Timestamp(new Date().getTime()), user1.getUsername(),
                 new Timestamp(new Date().getTime()), user2.getUsername(),
-                program2_1, state1_1 ,null,  null,  null,  null,
+                program2_1, state1_1,process1,null,  null,  null,  null,
                 null,  null,  null);
 
 
@@ -197,7 +197,7 @@ public class CreateSampleData {
                 "Stworzenie dzia³aj¹cej aplikacji do zarz¹dzania portfelem projektów",
                 new Timestamp(new Date().getTime()), user1.getUsername(),
                 new Timestamp(new Date().getTime()), user2.getUsername(),
-                program2_1, state1_1 ,null,  null,  null,  null,
+                program2_1, state1_1,process1,null,  null,  null,  null,
                 null,  null,  null);
 
 
@@ -207,7 +207,7 @@ public class CreateSampleData {
                 "Stworzenie dzia³aj¹cej aplikacji do zarz¹dzania portfelem projektów",
                 new Timestamp(new Date().getTime()), user1.getUsername(),
                 new Timestamp(new Date().getTime()), user2.getUsername(),
-                program2_1_3, state1_1 ,null,  null,  null,  null,
+                program2_1_3, state1_1,process1,null,  null,  null,  null,
                 null,  null,  null);
 
 
@@ -217,7 +217,7 @@ public class CreateSampleData {
                 "Stworzenie dzia³aj¹cej aplikacji do zarz¹dzania portfelem projektów",
                 new Timestamp(new Date().getTime()), user1.getUsername(),
                 new Timestamp(new Date().getTime()), user2.getUsername(),
-                program2_1_3, state1_1 ,null,  null,  null,  null,
+                program2_1_3, state1_1,process1,null,  null,  null,  null,
                 null,  null,  null);
 
 
@@ -227,7 +227,7 @@ public class CreateSampleData {
                 "Stworzenie dzia³aj¹cej aplikacji do zarz¹dzania portfelem projektów",
                 new Timestamp(new Date().getTime()), user1.getUsername(),
                 new Timestamp(new Date().getTime()), user2.getUsername(),
-                portfolio2, state1_1 ,null,  null,  null,  null,
+                portfolio2, state1_1,process1,null,  null,  null,  null,
                 null,  null,  null);
 
 
@@ -237,7 +237,7 @@ public class CreateSampleData {
                 "Stworzenie dzia³aj¹cej aplikacji do zarz¹dzania portfelem projektów",
                 new Timestamp(new Date().getTime()), user1.getUsername(),
                 new Timestamp(new Date().getTime()), user2.getUsername(),
-                portfolio2, state1_1 ,null,  null,  null,  null,
+                portfolio2, state1_1,process1,null,  null,  null,  null,
                 null,  null,  null);
 
 
@@ -247,7 +247,7 @@ public class CreateSampleData {
                 "Stworzenie dzia³aj¹cej aplikacji do zarz¹dzania portfelem projektów",
                 new Timestamp(new Date().getTime()), user1.getUsername(),
                 new Timestamp(new Date().getTime()), user2.getUsername(),
-                portfolio2, state1_1 ,null,  null,  null,  null,
+                portfolio2, state1_1,process1,null,  null,  null,  null,
                 null,  null,  null);
 
         //Stakeholders

@@ -6,6 +6,7 @@ import model.inventory.enums.CustomerType;
 import model.process.State;
 import util.annotation.PortfolioTree;
 import util.exception.InvalidParentComponentException;
+import model.process.Process;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -84,12 +85,12 @@ public class Program extends Component  {
                    String customer, String sponsor, String manager,
                    String purpose, String description,
                    Timestamp creationDate, String createdBy, Timestamp updateDate, String updatedBy,
-                   Component parent, State state,
+                   Component parent, State state, Process process,
                    String health, String scope, String schedule, String budget,
                    Date startDate, Date endDate, Date deadlineDate,
                    BigDecimal costOfStart, BigDecimal costOfStop,
                    BigDecimal costOfRestart, BigDecimal costOfClose) {
-        super(code, name, customerType, customer, sponsor, manager, purpose, description, creationDate, createdBy, updateDate, updatedBy, parent, state);
+        super(code, name, customerType, customer, sponsor, manager, purpose, description, creationDate, createdBy, updateDate, updatedBy, parent, state,process);
         this.health = health;
         this.scope = scope;
         this.schedule = schedule;
