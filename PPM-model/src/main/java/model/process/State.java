@@ -25,8 +25,16 @@ public class State {
     private String name;
     @PortfolioTree
     @Basic
-    @Column(name = "color", nullable = false, insertable = true, updatable = true, length = 6)
-    private String color;
+    @Column(name = "color_red", nullable = true, insertable = true, updatable = true)
+    private Integer colorRed;
+     @PortfolioTree
+    @Basic
+    @Column(name = "color_green", nullable = true, insertable = true, updatable = true)
+    private Integer colorGreen;
+     @PortfolioTree
+    @Basic
+    @Column(name = "color_blue", nullable = true, insertable = true, updatable = true)
+    private Integer colorBlue;
     @PortfolioTree
     @Basic
     @Enumerated(EnumType.STRING)
@@ -58,13 +66,16 @@ public class State {
         this.description = description;
     }
 
-    public State(Process process, String name, String description, StateType stateType, String color,
+    public State(Process process, String name, String description, StateType stateType,
+                 Integer colorRed,Integer colorGreen,Integer colorBlue,
                  State nextState, State alternativeNextState) {
         this.process = process;
         this.name = name;
         this.description = description;
         this.stateType = stateType;
-        this.color = color;
+        this.colorRed = colorRed;
+        this.colorGreen = colorGreen;
+        this.colorBlue = colorBlue;
         this.nextState = nextState;
         this.alternativeNextState = alternativeNextState;
     }
@@ -85,12 +96,28 @@ public class State {
         this.name = name;
     }
 
-    public String getColor() {
-        return color;
+    public Integer getColorRed() {
+        return colorRed;
     }
 
-    public void setColor(String color) {
-        this.color = color;
+    public void setColorRed(Integer colorRed) {
+        this.colorRed = colorRed;
+    }
+
+    public Integer getColorGreen() {
+        return colorGreen;
+    }
+
+    public void setColorGreen(Integer colorGreen) {
+        this.colorGreen = colorGreen;
+    }
+
+    public Integer getColorBlue() {
+        return colorBlue;
+    }
+
+    public void setColorBlue(Integer colorBlue) {
+        this.colorBlue = colorBlue;
     }
 
     public StateType getStateType() {

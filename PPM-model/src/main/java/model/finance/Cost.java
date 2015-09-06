@@ -1,7 +1,6 @@
 package model.finance;
 
 import model.inventory.Component;
-import model.inventory.Portfolio;
 import util.annotation.PortfolioTree;
 
 import javax.persistence.*;
@@ -33,11 +32,11 @@ public class Cost {
     private String description;
     @PortfolioTree
     @Basic
-    @Column(name = "day_of_occurence", nullable = true, insertable = true, updatable = true)
-    private Integer dayOfOccurence;
+    @Column(name = "day_of_occurrence", nullable = true, insertable = true, updatable = true)
+    private Integer dayOfOccurrence;
 
     @ManyToOne(optional = false)
-    @JoinColumn(name = "component_id", referencedColumnName = "component_id", insertable = false, updatable = false)
+    @JoinColumn(name = "component_id", referencedColumnName = "component_id", updatable = false)
     private Component component;
 
     public Cost() {
@@ -48,14 +47,14 @@ public class Cost {
         this.component = component;
         this.value = value;
         this.description = description;
-        this.dayOfOccurence = dayOfOccurence;
+        this.dayOfOccurrence = dayOfOccurence;
     }
 
     public long getId() {
         return costId;
     }
 
-    public void setCostId(long costId) {
+    public void setId(long costId) {
         this.costId = costId;
     }
 
@@ -83,12 +82,12 @@ public class Cost {
         this.description = description;
     }
 
-     public Integer getDayOfOccurence() {
-        return dayOfOccurence;
+     public Integer getDayOfOccurrence() {
+        return dayOfOccurrence;
     }
 
-    public void setDayOfOccurence(Integer dayOfOccurence) {
-        this.dayOfOccurence = dayOfOccurence;
+    public void setDayOfOccurrence(Integer dayOfOccurence) {
+        this.dayOfOccurrence = dayOfOccurence;
     }
 
     public Component getComponent() {

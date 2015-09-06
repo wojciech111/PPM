@@ -4,6 +4,7 @@ package model.inventory;
 
 import model.categorization.CategoryMembership;
 import model.categorization.Score;
+import model.finance.Cost;
 import model.inventory.enums.ComponentType;
 import model.inventory.enums.CustomerType;
 import model.organization.Stakeholder;
@@ -113,6 +114,9 @@ public class Component {
     @PortfolioTree
     @OneToMany(mappedBy = "component", fetch=FetchType.EAGER, orphanRemoval=true, cascade=CascadeType.ALL)
     private Set<Decision> decisions = new HashSet<Decision>();
+    @PortfolioTree
+    @OneToMany(mappedBy = "component", fetch=FetchType.EAGER, orphanRemoval=true, cascade=CascadeType.ALL)
+    private Set<Cost> costs = new HashSet<Cost>();
     @PortfolioTree
     @ManyToOne
     @JoinColumn(name = "state_id", referencedColumnName = "state_id", nullable = true,insertable = true, updatable = true)

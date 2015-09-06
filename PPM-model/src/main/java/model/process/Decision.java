@@ -63,7 +63,8 @@ public class Decision {
     public Decision() {
     }
 
-    public Decision(Component component, State fromState, State toState, String stateOfDecision, String typeOfDecision, String motivation, Employee employeeWhoProposed, Timestamp dateOfApperance, Timestamp lastUpdateDate, Timestamp dateOfSettlement) {
+    public Decision(Component component, State fromState, State toState, String stateOfDecision, String typeOfDecision, String motivation,
+                    Employee employeeWhoProposed, Timestamp dateOfApperance, Timestamp lastUpdateDate, Timestamp dateOfSettlement) {
         this.component = component;
         this.fromState = fromState;
         this.toState = toState;

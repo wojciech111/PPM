@@ -2,6 +2,7 @@ import model.categorization.Category;
 import model.categorization.CategoryMembership;
 import model.categorization.ScoringCriterion;
 import model.categorization.enums.SuperiorityStrategy;
+import model.finance.Cost;
 import model.inventory.*;
 import model.inventory.enums.CustomerType;
 import model.inventory.enums.OperationType;
@@ -16,6 +17,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import service.categorization.CategorizationService;
 import service.categorization.CategorizationServiceInterface;
+import service.finance.FinanceService;
 import service.inventory.InventoryService;
 import service.inventory.InventoryServiceInterface;
 import service.organization.OrganizationService;
@@ -85,6 +87,7 @@ public class CreateSampleData {
         OrganizationServiceInterface os = new OrganizationService();
         InventoryServiceInterface is = new InventoryService();
         CategorizationServiceInterface cs = new CategorizationService();
+        FinanceService fs = new FinanceService();
         ProcessService ps = new ProcessService();
 
         //Users
@@ -122,29 +125,30 @@ public class CreateSampleData {
 
 
         //State helpers
-        State state1_arch = ps.createState(process1, "Archived", "Evaluation stage", StateType.A, "440000",
+        State state1_arch = ps.createState(process1, "Archived", "Evaluation stage", StateType.A, 155,155,120,
                 null, null);
-        State state1_can = ps.createState(process1, "Canceled", "Evaluation stage", StateType.C, "440000",
+        State state1_can = ps.createState(process1, "Canceled", "Evaluation stage", StateType.C, 155,155,120,
                 state1_arch, null);
-        State state1_del = ps.createState(process1, "Delayed", "Evaluation stage", StateType.D, "440000",
+        State state1_del = ps.createState(process1, "Delayed", "Evaluation stage", StateType.D, 155,155,120,
                 state1_can, null);
 
         //States helpers
-        State state1_8 = ps.createState(process1, "Finished", "Finished stage", StateType.A, "440000",
+        State state1_8 = ps.createState(process1, "Finished", "Finished stage", StateType.A, 166,166,166,
                 state1_arch, null);
-        State state1_7 = ps.createState(process1, "Collecting benefits", "Collecting stage", StateType.A, "440000",
+        State state1_7 = ps.createState(process1, "Collecting benefits", "Collecting stage", StateType.A, 155,0,75,
                 state1_8, state1_del);
-        State state1_6 = ps.createState(process1, "Executing", "Executing stage", StateType.X, "440000",
+        State state1_6 = ps.createState(process1, "Executing", "Executing stage. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce finibus pulvinar dui et aliquet. Nunc pretium purus vitae odio tempor sagittis. Sed at accumsan sapien. Sed imperdiet venenatis purus, et sagittis justo dapibus at. Sed pretium justo vitae sapien venenatis elementum. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Morbi bibendum sagittis ligula quis tempor. Morbi magna neque, maximus ac ipsum et, tempor tempor ligula.",
+                StateType.X, 0,255,0,
                 state1_7, state1_del);
-        State state1_5 = ps.createState(process1, "Waiting for resources", "Waiting stage", StateType.W, "440000",
+        State state1_5 = ps.createState(process1, "Waiting for resources", "Waiting stage.", StateType.W, 102,255,102,
                 state1_6, state1_del);
-        State state1_4 = ps.createState(process1, "Budgeting", "Budgeting stage", StateType.V, "440000",
+        State state1_4 = ps.createState(process1, "Budgeting", "Budgeting stage", StateType.V, 0,0,155,
                 state1_5, state1_del);
-        State state1_3 = ps.createState(process1, "Planning", "Planning stage", StateType.P, "440000",
+        State state1_3 = ps.createState(process1, "Planning", "Planning stage", StateType.P, 0,128,255,
                 state1_4, state1_del);
-        State state1_2 = ps.createState(process1, "Evaluation", "Evaluation stage", StateType.E, "440000",
+        State state1_2 = ps.createState(process1, "Evaluation", "Evaluation stage", StateType.E, 155,155,0,
                 state1_3, state1_del);
-        State state1_1 = ps.createState(process1, "Initiation", "Initiation stage", StateType.B, "440000",
+        State state1_1 = ps.createState(process1, "Initiation", "Initiation stage", StateType.B, 255,255,0,
                 state1_2, state1_del);
 
         //Programs
@@ -253,6 +257,8 @@ public class CreateSampleData {
         //Stakeholders
 
         //Costs
+        Cost cost2_1_3_1 = fs.createCost("Costs of learning materials", new BigDecimal(100), project2_1_3_1,
+                "Costs of buying learning materials about React and FLux architecture", 1);
         //Budgets
 
         //CATEGORIZATION
@@ -387,7 +393,6 @@ public class CreateSampleData {
         cs.createCategoryEvaluation(scoringCriterion4_1, category4, "N",(short) 40 );
         cs.createCategoryEvaluation(scoringCriterion5_1, category5, "N",(short) 50 );
         cs.createCategoryEvaluation(scoringCriterion5_2, category5, "Y",(short) 60 );
-
 
         //Scores
 

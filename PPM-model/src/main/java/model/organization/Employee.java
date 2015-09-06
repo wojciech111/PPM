@@ -1,6 +1,7 @@
 package model.organization;
 
 import model.process.Decision;
+import util.annotation.PortfolioTree;
 import util.annotation.UserTree;
 
 import javax.persistence.*;
@@ -14,20 +15,24 @@ import java.util.Set;
 @Entity
 @Table(name = "employees", schema = "public")
 public class Employee {
+    @PortfolioTree
     @UserTree
     @Id
     @SequenceGenerator(name="employee_seq", sequenceName="employee_id_seq")
     @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="employee_seq")
     @Column(name = "employee_id", nullable = false, insertable = true, updatable = true)
     private long employeeId;
+    @PortfolioTree
     @UserTree
     @Basic
     @Column(name = "first_name", nullable = false, insertable = true, updatable = true, length = 30)
     private String firstName;
+    @PortfolioTree
     @UserTree
     @Basic
     @Column(name = "second_name", nullable = false, insertable = true, updatable = true, length = 30)
     private String secondName;
+    @PortfolioTree
     @Basic
     @Column(name = "email", nullable = true, insertable = true, updatable = true, length = 100)
     private String email;
