@@ -1,6 +1,7 @@
 package model.categorization;
 
 
+import model.categorization.enums.CriterionType;
 import model.categorization.enums.SuperiorityStrategy;
 import model.inventory.Portfolio;
 import org.hibernate.annotations.DiscriminatorOptions;
@@ -50,13 +51,17 @@ public class ScoringCriterion {
     private SuperiorityStrategy bestIs;
     @PortfolioTree
     @Basic
+    @Enumerated(EnumType.STRING)
+    @Column(name = "type", nullable = true, insertable = true, updatable = true, length = 1)
+    private CriterionType type;
+    @PortfolioTree
+    @Basic
     @Column(name = "min_score", nullable = true, insertable = true, updatable = true, precision = 2)
     private BigDecimal minScore;
     @PortfolioTree
     @Basic
     @Column(name = "max_score", nullable = true, insertable = true, updatable = true, precision = 2)
     private BigDecimal maxScore;
-
     @ManyToOne(optional = false)
     @JoinColumn(name = "component_id", referencedColumnName = "component_id", insertable = true, updatable = true)
     private Portfolio portfolio;
@@ -80,6 +85,7 @@ public class ScoringCriterion {
     public ScoringCriterion(String code, String name,
                             String description, String question,
                             SuperiorityStrategy bestIs,
+                            CriterionType type,
                             BigDecimal minScore, BigDecimal maxScore,
                             Portfolio portfolio) {
         this.code = code;
@@ -87,6 +93,7 @@ public class ScoringCriterion {
         this.description = description;
         this.question = question;
         this.bestIs = bestIs;
+        this.type = type;
         this.minScore = minScore;
         this.maxScore = maxScore;
         this.portfolio = portfolio;
@@ -122,6 +129,14 @@ public class ScoringCriterion {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public CriterionType getType() {
+        return type;
+    }
+
+    public void setType(CriterionType type) {
+        this.type = type;
     }
 
     public String getQuestion() {

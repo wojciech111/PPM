@@ -39,7 +39,7 @@ public class Portfolio extends Component {
     @OneToMany(mappedBy = "portfolio", fetch = FetchType.EAGER)
     private Set<Process> processes = new HashSet<Process>();
     @PortfolioTree
-    @OneToMany(mappedBy = "portfolio", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "portfolio", fetch = FetchType.EAGER )
     private Set<ScoringCriterion> scoringCriterions = new HashSet<ScoringCriterion>();
     @PortfolioTree
     @ManyToOne

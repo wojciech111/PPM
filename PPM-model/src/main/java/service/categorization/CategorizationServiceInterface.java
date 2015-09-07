@@ -1,6 +1,7 @@
 package service.categorization;
 
 import model.categorization.*;
+import model.categorization.enums.CriterionType;
 import model.categorization.enums.SuperiorityStrategy;
 import model.inventory.Component;
 import model.inventory.Portfolio;
@@ -44,6 +45,7 @@ public interface CategorizationServiceInterface {
     public ScoringCriterion createScoringCriterion(String code, String name,
                                                    String description, String question,
                                                    SuperiorityStrategy bestIs,
+                                                   CriterionType type,
                                                    BigDecimal minScore, BigDecimal maxScore,
                                                    Portfolio portfolio);
 

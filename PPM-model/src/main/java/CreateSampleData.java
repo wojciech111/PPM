@@ -1,6 +1,7 @@
 import model.categorization.Category;
 import model.categorization.CategoryMembership;
 import model.categorization.ScoringCriterion;
+import model.categorization.enums.CriterionType;
 import model.categorization.enums.SuperiorityStrategy;
 import model.finance.Cost;
 import model.inventory.*;
@@ -311,73 +312,74 @@ public class CreateSampleData {
 
         ScoringCriterion scoringCriterion1_1 = cs.createScoringCriterion("CDI", "Code maintenance increase",
                 "Description", "How it will increase code maintenance",
-                SuperiorityStrategy.MAX,new BigDecimal(1),new BigDecimal(10),portfolio2);
+                SuperiorityStrategy.MAX, CriterionType.P,
+                new BigDecimal(1),new BigDecimal(10),portfolio2);
 
         
         
          ScoringCriterion scoringCriterion1_2 = cs.createScoringCriterion("CDI", "Development speed increase",
                 "Description", "How it will increase development speed",
-                SuperiorityStrategy.MAX,new BigDecimal(1),new BigDecimal(10),portfolio2);
+                SuperiorityStrategy.MAX, CriterionType.P,new BigDecimal(1),new BigDecimal(10),portfolio2);
 
         
         
          ScoringCriterion scoringCriterion1_3 = cs.createScoringCriterion("OMI", "Overall maintainability increase ",
                 "Description", null,
-                SuperiorityStrategy.MAX,new BigDecimal(1),new BigDecimal(10),portfolio2);
+                SuperiorityStrategy.MAX, CriterionType.P,new BigDecimal(1),new BigDecimal(10),portfolio2);
 
         
         
          ScoringCriterion scoringCriterion1_4 = cs.createScoringCriterion("CD", "Cost decrease",
                 "Description", null,
-                SuperiorityStrategy.MAX,new BigDecimal(0),null,portfolio2);
+                SuperiorityStrategy.MAX, CriterionType.P,new BigDecimal(0),null,portfolio2);
 
         
         
          ScoringCriterion scoringCriterion2_1 = cs.createScoringCriterion("NNF", "No of new features ",
                 "Description", "What are the features",
-                SuperiorityStrategy.MAX,new BigDecimal(1),new BigDecimal(10),portfolio2);
+                SuperiorityStrategy.MAX, CriterionType.P,new BigDecimal(1),new BigDecimal(10),portfolio2);
 
         
         
          ScoringCriterion scoringCriterion2_2 = cs.createScoringCriterion("CFI", "Current functions improvement",
                 "Description", "How it will improve current functions",
-                SuperiorityStrategy.MAX,new BigDecimal(1),new BigDecimal(10),portfolio2);
+                SuperiorityStrategy.MAX, CriterionType.P,new BigDecimal(1),new BigDecimal(10),portfolio2);
 
         
         
          ScoringCriterion scoringCriterion3_1 = cs.createScoringCriterion("CGNW", "Customer growth in new markets",
                 "Description", "Why",
-                SuperiorityStrategy.MAX,null,null,portfolio2);
+                SuperiorityStrategy.MAX, CriterionType.P,null,null,portfolio2);
 
         
         
          ScoringCriterion scoringCriterion3_2 = cs.createScoringCriterion("CGCM", "Customer growth in current markets",
                 "Description", "Why",
-                SuperiorityStrategy.MAX,null,null,portfolio2);
+                SuperiorityStrategy.MAX, CriterionType.P,null,null,portfolio2);
 
         
         
          ScoringCriterion scoringCriterion4_1 = cs.createScoringCriterion("PI", "Profit increase",
                 "Description", "Why it will increase profit",
-                SuperiorityStrategy.MAX,null,null,portfolio2);
+                SuperiorityStrategy.MAX, CriterionType.P,null,null,portfolio2);
 
         
         
          ScoringCriterion scoringCriterion5_1 = cs.createScoringCriterion("NNS", "Need of new skill",
                 "Description", "Why",
-                SuperiorityStrategy.MAX,new BigDecimal(1),new BigDecimal(10),portfolio2);
+                SuperiorityStrategy.MAX, CriterionType.P,new BigDecimal(1),new BigDecimal(10),portfolio2);
 
         
         
          ScoringCriterion scoringCriterion5_2 = cs.createScoringCriterion("CDI", "Usage of new skill",
                 "Description", "Why",
-                SuperiorityStrategy.MAX,new BigDecimal(1),new BigDecimal(10),portfolio2);
+                SuperiorityStrategy.MAX, CriterionType.P,new BigDecimal(1),new BigDecimal(10),portfolio2);
 
         
         
          ScoringCriterion scoringCriterionX_1 = cs.createScoringCriterion("NoU", "Number of users",
                 "Description", "How it will increase code maintenance",
-                SuperiorityStrategy.MAX,new BigDecimal(1),null,portfolio2);
+                SuperiorityStrategy.MAX, CriterionType.A,new BigDecimal(1),null,portfolio2);
 
         
         //Category to ScoringCriteria
