@@ -16,6 +16,7 @@ import java.math.BigDecimal;
  */
 public interface CategorizationServiceInterface {
     //CATEGORY
+    Category createCategory(String code, String name, String description, Integer colorRed, Integer colorGreen, Integer colorBlue);
     Category createCategory(String code, String name, String description);
 
     Category getCategory(long id);

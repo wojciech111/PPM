@@ -264,11 +264,11 @@ public class CreateSampleData {
         //CATEGORIZATION
 
         //Category
-        Category category1 = cs.createCategory("ProductQ", "Product quality improvement","Opis kategorii ktory jest niezwykle wyczerpuj�cy");
-        Category category2 = cs.createCategory("ProductDev", "Product development","Opis kategorii ktory jest niezwykle wyczerpuj�cy");
-        Category category3 = cs.createCategory("Customers", "Acquire customers","Opis kategorii ktory jest niezwykle wyczerpuj�cy");
-        Category category4 = cs.createCategory("Profit", "Profit growth","Opis kategorii ktory jest niezwykle wyczerpuj�cy");
-        Category category5 = cs.createCategory("HRQ", "Human resources quality improvment","Opis kategorii ktory jest niezwykle wyczerpuj�cy");
+        Category category1 = cs.createCategory("ProductQ", "Product quality improvement","Opis kategorii ktory jest niezwykle wyczerpuj�cy", 0,77,64);
+        Category category2 = cs.createCategory("ProductDev", "Product development","Opis kategorii ktory jest niezwykle wyczerpuj�cy",74,20,140);
+        Category category3 = cs.createCategory("Customers", "Acquire customers","Opis kategorii ktory jest niezwykle wyczerpuj�cy", 183,28,28);
+        Category category4 = cs.createCategory("Profit", "Profit growth","Opis kategorii ktory jest niezwykle wyczerpuj�cy", 62,39,35);
+        Category category5 = cs.createCategory("HRQ", "Human resources quality improvment","Opis kategorii ktory jest niezwykle wyczerpuj�cy", 130,119,23);
 
         //AreaOfFocus
 

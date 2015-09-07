@@ -31,6 +31,18 @@ public class Category {
     private String name;
     @PortfolioTree
     @Basic
+    @Column(name = "color_red", nullable = true, insertable = true, updatable = true)
+    private Integer colorRed;
+    @PortfolioTree
+    @Basic
+    @Column(name = "color_green", nullable = true, insertable = true, updatable = true)
+    private Integer colorGreen;
+    @PortfolioTree
+    @Basic
+    @Column(name = "color_blue", nullable = true, insertable = true, updatable = true)
+    private Integer colorBlue;
+    @PortfolioTree
+    @Basic
     @Column(name = "description", nullable = true, insertable = true, updatable = true, length = 2147483647)
     private String description;
     //RELATIONS
@@ -50,6 +62,15 @@ public class Category {
         this.code = code;
         this.name = name;
         this.description = description;
+    }
+
+    public Category(String code, String name, String description, Integer colorRed, Integer colorGreen, Integer colorBlue) {
+        this.code = code;
+        this.name = name;
+        this.description = description;
+        this.colorRed = colorRed;
+        this.colorGreen = colorGreen;
+        this.colorBlue = colorBlue;
     }
 
     public long getId() {
@@ -74,6 +95,30 @@ public class Category {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Integer getColorRed() {
+        return colorRed;
+    }
+
+    public void setColorRed(Integer colorRed) {
+        this.colorRed = colorRed;
+    }
+
+    public Integer getColorGreen() {
+        return colorGreen;
+    }
+
+    public void setColorGreen(Integer colorGreen) {
+        this.colorGreen = colorGreen;
+    }
+
+    public Integer getColorBlue() {
+        return colorBlue;
+    }
+
+    public void setColorBlue(Integer colorBlue) {
+        this.colorBlue = colorBlue;
     }
 
     public String getDescription() {

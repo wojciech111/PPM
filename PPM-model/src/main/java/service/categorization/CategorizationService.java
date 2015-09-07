@@ -16,6 +16,13 @@ import java.math.BigDecimal;
  */
 public class CategorizationService implements CategorizationServiceInterface {
     //CATEGORY
+    public Category createCategory(String code, String name, String description, Integer colorRed, Integer colorGreen, Integer colorBlue) {
+        Category category = new Category(code,name,description,  colorRed,  colorGreen,  colorBlue);
+
+        category = CategoryDAO.save(category);
+
+        return category;
+    }
     public Category createCategory(String code, String name, String description) {
         Category category = new Category(code,name,description);
 
