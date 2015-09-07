@@ -3,6 +3,7 @@ package model.inventory;
 
 import model.categorization.AreaOfFocus;
 import model.categorization.ScoringCriterion;
+import model.finance.Budget;
 import model.inventory.enums.ComponentType;
 import model.inventory.enums.CustomerType;
 import model.organization.Organization;
@@ -38,6 +39,9 @@ public class Portfolio extends Component {
     @PortfolioTree
     @OneToMany(mappedBy = "portfolio", fetch = FetchType.EAGER)
     private Set<Process> processes = new HashSet<Process>();
+    @PortfolioTree
+    @OneToMany(mappedBy = "portfolio", fetch = FetchType.EAGER)
+    private Set<Budget> budgets = new HashSet<Budget>();
     @PortfolioTree
     @OneToMany(mappedBy = "portfolio", fetch = FetchType.EAGER )
     private Set<ScoringCriterion> scoringCriterions = new HashSet<ScoringCriterion>();
@@ -101,5 +105,13 @@ public class Portfolio extends Component {
 
     public void setOrganization(Organization organization) {
         this.organization = organization;
+    }
+
+    public Set<Budget> getBudgets() {
+        return budgets;
+    }
+
+    public void setBudgets(Set<Budget> budgets) {
+        this.budgets = budgets;
     }
 }

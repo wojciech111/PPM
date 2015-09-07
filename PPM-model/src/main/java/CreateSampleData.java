@@ -3,6 +3,7 @@ import model.categorization.CategoryMembership;
 import model.categorization.ScoringCriterion;
 import model.categorization.enums.CriterionType;
 import model.categorization.enums.SuperiorityStrategy;
+import model.finance.Budget;
 import model.finance.Cost;
 import model.inventory.*;
 import model.inventory.enums.CustomerType;
@@ -96,7 +97,7 @@ public class CreateSampleData {
         User user2 = os.createUser("TestUser", "php789", "test@gmail.com");
 
         //Organizations
-        Organization org1 = os.createOrganization("History Machine Organization", "Hisotr yMachine");
+        Organization org1 = os.createOrganization("History Machine Organization", "HistoryMachine");
         Organization org2 = os.createOrganization("Portfolio Manager", "Portfolio Manager");
 
         //Employees
@@ -107,10 +108,10 @@ public class CreateSampleData {
         //Portfolios
         Portfolio portfolio2 = is.createPortfolio("PrtflMngr", "Portfolio Manager App",
                 CustomerType.EX, "Rynek rozwi�za� PPM", null,
-                "Wojciech Oksi�ski", "Wype�nienie luki rynkowej rozwi�za� wspomagajacych ma�e i �rednie przedsi�biorstwa zoreintowane projektowo" ,
+                "Wojciech Oksi�ski", "Wype�nienie luki rynkowej rozwi�za� wspomagajacych ma�e i �rednie przedsi�biorstwa zoreintowane projektowo",
                 "Stworzenie narz�dzia wspomagaj�cego organizacje w zarz�dzaniu portfelem projekt�w",
-                new Timestamp(new Date().getTime()) ,user1.getUsername(),
-                new Timestamp(new Date().getTime()+2000), user2.getUsername(),
+                new Timestamp(new Date().getTime()), user1.getUsername(),
+                new Timestamp(new Date().getTime() + 2000), user2.getUsername(),
                 null, null, org2);
         Portfolio portfolio1 = is.createPortfolio("HM.org", "HistoryMachine.org",
                 CustomerType.EX, "Rynek rozwi�za� PPM", null,
@@ -124,6 +125,10 @@ public class CreateSampleData {
         Process process1 = ps.createProcess("PPM Classic", "Klasyczny ppm", portfolio2);
         Process process2 = ps.createProcess("IT Process", "Proces IT", portfolio2);
 
+        //Budgets
+        Budget budget1 = fs.createBudget(portfolio2,org2,
+                new java.sql.Date(new Date().getTime()),new java.sql.Date(new Date().getTime()),
+                new BigDecimal(500), "Project budget","Description");
 
         //State helpers
         State state1_arch = ps.createState(process1, "Archived", "Evaluation stage", StateType.A, 155,155,120,

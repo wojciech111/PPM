@@ -41,12 +41,12 @@ public class Budget {
     @Column(name = "description", nullable = true, insertable = true, updatable = true, length = 1500)
     private String description;
 
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "component_id", referencedColumnName = "component_id", insertable = false, updatable = false)
+    @ManyToOne
+    @JoinColumn(name = "component_id", referencedColumnName = "component_id", insertable = true, updatable = false)
     private Portfolio portfolio;
 
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "organization_id", referencedColumnName = "organization_id", insertable = false, updatable = false)
+    @ManyToOne
+    @JoinColumn(name = "organization_id", referencedColumnName = "organization_id", insertable = true, updatable = false)
     private Organization organization;
 
     public Budget() {
