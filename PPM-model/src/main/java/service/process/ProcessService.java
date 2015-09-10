@@ -28,8 +28,8 @@ public class ProcessService {
 
         public State createState( Process process, String name, String description, StateType stateType,
                                       Integer colorRed,Integer colorGreen,Integer colorBlue,
-                                      State nextState, State alternativeNextState) {
-            State state = new State(process,name,description,stateType,colorRed,colorGreen,colorBlue,nextState,alternativeNextState);
+                                  Integer sequenceNumber) {
+            State state = new State(process,name,description,stateType,colorRed,colorGreen,colorBlue,sequenceNumber);
 
             state = StateDAO.save(state);
 

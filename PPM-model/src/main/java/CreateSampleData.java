@@ -130,32 +130,26 @@ public class CreateSampleData {
                 new java.sql.Date(new Date().getTime()),new java.sql.Date(new Date().getTime()),
                 new BigDecimal(500), "Project budget","Description");
 
-        //State helpers
+        //States
         State state1_arch = ps.createState(process1, "Archived", "Evaluation stage", StateType.A, 155,155,120,
-                null, null);
-        State state1_can = ps.createState(process1, "Canceled", "Evaluation stage", StateType.C, 155,155,120,
-                state1_arch, null);
-        State state1_del = ps.createState(process1, "Delayed", "Evaluation stage", StateType.D, 155,155,120,
-                state1_can, null);
-
-        //States helpers
+                9);
         State state1_8 = ps.createState(process1, "Finished", "Finished stage", StateType.A, 166,166,166,
-                state1_arch, null);
+                8);
         State state1_7 = ps.createState(process1, "Collecting benefits", "Collecting stage", StateType.A, 155,0,75,
-                state1_8, state1_del);
+                7);
         State state1_6 = ps.createState(process1, "Executing", "Executing stage. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce finibus pulvinar dui et aliquet. Nunc pretium purus vitae odio tempor sagittis. Sed at accumsan sapien. Sed imperdiet venenatis purus, et sagittis justo dapibus at. Sed pretium justo vitae sapien venenatis elementum. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Morbi bibendum sagittis ligula quis tempor. Morbi magna neque, maximus ac ipsum et, tempor tempor ligula.",
                 StateType.X, 0,255,0,
-                state1_7, state1_del);
+                6);
         State state1_5 = ps.createState(process1, "Waiting for resources", "Waiting stage.", StateType.W, 102,255,102,
-                state1_6, state1_del);
+                5);
         State state1_4 = ps.createState(process1, "Budgeting", "Budgeting stage", StateType.V, 0,0,155,
-                state1_5, state1_del);
+                4);
         State state1_3 = ps.createState(process1, "Planning", "Planning stage", StateType.P, 0,128,255,
-                state1_4, state1_del);
+                3);
         State state1_2 = ps.createState(process1, "Evaluation", "Evaluation stage", StateType.E, 155,155,0,
-                state1_3, state1_del);
+                2);
         State state1_1 = ps.createState(process1, "Initiation", "Initiation stage", StateType.B, 255,255,0,
-                state1_2, state1_del);
+                1);
 
         //Programs
         Program program2_1 = is.createProgram("Prgrm2.1", "Portfolio Manager App version 1.0 development",

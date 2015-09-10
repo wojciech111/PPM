@@ -44,17 +44,14 @@ public class State {
     @Basic
     @Column(name = "description", nullable = true, insertable = true, updatable = true, length = 2147483647)
     private String description;
+    @PortfolioTree
+    @Basic
+    //TODO Zmienic nazwe na order
+    @Column(name = "process_sequence_number", nullable = true, insertable = true, updatable = true)
+    private Integer sequenceNumber;
     @ManyToOne
     @JoinColumn(name = "proces_id", referencedColumnName = "process_id", nullable = false)
     private Process process;
-    @PortfolioTree
-    @ManyToOne
-    @JoinColumn(name = "next_state_id", referencedColumnName = "state_id", nullable = true)
-    private State nextState;
-    @PortfolioTree
-    @ManyToOne
-    @JoinColumn(name = "alternative_next_state_id", referencedColumnName = "state_id", nullable = true)
-    private State alternativeNextState;
 
     public State() {
     }
@@ -68,7 +65,7 @@ public class State {
 
     public State(Process process, String name, String description, StateType stateType,
                  Integer colorRed,Integer colorGreen,Integer colorBlue,
-                 State nextState, State alternativeNextState) {
+                 Integer sequenceNumber) {
         this.process = process;
         this.name = name;
         this.description = description;
@@ -76,8 +73,7 @@ public class State {
         this.colorRed = colorRed;
         this.colorGreen = colorGreen;
         this.colorBlue = colorBlue;
-        this.nextState = nextState;
-        this.alternativeNextState = alternativeNextState;
+        this.sequenceNumber = sequenceNumber;
     }
 
     public long getId() {
@@ -144,20 +140,12 @@ public class State {
         this.process = process;
     }
 
-    public State getAlternativeNextState() {
-        return alternativeNextState;
+    public Integer getSequenceNumber() {
+        return sequenceNumber;
     }
 
-    public void setAlternativeNextState(State alternativeNextState) {
-        this.alternativeNextState = alternativeNextState;
-    }
-
-    public State getNextState() {
-        return nextState;
-    }
-
-    public void setNextState(State nextState) {
-        this.nextState = nextState;
+    public void setSequenceNumber(Integer sequenceNumber) {
+        this.sequenceNumber = sequenceNumber;
     }
 }
 
