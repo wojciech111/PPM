@@ -2,6 +2,7 @@ package model.process;
 
 import model.inventory.Component;
 import model.organization.Employee;
+import model.process.enums.DecisionState;
 import util.annotation.PortfolioTree;
 
 import javax.persistence.*;
@@ -25,20 +26,35 @@ public class Decision {
     private String typeOfDecision;
     @PortfolioTree
     @Basic
+    @Enumerated(EnumType.STRING)
     @Column(name = "state_of_decision", nullable = false, insertable = true, updatable = true, length = 1)
-    private String stateOfDecision;
-    @PortfolioTree
-    @Basic
-    @Column(name = "date_of_apperance", nullable = true, insertable = true, updatable = true)
-    private Timestamp dateOfApperance;
+    private DecisionState stateOfDecision;
+    //DATES
     @PortfolioTree
     @Basic
     @Column(name = "last_update_date", nullable = true, insertable = true, updatable = true)
     private Timestamp lastUpdateDate;
     @PortfolioTree
     @Basic
-    @Column(name = "date_of_settlement", nullable = true, insertable = true, updatable = true)
-    private Timestamp dateOfSettlement;
+    @Column(name = "create_date", nullable = true, insertable = true, updatable = true)
+    private Timestamp createDate;
+    @PortfolioTree
+    @Basic
+    @Column(name = "recommendation_date", nullable = true, insertable = true, updatable = true)
+    private Timestamp recommendationDate;
+    @PortfolioTree
+    @Basic
+    @Column(name = "approve_date", nullable = true, insertable = true, updatable = true)
+    private Timestamp approveDate;
+    @PortfolioTree
+    @Basic
+    @Column(name = "execution_date", nullable = true, insertable = true, updatable = true)
+    private Timestamp executionDate;
+    @PortfolioTree
+    @Basic
+    @Column(name = "discard_date", nullable = true, insertable = true, updatable = true)
+    private Timestamp discardDate;
+    //DATES
     @PortfolioTree
     @Basic
     @Column(name = "motivation", nullable = true, insertable = true, updatable = true, length = 2147483647)
@@ -63,8 +79,8 @@ public class Decision {
     public Decision() {
     }
 
-    public Decision(Component component, State fromState, State toState, String stateOfDecision, String typeOfDecision, String motivation,
-                    Employee employeeWhoProposed, Timestamp dateOfApperance, Timestamp lastUpdateDate, Timestamp dateOfSettlement) {
+    public Decision(Component component, State fromState, State toState, DecisionState stateOfDecision, String typeOfDecision, String motivation,
+                    Employee employeeWhoProposed, Timestamp createDate, Timestamp lastUpdateDate) {
         this.component = component;
         this.fromState = fromState;
         this.toState = toState;
@@ -72,9 +88,8 @@ public class Decision {
         this.typeOfDecision = typeOfDecision;
         this.motivation = motivation;
         this.employeeWhoProposed = employeeWhoProposed;
-        this.dateOfApperance = dateOfApperance;
+        this.createDate = createDate;
         this.lastUpdateDate = lastUpdateDate;
-        this.dateOfSettlement = dateOfSettlement;
     }
 
     public long getId() {
@@ -95,21 +110,12 @@ public class Decision {
     }
 
 
-    public String getStateOfDecision() {
+    public DecisionState getStateOfDecision() {
         return stateOfDecision;
     }
 
-    public void setStateOfDecision(String stateOfDecision) {
+    public void setStateOfDecision(DecisionState stateOfDecision) {
         this.stateOfDecision = stateOfDecision;
-    }
-
-
-    public Timestamp getDateOfApperance() {
-        return dateOfApperance;
-    }
-
-    public void setDateOfApperance(Timestamp dateOfApperance) {
-        this.dateOfApperance = dateOfApperance;
     }
 
 
@@ -121,15 +127,45 @@ public class Decision {
         this.lastUpdateDate = lastUpdateDate;
     }
 
-
-    public Timestamp getDateOfSettlement() {
-        return dateOfSettlement;
+    public Timestamp getCreateDate() {
+        return createDate;
     }
 
-    public void setDateOfSettlement(Timestamp dateOfSettlement) {
-        this.dateOfSettlement = dateOfSettlement;
+    public void setCreateDate(Timestamp createDate) {
+        this.createDate = createDate;
     }
 
+    public Timestamp getRecommendationDate() {
+        return recommendationDate;
+    }
+
+    public void setRecommendationDate(Timestamp recommendationDate) {
+        this.recommendationDate = recommendationDate;
+    }
+
+    public Timestamp getApproveDate() {
+        return approveDate;
+    }
+
+    public void setApproveDate(Timestamp approveDate) {
+        this.approveDate = approveDate;
+    }
+
+    public Timestamp getExecutionDate() {
+        return executionDate;
+    }
+
+    public void setExecutionDate(Timestamp executionDate) {
+        this.executionDate = executionDate;
+    }
+
+    public Timestamp getDiscardDate() {
+        return discardDate;
+    }
+
+    public void setDiscardDate(Timestamp discardDate) {
+        this.discardDate = discardDate;
+    }
 
     public String getMotivation() {
         return motivation;

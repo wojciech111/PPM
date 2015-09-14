@@ -1,19 +1,21 @@
 package util;
 
+import model.process.enums.DecisionState;
+
 /**
  * Created by Wojciech on 2015-09-01.
  */
 public class CreateDecisionRequest {
     private String fromStateId;
     private String toStateId;
-    private String decisionState;
+    private DecisionState decisionState;
     private String decisionType;
     private String motivation;
 
     public CreateDecisionRequest() {
     }
 
-    public CreateDecisionRequest(String fromStateId, String toStateId, String decisionState, String decisionType, String motivation) {
+    public CreateDecisionRequest(String fromStateId, String toStateId, DecisionState decisionState, String decisionType, String motivation) {
         this.fromStateId = fromStateId;
         this.toStateId = toStateId;
         this.decisionState = decisionState;
@@ -37,11 +39,11 @@ public class CreateDecisionRequest {
         this.toStateId = toStateId;
     }
 
-    public String getDecisionState() {
+    public DecisionState getDecisionState() {
         return decisionState;
     }
 
-    public void setDecisionState(String decisionState) {
+    public void setDecisionState(DecisionState decisionState) {
         this.decisionState = decisionState;
     }
 
